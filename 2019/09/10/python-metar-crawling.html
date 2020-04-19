@@ -1,0 +1,3034 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      Python METAR Crawling &middot; Data Flows in You
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://5hyunkwon.github.io/favicon.png" />
+<link rel="shortcut icon" href="https://5hyunkwon.github.io/favicon.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <header>
+    <div class="site-title">
+      <a href="/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Data Flows in You
+      </a>
+    </div>
+    <p class="lead"><a href="https://en.wikipedia.org/wiki/Data_science" target="_blank">Data Scientist</a>: The Sexiest Job of the 21st Century</p>
+  </header>
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/about.html">About</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+
+  
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <nav id="sidebar-icon-links">
+  
+  
+  
+  
+
+  
+    <a id="tags-link"
+       class="icon"
+       title="Tags" aria-label="Tags"
+       href="/tags.html">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+    </a>
+  
+
+  <a id="github-link"
+    class="icon" title="Github" aria-label="Github"
+    href="https://github.com/5hyunkwon"
+    target="_blank">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" height="24" width="28"><path d="M12 2c6.625 0 12 5.375 12 12 0 5.297-3.437 9.797-8.203 11.391-0.609 0.109-0.828-0.266-0.828-0.578 0-0.391 0.016-1.687 0.016-3.297 0-1.125-0.375-1.844-0.812-2.219 2.672-0.297 5.484-1.313 5.484-5.922 0-1.313-0.469-2.375-1.234-3.219 0.125-0.313 0.531-1.531-0.125-3.187-1-0.313-3.297 1.234-3.297 1.234-0.953-0.266-1.984-0.406-3-0.406s-2.047 0.141-3 0.406c0 0-2.297-1.547-3.297-1.234-0.656 1.656-0.25 2.875-0.125 3.187-0.766 0.844-1.234 1.906-1.234 3.219 0 4.594 2.797 5.625 5.469 5.922-0.344 0.313-0.656 0.844-0.766 1.609-0.688 0.313-2.438 0.844-3.484-1-0.656-1.141-1.844-1.234-1.844-1.234-1.172-0.016-0.078 0.734-0.078 0.734 0.781 0.359 1.328 1.75 1.328 1.75 0.703 2.141 4.047 1.422 4.047 1.422 0 1 0.016 1.937 0.016 2.234 0 0.313-0.219 0.688-0.828 0.578-4.766-1.594-8.203-6.094-8.203-11.391 0-6.625 5.375-12 12-12zM4.547 19.234c0.031-0.063-0.016-0.141-0.109-0.187-0.094-0.031-0.172-0.016-0.203 0.031-0.031 0.063 0.016 0.141 0.109 0.187 0.078 0.047 0.172 0.031 0.203-0.031zM5.031 19.766c0.063-0.047 0.047-0.156-0.031-0.25-0.078-0.078-0.187-0.109-0.25-0.047-0.063 0.047-0.047 0.156 0.031 0.25 0.078 0.078 0.187 0.109 0.25 0.047zM5.5 20.469c0.078-0.063 0.078-0.187 0-0.297-0.063-0.109-0.187-0.156-0.266-0.094-0.078 0.047-0.078 0.172 0 0.281s0.203 0.156 0.266 0.109zM6.156 21.125c0.063-0.063 0.031-0.203-0.063-0.297-0.109-0.109-0.25-0.125-0.313-0.047-0.078 0.063-0.047 0.203 0.063 0.297 0.109 0.109 0.25 0.125 0.313 0.047zM7.047 21.516c0.031-0.094-0.063-0.203-0.203-0.25-0.125-0.031-0.266 0.016-0.297 0.109s0.063 0.203 0.203 0.234c0.125 0.047 0.266 0 0.297-0.094zM8.031 21.594c0-0.109-0.125-0.187-0.266-0.172-0.141 0-0.25 0.078-0.25 0.172 0 0.109 0.109 0.187 0.266 0.172 0.141 0 0.25-0.078 0.25-0.172zM8.937 21.438c-0.016-0.094-0.141-0.156-0.281-0.141-0.141 0.031-0.234 0.125-0.219 0.234 0.016 0.094 0.141 0.156 0.281 0.125s0.234-0.125 0.219-0.219z"></path>
+</svg>
+
+  </a>
+
+  <!-- Optional additional links to insert for icons links -->
+<a id="facebook-link"
+   class="icon" title="Facebook" aria-label="Facebook"
+   href="https://www.facebook.com/5hyunkwon"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+</a>
+
+<a id="instagram-link"
+   class="icon" title="Instagram" aria-label="Instagram"
+   href="https://www.instagram.com/5hyun_kwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M17.34,5.46h0a1.2,1.2,0,1,0,1.2,1.2A1.2,1.2,0,0,0,17.34,5.46Zm4.6,2.42a7.59,7.59,0,0,0-.46-2.43,4.94,4.94,0,0,0-1.16-1.77,4.7,4.7,0,0,0-1.77-1.15,7.3,7.3,0,0,0-2.43-.47C15.06,2,14.72,2,12,2s-3.06,0-4.12.06a7.3,7.3,0,0,0-2.43.47A4.78,4.78,0,0,0,3.68,3.68,4.7,4.7,0,0,0,2.53,5.45a7.3,7.3,0,0,0-.47,2.43C2,8.94,2,9.28,2,12s0,3.06.06,4.12a7.3,7.3,0,0,0,.47,2.43,4.7,4.7,0,0,0,1.15,1.77,4.78,4.78,0,0,0,1.77,1.15,7.3,7.3,0,0,0,2.43.47C8.94,22,9.28,22,12,22s3.06,0,4.12-.06a7.3,7.3,0,0,0,2.43-.47,4.7,4.7,0,0,0,1.77-1.15,4.85,4.85,0,0,0,1.16-1.77,7.59,7.59,0,0,0,.46-2.43c0-1.06.06-1.4.06-4.12S22,8.94,21.94,7.88ZM20.14,16a5.61,5.61,0,0,1-.34,1.86,3.06,3.06,0,0,1-.75,1.15,3.19,3.19,0,0,1-1.15.75,5.61,5.61,0,0,1-1.86.34c-1,.05-1.37.06-4,.06s-3,0-4-.06A5.73,5.73,0,0,1,6.1,19.8,3.27,3.27,0,0,1,5,19.05a3,3,0,0,1-.74-1.15A5.54,5.54,0,0,1,3.86,16c0-1-.06-1.37-.06-4s0-3,.06-4A5.54,5.54,0,0,1,4.21,6.1,3,3,0,0,1,5,5,3.14,3.14,0,0,1,6.1,4.2,5.73,5.73,0,0,1,8,3.86c1,0,1.37-.06,4-.06s3,0,4,.06a5.61,5.61,0,0,1,1.86.34A3.06,3.06,0,0,1,19.05,5,3.06,3.06,0,0,1,19.8,6.1,5.61,5.61,0,0,1,20.14,8c.05,1,.06,1.37.06,4S20.19,15,20.14,16ZM12,6.87A5.13,5.13,0,1,0,17.14,12,5.12,5.12,0,0,0,12,6.87Zm0,8.46A3.33,3.33,0,1,1,15.33,12,3.33,3.33,0,0,1,12,15.33Z"/></svg>
+</a>
+
+<a id="linkedin-link"
+   class="icon" title="Linkedin" aria-label="Linkedin"
+   href="https://www.linkedin.com/in/5hyunkwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M20.47,2H3.53A1.45,1.45,0,0,0,2.06,3.43V20.57A1.45,1.45,0,0,0,3.53,22H20.47a1.45,1.45,0,0,0,1.47-1.43V3.43A1.45,1.45,0,0,0,20.47,2ZM8.09,18.74h-3v-9h3ZM6.59,8.48h0a1.56,1.56,0,1,1,0-3.12,1.57,1.57,0,1,1,0,3.12ZM18.91,18.74h-3V13.91c0-1.21-.43-2-1.52-2A1.65,1.65,0,0,0,12.85,13a2,2,0,0,0-.1.73v5h-3s0-8.18,0-9h3V11A3,3,0,0,1,15.46,9.5c2,0,3.45,1.29,3.45,4.06Z"/></svg>
+</a>
+</nav>
+
+  <p>
+  &copy; 2020.
+  <a href="/LICENSE.md">MIT License.</a>
+</p>
+
+</div>
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">Python METAR Crawling</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">10 Sep 2019</span>
+  <span class="post-categories">
+    
+  </span>
+</div>
+
+
+  <div class="post-body">
+    <h2 id="metar-가져오기">METAR 가져오기</h2>
+
+<p>2019 Big Contest 공항 기본 정보</p>
+
+<p>ARP1: GMP(김포), RKSS<br />
+ARP2: PUS(김해), RKPK<br />
+ARP3: CJU(제주), RKPC<br />
+ARP4: TAE(대구), RKTN<br />
+ARP5: USN(울산), RKPU<br />
+ARP6: CJJ(청주), RKTU<br />
+ARP7: MWX(무안), RKJB<br />
+ARP8: KWJ(광주), RKJJ<br />
+ARP9: RSU(여수), RKJY<br />
+ARP10: YNY(양양), RKNY<br />
+ARP11: KPO(포항), RKTH<br />
+ARP12: HIN(사천), RKPS<br />
+ARP13: KUV(군산), RKJK<br />
+ARP14: WJU(원주), RKNW<br />
+ARP15: ICN(인천), RKSI</p>
+
+<p><br /></p>
+
+<h3 id="라이브러리-불러오기">라이브러리 불러오기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="requests로-접근">requests로 접근</h3>
+
+<p>login_info의 <code class="highlighter-rouge">loginId</code>와 <code class="highlighter-rouge">password</code>의 값으로는 항공운항지원 기상서비스 계정 이용</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 세션 시작
+</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">session</span><span class="p">()</span>
+
+<span class="c1"># 로그인하기
+</span><span class="n">login_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">'role'</span><span class="p">:</span> <span class="s">'AMI0002'</span><span class="p">,</span>
+              <span class="s">'pwd'</span><span class="p">:</span> <span class="s">'f4IDn1Qlt+8FXjR3ypy/OhHlPSo96602rt2W5ZrkiS0='</span><span class="p">,</span>
+              <span class="s">'loginId'</span><span class="p">:</span> <span class="s">'********'</span><span class="p">,</span>
+              <span class="s">'password'</span><span class="p">:</span> <span class="s">'********'</span><span class="p">,</span>
+              <span class="s">'x'</span><span class="p">:</span> <span class="s">'0'</span><span class="p">,</span>
+              <span class="s">'y'</span><span class="p">:</span> <span class="s">'0'</span><span class="p">}</span>
+
+<span class="n">url_login</span> <span class="o">=</span> <span class="s">'https://global.amo.go.kr/common/login/LoginConfirmAcwis.do'</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_login</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">login_info</span><span class="p">,</span> <span class="n">verify</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    c:\users\kmosh\appdata\local\programs\python\python37\lib\site-packages\urllib3\connectionpool.py:847: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+      InsecureRequestWarning)
+    c:\users\kmosh\appdata\local\programs\python\python37\lib\site-packages\urllib3\connectionpool.py:847: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+      InsecureRequestWarning)
+      
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+    &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"&gt;
+     
+     
+     
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=euc-kr" /&gt;
+    &lt;meta http-equiv="Content-Script-Type" content="text/javascript" /&gt;
+    &lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt;
+    &lt;title&gt;항공운항지원 기상서비스&lt;/title&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/jquery-1.8.1.js"&gt;&lt;/script&gt;
+    &lt;!-- script type="text/javascript" language="javascript" src="/js/kama/jquery-2.1.1.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/jquery-ui.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/common/jqgrid/i18n/grid.locale-en.js"&gt;&lt;/script&gt;
+     script type="text/javascript" src="/js/common/jqgrid/jquery.jqGrid.min.js"&gt;&lt;/script --&gt;	
+     
+    &lt;!-- script type="text/javascript" src="/js/common/kafui/kaf.config.js"&gt;&lt;/script --&gt;
+    &lt;!-- script type="text/javascript" src="/js/common/kafui/kaf.core.js"&gt;&lt;/script --&gt;
+    &lt;!--script type="text/javascript" src="/js/common/kafui/kaf.message.api.js"&gt;&lt;/script--&gt;
+    &lt;!--script type="text/javascript" src="/js/common/kafui/kaf.table.js"&gt;&lt;/script--&gt;
+    &lt;!--script type="text/javascript" src="/js/common/kafui/kaf.valid.js"&gt;&lt;/script--&gt;
+     
+    &lt;!-- script type="text/javascript" src="/js/comis4/uis.common.js"&gt;&lt;/script --&gt;
+    &lt;script type="text/javascript" src="/js/comis4/uis.design.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/jquery.number.js"&gt;&lt;/script&gt;
+     
+    &lt;script type="text/javascript" charset="euc-kr" src="/js/kama/ui.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" charset="euc-kr" src="/js/kama/menu.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/kama/board.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/kama/layout.css" /&gt;
+     
+    &lt;link rel="shortcut icon" href="/favicon.ico" /&gt;
+    &lt;!--[if IE 7]&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/common/ie7.css" /&gt;
+    &lt;![endif]--&gt;
+    &lt;!--[if IE 8]&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/common/ie8.css" /&gt;
+    &lt;![endif]--&gt;
+    &lt;style type="text/css"&gt;
+     html,body{height:100%;overflow:hidden;}
+     iframe{display:block;width:100%;}
+    &lt;/style&gt;
+     
+    &lt;script type="text/javascript"&gt;
+    function f_iframeResize () {
+    	//$("#iframe_type01").height( $(window).height()- 120 );
+    	$("#iframe_type01").height( $(window).height()- 90 );
+    }
+    $(function(){
+    	// onload 시
+    	f_iframeResize();
+     
+    	// window reisze 시
+    	$(window).resize(function(){
+    	f_iframeResize();
+    	});
+    });
+     
+    &lt;/script&gt;
+     
+     
+    &lt;/head&gt;
+     
+     
+    # ...
+    # 중간 생략
+    # ...
+     
+     
+    &lt;body&gt;
+    &lt;div id="noActive" name="noActive" style="position: absolute;display:none;width:100%;border:10px"&gt;&lt;iframe src="" title="내용없음" id="iframe_type02" name="iframe_type02" frameborder="0" scrolling="no" style="Z-INDEX:9998;filter:alpha(opacity=0);height:800px;"&gt;&lt;/iframe&gt;&lt;/div&gt;
+    &lt;div style="position:relative;"&gt;
+    &lt;!-- contents 시작 --&gt;
+    		&lt;iframe src="/kama/main/acwisMain.do" title="내용없음" id="iframe_type01" name="iframe_type01" frameborder="0" scrolling="auto" allowFullScreen="true"&gt;&lt;/iframe&gt;
+    &lt;!-- end contents --&gt;
+    &lt;/div&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">start_date</span> <span class="o">=</span> <span class="s">'2017.01.01 00:00'</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s">'2017.01.31 23:59'</span>
+<span class="n">airport_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">'RKSS'</span><span class="p">,</span> <span class="s">'RKPK'</span><span class="p">,</span> <span class="s">'RKPC'</span><span class="p">,</span> <span class="s">'RKTN'</span><span class="p">,</span> <span class="s">'RKPU'</span><span class="p">,</span> <span class="s">'RKTU'</span><span class="p">,</span> <span class="s">'RKJB'</span><span class="p">,</span> <span class="s">'RKJJ'</span><span class="p">,</span> <span class="s">'RKJY'</span><span class="p">,</span> <span class="s">'RKNY'</span><span class="p">,</span> <span class="s">'RKTH'</span><span class="p">,</span> <span class="s">'RKPS'</span><span class="p">,</span> <span class="s">'RKJK'</span><span class="p">,</span> <span class="s">'RKNW'</span><span class="p">,</span> <span class="s">'RKSI'</span><span class="p">]</span>
+<span class="n">airport_total</span> <span class="o">=</span> <span class="s">'RKSS, RKPK, RKPC, RKTN, RKPU, RKTU, RKJB, RKJJ, RKJY, RKNY, RKTH, RKPS, RKJK, RKNW, RKSI'</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">airport_list</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">airport_total</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2017.01.01 00:00
+2017.01.31 23:59
+RKPC
+RKSS, RKPK, RKPC, RKTN, RKPU, RKTU, RKJB, RKJJ, RKJY, RKNY, RKTH, RKPS, RKJK, RKNW, RKSI
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="공항-한-개">공항 한 개</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># metar 페이지 접근
+</span><span class="n">detail</span> <span class="o">=</span> <span class="p">{</span><span class="s">'rUri'</span><span class="p">:</span> <span class="s">'/aftnwafsmetar/MetarList.dn'</span><span class="p">,</span>
+          <span class="s">'filepath'</span><span class="p">:</span> <span class="s">'server.acdb.airstcs.pdf.filepath'</span><span class="p">,</span>
+          <span class="s">'pageType'</span><span class="p">:</span> <span class="s">'MESSAGE'</span><span class="p">,</span>
+          <span class="s">'tmCheck'</span><span class="p">:</span> <span class="s">'on'</span><span class="p">,</span>
+          <span class="s">'tmSt'</span><span class="p">:</span> <span class="n">start_date</span><span class="p">,</span>
+          <span class="s">'tmEd'</span><span class="p">:</span> <span class="n">end_date</span><span class="p">,</span>
+          <span class="s">'tbType'</span><span class="p">:</span> <span class="s">'AFTN'</span><span class="p">,</span>
+          <span class="s">'stnCd'</span><span class="p">:</span> <span class="n">airport_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]}</span>
+
+<span class="n">url_metar</span> <span class="o">=</span> <span class="s">"https://global.amo.go.kr/aftnwafsmetar/MetarList.do"</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_metar</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">detail</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+    &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"&gt;
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=euc-kr" /&gt;
+    &lt;meta http-equiv="Content-Script-Type" content="text/javascript" /&gt;
+    &lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;
+    &lt;!-- &lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt; --&gt;
+    &lt;title&gt;항공기상정보 서비스&lt;/title&gt;
+     
+     
+    &lt;link rel="shortcut icon" href="/favicon.ico" /&gt;
+    &lt;!--[if IE 7]&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/common/ie7.css" /&gt;
+    &lt;![endif]--&gt;
+    &lt;!--[if IE 8]&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/common/ie8.css" /&gt;
+    &lt;![endif]--&gt;
+    &lt;!-- script type="text/javascript" src="/js/common/jquery/jquery-1.8.3.js"&gt;&lt;/script --&gt;
+    &lt;script type="text/javascript" language="javascript" src="/js/common/jquery/jquery-2.1.1.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/plugin/ui/jquery-ui-1.10.2.custom.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/js/common/jquery/plugin/ui/jquery-ui-1.10.2.custom.css"&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/plugin/ui/jquery-ui-timepicker-addon.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/jquery.serializeanything.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/jquery.blockUI.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/common/jquery/plugin/ui/jquery.form.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/comis4/amis.common.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/comis4/uis.common.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/js/comis4/dateutil.js"&gt;&lt;/script&gt;
+     
+     
+    # ...
+    # 중간 생략
+    # ...
+     
+    			
+    			&lt;!-- METAR MESSAGE --&gt;
+    			&lt;div class="con_all2" style=" display: none;" id="messageMetarDiv"&gt;
+    				&lt;div class="dataT"&gt;
+    					&lt;table id="contentsTb2" width="99%" border="1" style="table-layout:fixed; float:left;"&gt;
+    						&lt;colgroup&gt;
+    							&lt;col width="100%" /&gt;
+    						&lt;/colgroup&gt;
+    						&lt;tbody&gt;
+    							
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012300Z 21006KT 9999 FEW050 BKN120 11/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012200Z 21006KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012100Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012000Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011900Z 22007KT 9999 SCT040 BKN120 09/03 Q1027 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011800Z 21007KT 9999 SCT040 BKN120 09/02 Q1027 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011700Z 23008KT 9999 SCT040 BKN150 09/02 Q1027 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011600Z 21008KT 9999 BKN040 09/01 Q1028 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011500Z 21007KT 9999 BKN040 09/01 Q1028 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011400Z 19006KT 9999 BKN040 09/M00 Q1029 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011300Z 20005KT 9000 BKN040 08/01 Q1029 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011200Z 22004KT 8000 BKN040 08/01 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011100Z 21006KT 9999 BKN040 07/M00 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011000Z 20007KT 9999 BKN040 08/M00 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010900Z 25007KT 9999 BKN035 08/01 Q1031 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010800Z 25008KT 9999 BKN035 09/01 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010700Z 24005KT 210V270 9999 BKN030 09/01 Q1030
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010600Z 30004KT 260V340 9999 BKN030 09/01 Q1031
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010500Z 28004KT 250V330 9999 BKN030 09/01 Q1031
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010400Z 25003KT 9999 BKN035 09/00 Q1032 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010300Z 31003KT 250V350 9999 BKN035 09/01 Q1033
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010200Z 31004KT 270V340 9999 BKN035 09/00 Q1034
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010100Z 20004KT 170V240 9000 BKN035 08/00 Q1034
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    								&lt;tr&gt; 
+    									&lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010000Z 20005KT 7000 BKN030 07/01 Q1034 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    								&lt;/tr&gt;
+    							
+    						&lt;/tbody&gt;
+    					&lt;/table&gt;
+    				&lt;/div&gt;
+    			&lt;/div&gt;
+     
+    			
+    # ...
+    # 중간 생략
+    # ...
+     
+     
+    &lt;/body&gt;
+     
+     
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=euc-kr" /&gt;
+    &lt;script type="text/javascript" src="/js/comis4/logger.js"&gt;&lt;/script&gt;
+     
+     
+    c:\users\kmosh\appdata\local\programs\python\python37\lib\site-packages\urllib3\connectionpool.py:847: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+      InsecureRequestWarning)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"html.parser"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">soup</span><span class="p">.</span><span class="n">prettify</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+    &lt;html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml"&gt;
+     &lt;head&gt;
+      &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type"/&gt;
+      &lt;meta content="text/javascript" http-equiv="Content-Script-Type"/&gt;
+      &lt;meta content="text/css" http-equiv="Content-Style-Type"/&gt;
+      &lt;!-- &lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt; --&gt;
+      &lt;title&gt;
+       항공기상정보 서비스
+      &lt;/title&gt;
+      &lt;link href="/favicon.ico" rel="shortcut icon"/&gt;
+      &lt;!--[if IE 7]&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/common/ie7.css" /&gt;
+    &lt;![endif]--&gt;
+      &lt;!--[if IE 8]&gt;
+    &lt;link rel="stylesheet" type="text/css" href="/css/common/ie8.css" /&gt;
+    &lt;![endif]--&gt;
+      &lt;!-- script type="text/javascript" src="/js/common/jquery/jquery-1.8.3.js"&gt;&lt;/script --&gt;
+      &lt;script language="javascript" src="/js/common/jquery/jquery-2.1.1.min.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;script src="/js/common/jquery/plugin/ui/jquery-ui-1.10.2.custom.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;link href="/js/common/jquery/plugin/ui/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css"/&gt;
+      &lt;script src="/js/common/jquery/plugin/ui/jquery-ui-timepicker-addon.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;script src="/js/common/jquery/jquery.serializeanything.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;script src="/js/common/jquery/jquery.blockUI.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;script src="/js/common/jquery/plugin/ui/jquery.form.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;script src="/js/comis4/amis.common.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;script src="/js/comis4/uis.common.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+      &lt;script src="/js/comis4/dateutil.js" type="text/javascript"&gt;
+      &lt;/script&gt;
+     
+     
+    # ...
+    # 중간 생략
+    # ...
+     
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 012100Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 012000Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011900Z 22007KT 9999 SCT040 BKN120 09/03 Q1027 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011800Z 21007KT 9999 SCT040 BKN120 09/02 Q1027 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011700Z 23008KT 9999 SCT040 BKN150 09/02 Q1027 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011600Z 21008KT 9999 BKN040 09/01 Q1028 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011500Z 21007KT 9999 BKN040 09/01 Q1028 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011400Z 19006KT 9999 BKN040 09/M00 Q1029 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011300Z 20005KT 9000 BKN040 08/01 Q1029 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011200Z 22004KT 8000 BKN040 08/01 Q1030 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011100Z 21006KT 9999 BKN040 07/M00 Q1030 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 011000Z 20007KT 9999 BKN040 08/M00 Q1030 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010900Z 25007KT 9999 BKN035 08/01 Q1031 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010800Z 25008KT 9999 BKN035 09/01 Q1030 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010700Z 24005KT 210V270 9999 BKN030 09/01 Q1030
+              NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010600Z 30004KT 260V340 9999 BKN030 09/01 Q1031
+              NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010500Z 28004KT 250V330 9999 BKN030 09/01 Q1031
+              NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010400Z 25003KT 9999 BKN035 09/00 Q1032 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010300Z 31003KT 250V350 9999 BKN035 09/01 Q1033
+              NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010200Z 31004KT 270V340 9999 BKN035 09/00 Q1034
+              NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010100Z 20004KT 170V240 9000 BKN035 08/00 Q1034
+              NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+               &lt;td class="txt_l"&gt;
+                METAR RKPC 010000Z 20005KT 7000 BKN030 07/01 Q1034 NOSIG=
+               &lt;/td&gt;
+              &lt;/tr&gt;
+             &lt;/tbody&gt;
+            &lt;/table&gt;
+           &lt;/div&gt;
+          &lt;/div&gt;
+     
+     
+    # ...
+    # 중간 생략
+    # ...
+     
+     
+       &lt;/body&gt;
+       &lt;head&gt;
+        &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type"/&gt;
+        &lt;script src="/js/comis4/logger.js" type="text/javascript"&gt;
+        &lt;/script&gt;
+       &lt;/head&gt;
+      &lt;/link&gt;
+     &lt;/head&gt;
+    &lt;/html&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">metar_mes</span> <span class="o">=</span> <span class="n">soup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">"div"</span><span class="p">,</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span><span class="s">"messageMetarDiv"</span><span class="p">})</span>
+<span class="n">metar_mes</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;div class="con_all2" id="messageMetarDiv" style=" display: none;"&gt;
+    &lt;div class="dataT"&gt;
+    &lt;table border="1" id="contentsTb2" style="table-layout:fixed; float:left;" width="99%"&gt;
+    &lt;colgroup&gt;
+    &lt;col width="100%"/&gt;
+    &lt;/colgroup&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012300Z 21006KT 9999 FEW050 BKN120 11/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012200Z 21006KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012100Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 012000Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011900Z 22007KT 9999 SCT040 BKN120 09/03 Q1027 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011800Z 21007KT 9999 SCT040 BKN120 09/02 Q1027 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011700Z 23008KT 9999 SCT040 BKN150 09/02 Q1027 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011600Z 21008KT 9999 BKN040 09/01 Q1028 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011500Z 21007KT 9999 BKN040 09/01 Q1028 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011400Z 19006KT 9999 BKN040 09/M00 Q1029 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011300Z 20005KT 9000 BKN040 08/01 Q1029 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011200Z 22004KT 8000 BKN040 08/01 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011100Z 21006KT 9999 BKN040 07/M00 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 011000Z 20007KT 9999 BKN040 08/M00 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010900Z 25007KT 9999 BKN035 08/01 Q1031 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010800Z 25008KT 9999 BKN035 09/01 Q1030 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010700Z 24005KT 210V270 9999 BKN030 09/01 Q1030
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010600Z 30004KT 260V340 9999 BKN030 09/01 Q1031
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010500Z 28004KT 250V330 9999 BKN030 09/01 Q1031
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010400Z 25003KT 9999 BKN035 09/00 Q1032 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010300Z 31003KT 250V350 9999 BKN035 09/01 Q1033
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010200Z 31004KT 270V340 9999 BKN035 09/00 Q1034
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010100Z 20004KT 170V240 9000 BKN035 08/00 Q1034
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKPC 010000Z 20005KT 7000 BKN030 07/01 Q1034 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">contents</span> <span class="o">=</span> <span class="n">metar_mes</span><span class="p">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">"td"</span><span class="p">,</span> <span class="p">{</span><span class="s">"class"</span><span class="p">:</span><span class="s">"txt_l"</span><span class="p">})</span>
+<span class="n">contents</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    [&lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 012300Z 21006KT 9999 FEW050 BKN120 11/03 Q1026 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 012200Z 21006KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 012100Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 012000Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011900Z 22007KT 9999 SCT040 BKN120 09/03 Q1027 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011800Z 21007KT 9999 SCT040 BKN120 09/02 Q1027 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011700Z 23008KT 9999 SCT040 BKN150 09/02 Q1027 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011600Z 21008KT 9999 BKN040 09/01 Q1028 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011500Z 21007KT 9999 BKN040 09/01 Q1028 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011400Z 19006KT 9999 BKN040 09/M00 Q1029 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011300Z 20005KT 9000 BKN040 08/01 Q1029 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011200Z 22004KT 8000 BKN040 08/01 Q1030 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011100Z 21006KT 9999 BKN040 07/M00 Q1030 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 011000Z 20007KT 9999 BKN040 08/M00 Q1030 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010900Z 25007KT 9999 BKN035 08/01 Q1031 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010800Z 25008KT 9999 BKN035 09/01 Q1030 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010700Z 24005KT 210V270 9999 BKN030 09/01 Q1030
+               NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010600Z 30004KT 260V340 9999 BKN030 09/01 Q1031
+               NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010500Z 28004KT 250V330 9999 BKN030 09/01 Q1031
+               NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010400Z 25003KT 9999 BKN035 09/00 Q1032 NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010300Z 31003KT 250V350 9999 BKN035 09/01 Q1033
+               NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010200Z 31004KT 270V340 9999 BKN035 09/00 Q1034
+               NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010100Z 20004KT 170V240 9000 BKN035 08/00 Q1034
+               NOSIG=
+     										
+     									
+     									&lt;/td&gt;, &lt;td class="txt_l"&gt;
+     									
+     										
+     										
+     											METAR RKPC 010000Z 20005KT 7000 BKN030 07/01 Q1034 NOSIG=
+     										
+     									
+     									&lt;/td&gt;]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">.</span><span class="n">get_text</span><span class="p">().</span><span class="n">strip</span><span class="p">().</span><span class="n">split</span><span class="p">()))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>METAR RKPC 012300Z 21006KT 9999 FEW050 BKN120 11/03 Q1026 NOSIG=
+METAR RKPC 012200Z 21006KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+METAR RKPC 012100Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+METAR RKPC 012000Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=
+METAR RKPC 011900Z 22007KT 9999 SCT040 BKN120 09/03 Q1027 NOSIG=
+METAR RKPC 011800Z 21007KT 9999 SCT040 BKN120 09/02 Q1027 NOSIG=
+METAR RKPC 011700Z 23008KT 9999 SCT040 BKN150 09/02 Q1027 NOSIG=
+METAR RKPC 011600Z 21008KT 9999 BKN040 09/01 Q1028 NOSIG=
+METAR RKPC 011500Z 21007KT 9999 BKN040 09/01 Q1028 NOSIG=
+METAR RKPC 011400Z 19006KT 9999 BKN040 09/M00 Q1029 NOSIG=
+METAR RKPC 011300Z 20005KT 9000 BKN040 08/01 Q1029 NOSIG=
+METAR RKPC 011200Z 22004KT 8000 BKN040 08/01 Q1030 NOSIG=
+METAR RKPC 011100Z 21006KT 9999 BKN040 07/M00 Q1030 NOSIG=
+METAR RKPC 011000Z 20007KT 9999 BKN040 08/M00 Q1030 NOSIG=
+METAR RKPC 010900Z 25007KT 9999 BKN035 08/01 Q1031 NOSIG=
+METAR RKPC 010800Z 25008KT 9999 BKN035 09/01 Q1030 NOSIG=
+METAR RKPC 010700Z 24005KT 210V270 9999 BKN030 09/01 Q1030 NOSIG=
+METAR RKPC 010600Z 30004KT 260V340 9999 BKN030 09/01 Q1031 NOSIG=
+METAR RKPC 010500Z 28004KT 250V330 9999 BKN030 09/01 Q1031 NOSIG=
+METAR RKPC 010400Z 25003KT 9999 BKN035 09/00 Q1032 NOSIG=
+METAR RKPC 010300Z 31003KT 250V350 9999 BKN035 09/01 Q1033 NOSIG=
+METAR RKPC 010200Z 31004KT 270V340 9999 BKN035 09/00 Q1034 NOSIG=
+METAR RKPC 010100Z 20004KT 170V240 9000 BKN035 08/00 Q1034 NOSIG=
+METAR RKPC 010000Z 20005KT 7000 BKN030 07/01 Q1034 NOSIG=
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+    <span class="n">metar_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">.</span><span class="n">get_text</span><span class="p">().</span><span class="n">strip</span><span class="p">().</span><span class="n">split</span><span class="p">()))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">metar_list</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['METAR RKPC 012300Z 21006KT 9999 FEW050 BKN120 11/03 Q1026 NOSIG=',
+ 'METAR RKPC 012200Z 21006KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=',
+ 'METAR RKPC 012100Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=',
+ 'METAR RKPC 012000Z 21007KT 9999 SCT040 BKN120 10/03 Q1026 NOSIG=',
+ 'METAR RKPC 011900Z 22007KT 9999 SCT040 BKN120 09/03 Q1027 NOSIG=',
+ 'METAR RKPC 011800Z 21007KT 9999 SCT040 BKN120 09/02 Q1027 NOSIG=',
+ 'METAR RKPC 011700Z 23008KT 9999 SCT040 BKN150 09/02 Q1027 NOSIG=',
+ 'METAR RKPC 011600Z 21008KT 9999 BKN040 09/01 Q1028 NOSIG=',
+ 'METAR RKPC 011500Z 21007KT 9999 BKN040 09/01 Q1028 NOSIG=',
+ 'METAR RKPC 011400Z 19006KT 9999 BKN040 09/M00 Q1029 NOSIG=',
+ 'METAR RKPC 011300Z 20005KT 9000 BKN040 08/01 Q1029 NOSIG=',
+ 'METAR RKPC 011200Z 22004KT 8000 BKN040 08/01 Q1030 NOSIG=',
+ 'METAR RKPC 011100Z 21006KT 9999 BKN040 07/M00 Q1030 NOSIG=',
+ 'METAR RKPC 011000Z 20007KT 9999 BKN040 08/M00 Q1030 NOSIG=',
+ 'METAR RKPC 010900Z 25007KT 9999 BKN035 08/01 Q1031 NOSIG=',
+ 'METAR RKPC 010800Z 25008KT 9999 BKN035 09/01 Q1030 NOSIG=',
+ 'METAR RKPC 010700Z 24005KT 210V270 9999 BKN030 09/01 Q1030 NOSIG=',
+ 'METAR RKPC 010600Z 30004KT 260V340 9999 BKN030 09/01 Q1031 NOSIG=',
+ 'METAR RKPC 010500Z 28004KT 250V330 9999 BKN030 09/01 Q1031 NOSIG=',
+ 'METAR RKPC 010400Z 25003KT 9999 BKN035 09/00 Q1032 NOSIG=',
+ 'METAR RKPC 010300Z 31003KT 250V350 9999 BKN035 09/01 Q1033 NOSIG=',
+ 'METAR RKPC 010200Z 31004KT 270V340 9999 BKN035 09/00 Q1034 NOSIG=',
+ 'METAR RKPC 010100Z 20004KT 170V240 9000 BKN035 08/00 Q1034 NOSIG=',
+ 'METAR RKPC 010000Z 20005KT 7000 BKN030 07/01 Q1034 NOSIG=']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">metar_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"metar_raw"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>METAR RKPC 012300Z 21006KT 9999 FEW050 BKN120 ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>METAR RKPC 012200Z 21006KT 9999 SCT040 BKN120 ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>METAR RKPC 012100Z 21007KT 9999 SCT040 BKN120 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>METAR RKPC 012000Z 21007KT 9999 SCT040 BKN120 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>METAR RKPC 011900Z 22007KT 9999 SCT040 BKN120 ...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>METAR RKPC 011800Z 21007KT 9999 SCT040 BKN120 ...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>METAR RKPC 011700Z 23008KT 9999 SCT040 BKN150 ...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>METAR RKPC 011600Z 21008KT 9999 BKN040 09/01 Q...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>METAR RKPC 011500Z 21007KT 9999 BKN040 09/01 Q...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>METAR RKPC 011400Z 19006KT 9999 BKN040 09/M00 ...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>METAR RKPC 011300Z 20005KT 9000 BKN040 08/01 Q...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>METAR RKPC 011200Z 22004KT 8000 BKN040 08/01 Q...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>METAR RKPC 011100Z 21006KT 9999 BKN040 07/M00 ...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>METAR RKPC 011000Z 20007KT 9999 BKN040 08/M00 ...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>METAR RKPC 010900Z 25007KT 9999 BKN035 08/01 Q...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>METAR RKPC 010800Z 25008KT 9999 BKN035 09/01 Q...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>METAR RKPC 010700Z 24005KT 210V270 9999 BKN030...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>METAR RKPC 010600Z 30004KT 260V340 9999 BKN030...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>METAR RKPC 010500Z 28004KT 250V330 9999 BKN030...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>METAR RKPC 010400Z 25003KT 9999 BKN035 09/00 Q...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>METAR RKPC 010300Z 31003KT 250V350 9999 BKN035...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>METAR RKPC 010200Z 31004KT 270V340 9999 BKN035...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>METAR RKPC 010100Z 20004KT 170V240 9000 BKN035...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>METAR RKPC 010000Z 20005KT 7000 BKN030 07/01 Q...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><br /></p>
+
+<h4 id="공항-여러-개">공항 여러 개</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># metar 페이지 접근
+</span><span class="n">detail</span> <span class="o">=</span> <span class="p">{</span><span class="s">'rUri'</span><span class="p">:</span> <span class="s">'/aftnwafsmetar/MetarList.dn'</span><span class="p">,</span>
+          <span class="s">'filepath'</span><span class="p">:</span> <span class="s">'server.acdb.airstcs.pdf.filepath'</span><span class="p">,</span>
+          <span class="s">'pageType'</span><span class="p">:</span> <span class="s">'MESSAGE'</span><span class="p">,</span>
+          <span class="s">'tmCheck'</span><span class="p">:</span> <span class="s">'on'</span><span class="p">,</span>
+          <span class="s">'tmSt'</span><span class="p">:</span> <span class="n">start_date</span><span class="p">,</span>
+          <span class="s">'tmEd'</span><span class="p">:</span> <span class="n">end_date</span><span class="p">,</span>
+          <span class="s">'tbType'</span><span class="p">:</span> <span class="s">'AFTN'</span><span class="p">,</span>
+          <span class="s">'stnCd'</span><span class="p">:</span> <span class="n">airport_total</span><span class="p">}</span>
+
+<span class="n">url_metar</span> <span class="o">=</span> <span class="s">"https://global.amo.go.kr/aftnwafsmetar/MetarList.do"</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_metar</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">detail</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    c:\users\kmosh\appdata\local\programs\python\python37\lib\site-packages\urllib3\connectionpool.py:847: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+      InsecureRequestWarning)
+    IOPub data rate exceeded.
+    The notebook server will temporarily stop sending output
+    to the client in order to avoid crashing it.
+    To change this limit, set the config variable
+    `--NotebookApp.iopub_data_rate_limit`.
+    
+    Current values:
+    NotebookApp.iopub_data_rate_limit=1000000.0 (bytes/sec)
+    NotebookApp.rate_limit_window=3.0 (secs)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"html.parser"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">metar_mes</span> <span class="o">=</span> <span class="n">soup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">"div"</span><span class="p">,</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span><span class="s">"messageMetarDiv"</span><span class="p">})</span>
+<span class="n">metar_mes</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;div class="con_all2" id="messageMetarDiv" style=" display: none;"&gt;
+    &lt;div class="dataT"&gt;
+    &lt;table border="1" id="contentsTb2" style="table-layout:fixed; float:left;" width="99%"&gt;
+    &lt;colgroup&gt;
+    &lt;col width="100%"/&gt;
+    &lt;/colgroup&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKSS 312300Z 01004KT CAVOK M07/M12 Q1028 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKSS 312200Z 33001KT CAVOK M07/M12 Q1027 NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKSS 312100Z 28002KT 9999 FEW035 SCT180 M06/M12 Q1027
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td class="txt_l"&gt;
+    									
+    										
+    										
+    											METAR RKSS 312000Z 31001KT 9999 FEW035 SCT180 M06/M11 Q1027
+              NOSIG=
+    										
+    									
+    									&lt;/td&gt;
+    &lt;/tr&gt;
+      
+     
+    # ... 
+    # 중간 생략
+    # ...		
+     
+     									
+     									&lt;/td&gt;, ...]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">metar_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+    <span class="n">metar_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">.</span><span class="n">get_text</span><span class="p">().</span><span class="n">strip</span><span class="p">().</span><span class="n">split</span><span class="p">()))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">metar_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"metar_raw"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>METAR RKSS 312300Z 01004KT CAVOK M07/M12 Q1028...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>METAR RKSS 312200Z 33001KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>METAR RKSS 312100Z 28002KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>METAR RKSS 312000Z 31001KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>METAR RKSS 311900Z 30002KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>METAR RKSS 311800Z 33002KT CAVOK M07/M11 Q1028...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>METAR RKSS 311700Z 01001KT CAVOK M08/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>METAR RKSS 311600Z 33001KT CAVOK M08/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>METAR RKSS 311500Z 00000KT CAVOK M07/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>METAR RKSS 311400Z 01002KT CAVOK M06/M15 Q1028...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>METAR RKSS 311300Z 31005KT CAVOK M07/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>METAR RKSS 311200Z 29002KT CAVOK M05/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>METAR RKSS 311100Z 03002KT CAVOK M04/M16 Q1028...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>METAR RKSS 311000Z 32004KT CAVOK M03/M18 Q1028...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>METAR RKSS 310900Z 33005KT CAVOK M04/M16 Q1028...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>METAR RKSS 310800Z 33006KT CAVOK M02/M17 Q1028...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>METAR RKSS 310700Z 35006KT CAVOK M02/M16 Q1027...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>METAR RKSS 310600Z 34005KT 310V010 CAVOK M02/M...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>METAR RKSS 310500Z 36005KT 310V020 CAVOK M02/M...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>METAR RKSS 310400Z 31005KT CAVOK M04/M20 Q1029...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>METAR RKSS 310300Z 33004KT 310V020 CAVOK M04/M...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>METAR RKSS 310200Z 32002KT CAVOK M05/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>METAR RKSS 310100Z 02004KT 350V050 CAVOK M07/M...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>METAR RKSS 310000Z 34004KT CAVOK M09/M14 Q1032...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>METAR RKSS 302300Z 35003KT CAVOK M11/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>METAR RKSS 302200Z 32004KT CAVOK M11/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>METAR RKSS 302100Z 04002KT CAVOK M11/M16 Q1030...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>METAR RKSS 302000Z 31002KT CAVOK M12/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>METAR RKSS 301900Z 08003KT CAVOK M10/M17 Q1030...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>METAR RKSS 301800Z 33003KT CAVOK M11/M17 Q1031...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>12999</th>
+      <td>METAR RKSI 011400Z 18006KT 6000 BKN030 08/05 Q...</td>
+    </tr>
+    <tr>
+      <th>13000</th>
+      <td>METAR RKSI 011330Z 19005KT 160V220 6000 BKN030...</td>
+    </tr>
+    <tr>
+      <th>13001</th>
+      <td>METAR RKSI 011300Z 18005KT 6000 BKN030 07/04 Q...</td>
+    </tr>
+    <tr>
+      <th>13002</th>
+      <td>METAR RKSI 011230Z 16006KT 6000 BKN030 07/03 Q...</td>
+    </tr>
+    <tr>
+      <th>13003</th>
+      <td>METAR RKSI 011200Z 19006KT 140V220 6000 BKN030...</td>
+    </tr>
+    <tr>
+      <th>13004</th>
+      <td>METAR RKSI 011130Z 13005KT 5000 BR SCT030 05/0...</td>
+    </tr>
+    <tr>
+      <th>13005</th>
+      <td>METAR RKSI 011100Z 14003KT 5000 BR SCT030 05/0...</td>
+    </tr>
+    <tr>
+      <th>13006</th>
+      <td>METAR RKSI 011030Z 11001KT 5000 BR SCT030 06/0...</td>
+    </tr>
+    <tr>
+      <th>13007</th>
+      <td>METAR RKSI 011000Z 13003KT 5000 BR SCT030 06/0...</td>
+    </tr>
+    <tr>
+      <th>13008</th>
+      <td>METAR RKSI 010930Z 14003KT 5000 BR SCT030 06/0...</td>
+    </tr>
+    <tr>
+      <th>13009</th>
+      <td>METAR RKSI 010900Z 13005KT 5000 BR SCT030 07/0...</td>
+    </tr>
+    <tr>
+      <th>13010</th>
+      <td>METAR RKSI 010830Z 14004KT 6000 SCT030 07/03 Q...</td>
+    </tr>
+    <tr>
+      <th>13011</th>
+      <td>METAR RKSI 010800Z 14005KT 6000 SCT030 08/04 Q...</td>
+    </tr>
+    <tr>
+      <th>13012</th>
+      <td>METAR RKSI 010730Z 15005KT 6000 SCT030 08/03 Q...</td>
+    </tr>
+    <tr>
+      <th>13013</th>
+      <td>METAR RKSI 010700Z 15005KT 5000 BR SCT030 08/0...</td>
+    </tr>
+    <tr>
+      <th>13014</th>
+      <td>METAR RKSI 010630Z 14003KT 110V170 5000 BR SCT...</td>
+    </tr>
+    <tr>
+      <th>13015</th>
+      <td>METAR RKSI 010600Z 16004KT 100V220 5000 BR SCT...</td>
+    </tr>
+    <tr>
+      <th>13016</th>
+      <td>METAR RKSI 010530Z 15004KT 110V220 5000 BR SCT...</td>
+    </tr>
+    <tr>
+      <th>13017</th>
+      <td>METAR RKSI 010500Z 16004KT 130V200 5000 BR SCT...</td>
+    </tr>
+    <tr>
+      <th>13018</th>
+      <td>METAR RKSI 010430Z 16006KT 130V190 4500 BR SCT...</td>
+    </tr>
+    <tr>
+      <th>13019</th>
+      <td>METAR RKSI 010400Z 16008KT 4500 BR SCT030 07/0...</td>
+    </tr>
+    <tr>
+      <th>13020</th>
+      <td>METAR RKSI 010330Z 16009KT 3500 BR SCT030 06/0...</td>
+    </tr>
+    <tr>
+      <th>13021</th>
+      <td>METAR RKSI NIL=</td>
+    </tr>
+    <tr>
+      <th>13022</th>
+      <td>METAR RKSI 010300Z 14008KT 3500 BR SCT030 06/0...</td>
+    </tr>
+    <tr>
+      <th>13023</th>
+      <td>METAR RKSI 010230Z 13008KT 3500 BR SCT030 05/0...</td>
+    </tr>
+    <tr>
+      <th>13024</th>
+      <td>METAR RKSI 010200Z 14007KT 070V160 2500 BR SCT...</td>
+    </tr>
+    <tr>
+      <th>13025</th>
+      <td>METAR RKSI 010130Z 14008KT 2000 BR SCT030 04/0...</td>
+    </tr>
+    <tr>
+      <th>13026</th>
+      <td>METAR RKSI 010100Z 14008KT 080V160 2000 BR SCT...</td>
+    </tr>
+    <tr>
+      <th>13027</th>
+      <td>METAR RKSI 010030Z 13005KT 1800 BR BKN030 03/0...</td>
+    </tr>
+    <tr>
+      <th>13028</th>
+      <td>METAR RKSI 010000Z 13005KT 1800 R15L/1700U R15...</td>
+    </tr>
+  </tbody>
+</table>
+<p>13029 rows × 1 columns</p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 첫 열 검증
+</span><span class="n">df_metar</span><span class="p">[</span><span class="s">"metar_raw"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'METAR RKSS 012300Z 15006KT 8000 SCT030 M01/M04 Q1024 NOSIG='</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 마지막 열 검증
+</span><span class="n">df_metar</span><span class="p">[</span><span class="s">"metar_raw"</span><span class="p">][</span><span class="mi">407</span><span class="p">]</span> <span class="o">==</span> <span class="s">'METAR RKSI 010000Z 12005KT 2000 BR SCT030 00/M02 Q1033 NOSIG='</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="크롤러-제작">크롤러 제작</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># start - 2017.01.01 00:00 ~ 2019.06.01 00:00 (총 30개)
+</span><span class="n">start_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">'2017.01.01 00:00'</span><span class="p">,</span> <span class="s">'2017.02.01 00:00'</span><span class="p">,</span> <span class="s">'2017.03.01 00:00'</span><span class="p">,</span> <span class="s">'2017.04.01 00:00'</span><span class="p">,</span> <span class="s">'2017.05.01 00:00'</span><span class="p">,</span> <span class="s">'2017.06.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2017.07.01 00:00'</span><span class="p">,</span> <span class="s">'2017.08.01 00:00'</span><span class="p">,</span> <span class="s">'2017.09.01 00:00'</span><span class="p">,</span> <span class="s">'2017.10.01 00:00'</span><span class="p">,</span> <span class="s">'2017.11.01 00:00'</span><span class="p">,</span> <span class="s">'2017.12.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2018.01.01 00:00'</span><span class="p">,</span> <span class="s">'2018.02.01 00:00'</span><span class="p">,</span> <span class="s">'2018.03.01 00:00'</span><span class="p">,</span> <span class="s">'2018.04.01 00:00'</span><span class="p">,</span> <span class="s">'2018.05.01 00:00'</span><span class="p">,</span> <span class="s">'2018.06.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2018.07.01 00:00'</span><span class="p">,</span> <span class="s">'2018.08.01 00:00'</span><span class="p">,</span> <span class="s">'2018.09.01 00:00'</span><span class="p">,</span> <span class="s">'2018.10.01 00:00'</span><span class="p">,</span> <span class="s">'2018.11.01 00:00'</span><span class="p">,</span> <span class="s">'2018.12.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2019.01.01 00:00'</span><span class="p">,</span> <span class="s">'2019.02.01 00:00'</span><span class="p">,</span> <span class="s">'2019.03.01 00:00'</span><span class="p">,</span> <span class="s">'2019.04.01 00:00'</span><span class="p">,</span> <span class="s">'2019.05.01 00:00'</span><span class="p">,</span> <span class="s">'2019.06.01 00:00'</span><span class="p">]</span>
+
+<span class="c1"># end - 2017.01.31 23:59 ~ 2019.06.30 23:59 (총 30개)
+</span><span class="n">end_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">'2017.01.31 23:59'</span><span class="p">,</span> <span class="s">'2017.02.28 23:59'</span><span class="p">,</span> <span class="s">'2017.03.31 23:59'</span><span class="p">,</span> <span class="s">'2017.04.30 23:59'</span><span class="p">,</span> <span class="s">'2017.05.31 23:59'</span><span class="p">,</span> <span class="s">'2017.06.30 23:59'</span><span class="p">,</span>
+            <span class="s">'2017.07.31 23:59'</span><span class="p">,</span> <span class="s">'2017.08.31 23:59'</span><span class="p">,</span> <span class="s">'2017.09.30 23:59'</span><span class="p">,</span> <span class="s">'2017.10.31 23:59'</span><span class="p">,</span> <span class="s">'2017.11.30 23:59'</span><span class="p">,</span> <span class="s">'2017.12.31 23:59'</span><span class="p">,</span>
+            <span class="s">'2018.01.31 23:59'</span><span class="p">,</span> <span class="s">'2018.02.28 23:59'</span><span class="p">,</span> <span class="s">'2018.03.31 23:59'</span><span class="p">,</span> <span class="s">'2018.04.30 23:59'</span><span class="p">,</span> <span class="s">'2018.05.31 23:59'</span><span class="p">,</span> <span class="s">'2018.06.30 23:59'</span><span class="p">,</span>
+            <span class="s">'2018.07.31 23:59'</span><span class="p">,</span> <span class="s">'2018.08.31 23:59'</span><span class="p">,</span> <span class="s">'2018.09.30 23:59'</span><span class="p">,</span> <span class="s">'2018.10.31 23:59'</span><span class="p">,</span> <span class="s">'2018.11.30 23:59'</span><span class="p">,</span> <span class="s">'2018.12.31 23:59'</span><span class="p">,</span>
+            <span class="s">'2019.01.31 23:59'</span><span class="p">,</span> <span class="s">'2019.02.28 23:59'</span><span class="p">,</span> <span class="s">'2019.03.31 23:59'</span><span class="p">,</span> <span class="s">'2019.04.30 23:59'</span><span class="p">,</span> <span class="s">'2019.05.31 23:59'</span><span class="p">,</span> <span class="s">'2019.06.30 23:59'</span><span class="p">]</span>
+
+<span class="c1"># 검색할 공항 코드
+</span><span class="n">airport_total</span> <span class="o">=</span> <span class="s">'RKSS, RKPK, RKPC, RKTN, RKPU, RKTU, RKJB, RKJJ, RKJY, RKNY, RKTH, RKPS, RKJK, RKNW, RKSI'</span>
+
+<span class="c1"># 모든 데이터프레임 저장
+</span><span class="n">df_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"metar_raw"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">start_list</span><span class="p">)):</span>
+    <span class="c1"># 세션 시작
+</span>    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">session</span><span class="p">()</span>
+
+    <span class="c1"># 로그인하기
+</span>    <span class="n">login_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">'role'</span><span class="p">:</span> <span class="s">'AMI0002'</span><span class="p">,</span>
+                  <span class="s">'pwd'</span><span class="p">:</span> <span class="s">'f4IDn1Qlt+8FXjR3ypy/OhHlPSo96602rt2W5ZrkiS0='</span><span class="p">,</span>
+                  <span class="s">'loginId'</span><span class="p">:</span> <span class="s">'********'</span><span class="p">,</span>
+                  <span class="s">'password'</span><span class="p">:</span> <span class="s">'********'</span><span class="p">,</span>
+                  <span class="s">'x'</span><span class="p">:</span> <span class="s">'0'</span><span class="p">,</span>
+                  <span class="s">'y'</span><span class="p">:</span> <span class="s">'0'</span><span class="p">}</span>
+
+    <span class="n">url_login</span> <span class="o">=</span> <span class="s">'https://global.amo.go.kr/common/login/LoginConfirmAcwis.do'</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_login</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">login_info</span><span class="p">,</span> <span class="n">verify</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    
+    <span class="c1"># metar 페이지 접근
+</span>    <span class="n">detail</span> <span class="o">=</span> <span class="p">{</span><span class="s">'rUri'</span><span class="p">:</span> <span class="s">'/aftnwafsmetar/MetarList.dn'</span><span class="p">,</span>
+              <span class="s">'filepath'</span><span class="p">:</span> <span class="s">'server.acdb.airstcs.pdf.filepath'</span><span class="p">,</span>
+              <span class="s">'pageType'</span><span class="p">:</span> <span class="s">'MESSAGE'</span><span class="p">,</span>
+              <span class="s">'tmCheck'</span><span class="p">:</span> <span class="s">'on'</span><span class="p">,</span>
+              <span class="s">'tmSt'</span><span class="p">:</span> <span class="n">start_list</span><span class="p">[</span><span class="n">month</span><span class="p">],</span>
+              <span class="s">'tmEd'</span><span class="p">:</span> <span class="n">end_list</span><span class="p">[</span><span class="n">month</span><span class="p">],</span>
+              <span class="s">'tbType'</span><span class="p">:</span> <span class="s">'AFTN'</span><span class="p">,</span>
+              <span class="s">'stnCd'</span><span class="p">:</span> <span class="n">airport_total</span><span class="p">}</span>
+
+    <span class="n">url_metar</span> <span class="o">=</span> <span class="s">"https://global.amo.go.kr/aftnwafsmetar/MetarList.do"</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_metar</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">detail</span><span class="p">)</span>
+    
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"html.parser"</span><span class="p">)</span>
+    <span class="n">metar_mes</span> <span class="o">=</span> <span class="n">soup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">"div"</span><span class="p">,</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span><span class="s">"messageMetarDiv"</span><span class="p">})</span>
+    <span class="n">contents</span> <span class="o">=</span> <span class="n">metar_mes</span><span class="p">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">"td"</span><span class="p">,</span> <span class="p">{</span><span class="s">"class"</span><span class="p">:</span><span class="s">"txt_l"</span><span class="p">})</span>
+    
+    <span class="n">metar_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+        <span class="n">metar_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">.</span><span class="n">get_text</span><span class="p">().</span><span class="n">strip</span><span class="p">().</span><span class="n">split</span><span class="p">()))</span>
+        
+    <span class="n">df_metar</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">metar_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"metar_raw"</span><span class="p">])</span>
+    
+    <span class="n">df_total</span> <span class="o">=</span> <span class="n">df_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_metar</span><span class="p">,</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_total</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(424807, 1)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_total</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>METAR RKSS 312300Z 01004KT CAVOK M07/M12 Q1028...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>METAR RKSS 312200Z 33001KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>METAR RKSS 312100Z 28002KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>METAR RKSS 312000Z 31001KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>METAR RKSS 311900Z 30002KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_total</span><span class="p">.</span><span class="n">tail</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>424802</th>
+      <td>METAR RKSI 010130Z 22008KT 180V240 9999 SCT010...</td>
+    </tr>
+    <tr>
+      <th>424803</th>
+      <td>METAR RKSI 010100Z 22007KT 180V260 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424804</th>
+      <td>METAR RKSO 010100Z 14001KT 9000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424805</th>
+      <td>METAR RKSI 010030Z 23009KT 200V260 9999 FEW010...</td>
+    </tr>
+    <tr>
+      <th>424806</th>
+      <td>METAR RKSI 010000Z 24006KT 200V270 9999 BKN010...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_total</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">'data/metar_total.csv'</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/metar_total.csv'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>METAR RKSS 312300Z 01004KT CAVOK M07/M12 Q1028...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>METAR RKSS 312200Z 33001KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>METAR RKSS 312100Z 28002KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>METAR RKSS 312000Z 31001KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>METAR RKSS 311900Z 30002KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>METAR RKSS 311800Z 33002KT CAVOK M07/M11 Q1028...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>METAR RKSS 311700Z 01001KT CAVOK M08/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>METAR RKSS 311600Z 33001KT CAVOK M08/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>METAR RKSS 311500Z 00000KT CAVOK M07/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>METAR RKSS 311400Z 01002KT CAVOK M06/M15 Q1028...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>METAR RKSS 311300Z 31005KT CAVOK M07/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>METAR RKSS 311200Z 29002KT CAVOK M05/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>METAR RKSS 311100Z 03002KT CAVOK M04/M16 Q1028...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>METAR RKSS 311000Z 32004KT CAVOK M03/M18 Q1028...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>METAR RKSS 310900Z 33005KT CAVOK M04/M16 Q1028...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>METAR RKSS 310800Z 33006KT CAVOK M02/M17 Q1028...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>METAR RKSS 310700Z 35006KT CAVOK M02/M16 Q1027...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>METAR RKSS 310600Z 34005KT 310V010 CAVOK M02/M...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>METAR RKSS 310500Z 36005KT 310V020 CAVOK M02/M...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>METAR RKSS 310400Z 31005KT CAVOK M04/M20 Q1029...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>METAR RKSS 310300Z 33004KT 310V020 CAVOK M04/M...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>METAR RKSS 310200Z 32002KT CAVOK M05/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>METAR RKSS 310100Z 02004KT 350V050 CAVOK M07/M...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>METAR RKSS 310000Z 34004KT CAVOK M09/M14 Q1032...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>METAR RKSS 302300Z 35003KT CAVOK M11/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>METAR RKSS 302200Z 32004KT CAVOK M11/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>METAR RKSS 302100Z 04002KT CAVOK M11/M16 Q1030...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>METAR RKSS 302000Z 31002KT CAVOK M12/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>METAR RKSS 301900Z 08003KT CAVOK M10/M17 Q1030...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>METAR RKSS 301800Z 33003KT CAVOK M11/M17 Q1031...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>424777</th>
+      <td>METAR RKSI 010830Z 30005KT 210V360 CAVOK 19/11...</td>
+    </tr>
+    <tr>
+      <th>424778</th>
+      <td>METAR RKSI 010800Z 26003KT 360V070 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424779</th>
+      <td>SPECI RKPS 010737Z 22008KT CAVOK 25/11 Q1009 R...</td>
+    </tr>
+    <tr>
+      <th>424780</th>
+      <td>METAR RKSI 010730Z 21007KT 180V240 CAVOK 18/10...</td>
+    </tr>
+    <tr>
+      <th>424781</th>
+      <td>METAR RKSI 010700Z 23008KT 200V270 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424782</th>
+      <td>METAR RKSI 010630Z 22008KT 180V250 9999 FEW045...</td>
+    </tr>
+    <tr>
+      <th>424783</th>
+      <td>METAR RKSO 010600Z 24003KT 9000 HZ BKN200 23/1...</td>
+    </tr>
+    <tr>
+      <th>424784</th>
+      <td>METAR RKSI 010600Z 23010KT 200V260 CAVOK 19/09...</td>
+    </tr>
+    <tr>
+      <th>424785</th>
+      <td>METAR RKSI 010530Z 21011KT 180V240 CAVOK 19/09...</td>
+    </tr>
+    <tr>
+      <th>424786</th>
+      <td>METAR RKSI 010500Z 21009KT 160V240 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424787</th>
+      <td>METAR RKPK 010500Z 18012KT CAVOK 25/12 Q1009 R...</td>
+    </tr>
+    <tr>
+      <th>424788</th>
+      <td>METAR RKPK 010500Z 18012KT CAVOK 25/12 Q1009=</td>
+    </tr>
+    <tr>
+      <th>424789</th>
+      <td>METAR RKSO 010500Z 25003KT 9000 HZ BKN200 22/1...</td>
+    </tr>
+    <tr>
+      <th>424790</th>
+      <td>METAR RKSI 010430Z 22008KT 170V250 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424791</th>
+      <td>METAR RKNW 010400Z 21006KT 9999 BKN200 23/12 A...</td>
+    </tr>
+    <tr>
+      <th>424792</th>
+      <td>METAR RKSO 010400Z 33005KT 8000 HZ BKN200 22/1...</td>
+    </tr>
+    <tr>
+      <th>424793</th>
+      <td>METAR RKSI 010400Z 22007KT 180V260 9999 FEW040...</td>
+    </tr>
+    <tr>
+      <th>424794</th>
+      <td>METAR RKSI 010330Z 21006KT 180V260 9999 FEW020...</td>
+    </tr>
+    <tr>
+      <th>424795</th>
+      <td>METAR RKSM 010300Z 23006KT 9999 FEW030 BKN200 ...</td>
+    </tr>
+    <tr>
+      <th>424796</th>
+      <td>METAR RKSO 010300Z 30006KT 8000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424797</th>
+      <td>METAR RKSM 010300Z 23006KT 9999 FEW030 BKN200 ...</td>
+    </tr>
+    <tr>
+      <th>424798</th>
+      <td>METAR RKSI 010300Z 21006KT 160V310 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424799</th>
+      <td>METAR RKSI 010230Z 23009KT 180V250 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424800</th>
+      <td>METAR RKSI 010200Z 22008KT 9999 FEW015 SCT025 ...</td>
+    </tr>
+    <tr>
+      <th>424801</th>
+      <td>METAR RKSO 010200Z 28007KT 9000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424802</th>
+      <td>METAR RKSI 010130Z 22008KT 180V240 9999 SCT010...</td>
+    </tr>
+    <tr>
+      <th>424803</th>
+      <td>METAR RKSI 010100Z 22007KT 180V260 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424804</th>
+      <td>METAR RKSO 010100Z 14001KT 9000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424805</th>
+      <td>METAR RKSI 010030Z 23009KT 200V260 9999 FEW010...</td>
+    </tr>
+    <tr>
+      <th>424806</th>
+      <td>METAR RKSI 010000Z 24006KT 200V270 9999 BKN010...</td>
+    </tr>
+  </tbody>
+</table>
+<p>424807 rows × 1 columns</p>
+</div>
+
+<p>중간 중간에 보이는 다른 icao 코드는 군사 목적 공항 등 15개 이외의 공항의 코드임<br />
+RKSO: 오산공군기지<br />
+RKSM: 서울공항</p>
+
+<ul>
+  <li>제일 아래에 append된 2019년 6월 자료의 경우, RKSI(인천) 자료 중간 중간에 RKNW(원주), RKPK(청주)가 끼어 순서가 약간 뒤섞임</li>
+  <li>metar/taf 조회 페이지에서 수동으로 2019년 6월 전체 조회 해봐도 같은 현상 발생</li>
+  <li>METAR 중간 중간에 SPECI도 들어있음</li>
+</ul>
+
+<p><br /></p>
+
+<p><em>METAR로는 월별 구분이 안되므로 month 컬럼을 넣어 다시 크롤링</em></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># start - 2017.01.01 00:00 ~ 2019.06.01 00:00 (총 30개)
+</span><span class="n">start_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">'2017.01.01 00:00'</span><span class="p">,</span> <span class="s">'2017.02.01 00:00'</span><span class="p">,</span> <span class="s">'2017.03.01 00:00'</span><span class="p">,</span> <span class="s">'2017.04.01 00:00'</span><span class="p">,</span> <span class="s">'2017.05.01 00:00'</span><span class="p">,</span> <span class="s">'2017.06.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2017.07.01 00:00'</span><span class="p">,</span> <span class="s">'2017.08.01 00:00'</span><span class="p">,</span> <span class="s">'2017.09.01 00:00'</span><span class="p">,</span> <span class="s">'2017.10.01 00:00'</span><span class="p">,</span> <span class="s">'2017.11.01 00:00'</span><span class="p">,</span> <span class="s">'2017.12.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2018.01.01 00:00'</span><span class="p">,</span> <span class="s">'2018.02.01 00:00'</span><span class="p">,</span> <span class="s">'2018.03.01 00:00'</span><span class="p">,</span> <span class="s">'2018.04.01 00:00'</span><span class="p">,</span> <span class="s">'2018.05.01 00:00'</span><span class="p">,</span> <span class="s">'2018.06.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2018.07.01 00:00'</span><span class="p">,</span> <span class="s">'2018.08.01 00:00'</span><span class="p">,</span> <span class="s">'2018.09.01 00:00'</span><span class="p">,</span> <span class="s">'2018.10.01 00:00'</span><span class="p">,</span> <span class="s">'2018.11.01 00:00'</span><span class="p">,</span> <span class="s">'2018.12.01 00:00'</span><span class="p">,</span>
+              <span class="s">'2019.01.01 00:00'</span><span class="p">,</span> <span class="s">'2019.02.01 00:00'</span><span class="p">,</span> <span class="s">'2019.03.01 00:00'</span><span class="p">,</span> <span class="s">'2019.04.01 00:00'</span><span class="p">,</span> <span class="s">'2019.05.01 00:00'</span><span class="p">,</span> <span class="s">'2019.06.01 00:00'</span><span class="p">]</span>
+
+<span class="c1"># end - 2017.01.31 23:59 ~ 2019.06.30 23:59 (총 30개)
+</span><span class="n">end_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">'2017.01.31 23:59'</span><span class="p">,</span> <span class="s">'2017.02.28 23:59'</span><span class="p">,</span> <span class="s">'2017.03.31 23:59'</span><span class="p">,</span> <span class="s">'2017.04.30 23:59'</span><span class="p">,</span> <span class="s">'2017.05.31 23:59'</span><span class="p">,</span> <span class="s">'2017.06.30 23:59'</span><span class="p">,</span>
+            <span class="s">'2017.07.31 23:59'</span><span class="p">,</span> <span class="s">'2017.08.31 23:59'</span><span class="p">,</span> <span class="s">'2017.09.30 23:59'</span><span class="p">,</span> <span class="s">'2017.10.31 23:59'</span><span class="p">,</span> <span class="s">'2017.11.30 23:59'</span><span class="p">,</span> <span class="s">'2017.12.31 23:59'</span><span class="p">,</span>
+            <span class="s">'2018.01.31 23:59'</span><span class="p">,</span> <span class="s">'2018.02.28 23:59'</span><span class="p">,</span> <span class="s">'2018.03.31 23:59'</span><span class="p">,</span> <span class="s">'2018.04.30 23:59'</span><span class="p">,</span> <span class="s">'2018.05.31 23:59'</span><span class="p">,</span> <span class="s">'2018.06.30 23:59'</span><span class="p">,</span>
+            <span class="s">'2018.07.31 23:59'</span><span class="p">,</span> <span class="s">'2018.08.31 23:59'</span><span class="p">,</span> <span class="s">'2018.09.30 23:59'</span><span class="p">,</span> <span class="s">'2018.10.31 23:59'</span><span class="p">,</span> <span class="s">'2018.11.30 23:59'</span><span class="p">,</span> <span class="s">'2018.12.31 23:59'</span><span class="p">,</span>
+            <span class="s">'2019.01.31 23:59'</span><span class="p">,</span> <span class="s">'2019.02.28 23:59'</span><span class="p">,</span> <span class="s">'2019.03.31 23:59'</span><span class="p">,</span> <span class="s">'2019.04.30 23:59'</span><span class="p">,</span> <span class="s">'2019.05.31 23:59'</span><span class="p">,</span> <span class="s">'2019.06.30 23:59'</span><span class="p">]</span>
+
+<span class="c1"># 검색할 공항 코드
+</span><span class="n">airport_total</span> <span class="o">=</span> <span class="s">'RKSS, RKPK, RKPC, RKTN, RKPU, RKTU, RKJB, RKJJ, RKJY, RKNY, RKTH, RKPS, RKJK, RKNW, RKSI'</span>
+
+<span class="c1"># 모든 데이터프레임 저장
+</span><span class="n">df_metar_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"month"</span><span class="p">,</span> <span class="s">"metar_raw"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar_total</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">start_list</span><span class="p">)):</span>
+    <span class="c1"># 세션 시작
+</span>    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">session</span><span class="p">()</span>
+
+    <span class="c1"># 로그인하기
+</span>    <span class="n">login_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">'role'</span><span class="p">:</span> <span class="s">'AMI0002'</span><span class="p">,</span>
+                  <span class="s">'pwd'</span><span class="p">:</span> <span class="s">'f4IDn1Qlt+8FXjR3ypy/OhHlPSo96602rt2W5ZrkiS0='</span><span class="p">,</span>
+                  <span class="s">'loginId'</span><span class="p">:</span> <span class="s">'********'</span><span class="p">,</span>
+                  <span class="s">'password'</span><span class="p">:</span> <span class="s">'********'</span><span class="p">,</span>
+                  <span class="s">'x'</span><span class="p">:</span> <span class="s">'0'</span><span class="p">,</span>
+                  <span class="s">'y'</span><span class="p">:</span> <span class="s">'0'</span><span class="p">}</span>
+
+    <span class="n">url_login</span> <span class="o">=</span> <span class="s">'https://global.amo.go.kr/common/login/LoginConfirmAcwis.do'</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_login</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">login_info</span><span class="p">,</span> <span class="n">verify</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    
+    <span class="c1"># metar 페이지 접근
+</span>    <span class="n">detail</span> <span class="o">=</span> <span class="p">{</span><span class="s">'rUri'</span><span class="p">:</span> <span class="s">'/aftnwafsmetar/MetarList.dn'</span><span class="p">,</span>
+              <span class="s">'filepath'</span><span class="p">:</span> <span class="s">'server.acdb.airstcs.pdf.filepath'</span><span class="p">,</span>
+              <span class="s">'pageType'</span><span class="p">:</span> <span class="s">'MESSAGE'</span><span class="p">,</span>
+              <span class="s">'tmCheck'</span><span class="p">:</span> <span class="s">'on'</span><span class="p">,</span>
+              <span class="s">'tmSt'</span><span class="p">:</span> <span class="n">start_list</span><span class="p">[</span><span class="n">month</span><span class="p">],</span>
+              <span class="s">'tmEd'</span><span class="p">:</span> <span class="n">end_list</span><span class="p">[</span><span class="n">month</span><span class="p">],</span>
+              <span class="s">'tbType'</span><span class="p">:</span> <span class="s">'AFTN'</span><span class="p">,</span>
+              <span class="s">'stnCd'</span><span class="p">:</span> <span class="n">airport_total</span><span class="p">}</span>
+
+    <span class="n">url_metar</span> <span class="o">=</span> <span class="s">"https://global.amo.go.kr/aftnwafsmetar/MetarList.do"</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url_metar</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">detail</span><span class="p">)</span>
+    
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"html.parser"</span><span class="p">)</span>
+    <span class="n">metar_mes</span> <span class="o">=</span> <span class="n">soup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">"div"</span><span class="p">,</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span><span class="s">"messageMetarDiv"</span><span class="p">})</span>
+    <span class="n">contents</span> <span class="o">=</span> <span class="n">metar_mes</span><span class="p">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">"td"</span><span class="p">,</span> <span class="p">{</span><span class="s">"class"</span><span class="p">:</span><span class="s">"txt_l"</span><span class="p">})</span>
+    
+    <span class="n">metar_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">month_list</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+        <span class="n">metar_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">.</span><span class="n">get_text</span><span class="p">().</span><span class="n">strip</span><span class="p">().</span><span class="n">split</span><span class="p">()))</span>
+        <span class="n">month_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">start_list</span><span class="p">[</span><span class="n">month</span><span class="p">].</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">start_list</span><span class="p">[</span><span class="n">month</span><span class="p">].</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">"."</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        
+    <span class="n">df_metar</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"month"</span><span class="p">:</span><span class="n">month_list</span><span class="p">,</span> <span class="s">"metar_raw"</span><span class="p">:</span><span class="n">metar_list</span><span class="p">},</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"month"</span><span class="p">,</span> <span class="s">"metar_raw"</span><span class="p">])</span>
+    
+    <span class="n">df_metar_total</span> <span class="o">=</span> <span class="n">df_metar_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_metar</span><span class="p">,</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar_total</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(424807, 2)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar_total</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>201701</td>
+      <td>METAR RKSS 312300Z 01004KT CAVOK M07/M12 Q1028...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>201701</td>
+      <td>METAR RKSS 312200Z 33001KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>201701</td>
+      <td>METAR RKSS 312100Z 28002KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>201701</td>
+      <td>METAR RKSS 312000Z 31001KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>201701</td>
+      <td>METAR RKSS 311900Z 30002KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar_total</span><span class="p">.</span><span class="n">tail</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>424802</th>
+      <td>201906</td>
+      <td>METAR RKSI 010130Z 22008KT 180V240 9999 SCT010...</td>
+    </tr>
+    <tr>
+      <th>424803</th>
+      <td>201906</td>
+      <td>METAR RKSI 010100Z 22007KT 180V260 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424804</th>
+      <td>201906</td>
+      <td>METAR RKSO 010100Z 14001KT 9000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424805</th>
+      <td>201906</td>
+      <td>METAR RKSI 010030Z 23009KT 200V260 9999 FEW010...</td>
+    </tr>
+    <tr>
+      <th>424806</th>
+      <td>201906</td>
+      <td>METAR RKSI 010000Z 24006KT 200V270 9999 BKN010...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_metar_total</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">'data/metar_total_month.csv'</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/metar_total_month.csv'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>metar_raw</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>201701</td>
+      <td>METAR RKSS 312300Z 01004KT CAVOK M07/M12 Q1028...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>201701</td>
+      <td>METAR RKSS 312200Z 33001KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>201701</td>
+      <td>METAR RKSS 312100Z 28002KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>201701</td>
+      <td>METAR RKSS 312000Z 31001KT 9999 FEW035 SCT180 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>201701</td>
+      <td>METAR RKSS 311900Z 30002KT CAVOK M07/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>201701</td>
+      <td>METAR RKSS 311800Z 33002KT CAVOK M07/M11 Q1028...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>201701</td>
+      <td>METAR RKSS 311700Z 01001KT CAVOK M08/M12 Q1027...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>201701</td>
+      <td>METAR RKSS 311600Z 33001KT CAVOK M08/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>201701</td>
+      <td>METAR RKSS 311500Z 00000KT CAVOK M07/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>201701</td>
+      <td>METAR RKSS 311400Z 01002KT CAVOK M06/M15 Q1028...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>201701</td>
+      <td>METAR RKSS 311300Z 31005KT CAVOK M07/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>201701</td>
+      <td>METAR RKSS 311200Z 29002KT CAVOK M05/M14 Q1028...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>201701</td>
+      <td>METAR RKSS 311100Z 03002KT CAVOK M04/M16 Q1028...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>201701</td>
+      <td>METAR RKSS 311000Z 32004KT CAVOK M03/M18 Q1028...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>201701</td>
+      <td>METAR RKSS 310900Z 33005KT CAVOK M04/M16 Q1028...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>201701</td>
+      <td>METAR RKSS 310800Z 33006KT CAVOK M02/M17 Q1028...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>201701</td>
+      <td>METAR RKSS 310700Z 35006KT CAVOK M02/M16 Q1027...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>201701</td>
+      <td>METAR RKSS 310600Z 34005KT 310V010 CAVOK M02/M...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>201701</td>
+      <td>METAR RKSS 310500Z 36005KT 310V020 CAVOK M02/M...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>201701</td>
+      <td>METAR RKSS 310400Z 31005KT CAVOK M04/M20 Q1029...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>201701</td>
+      <td>METAR RKSS 310300Z 33004KT 310V020 CAVOK M04/M...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>201701</td>
+      <td>METAR RKSS 310200Z 32002KT CAVOK M05/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>201701</td>
+      <td>METAR RKSS 310100Z 02004KT 350V050 CAVOK M07/M...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>201701</td>
+      <td>METAR RKSS 310000Z 34004KT CAVOK M09/M14 Q1032...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>201701</td>
+      <td>METAR RKSS 302300Z 35003KT CAVOK M11/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>201701</td>
+      <td>METAR RKSS 302200Z 32004KT CAVOK M11/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>201701</td>
+      <td>METAR RKSS 302100Z 04002KT CAVOK M11/M16 Q1030...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>201701</td>
+      <td>METAR RKSS 302000Z 31002KT CAVOK M12/M16 Q1031...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>201701</td>
+      <td>METAR RKSS 301900Z 08003KT CAVOK M10/M17 Q1030...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>201701</td>
+      <td>METAR RKSS 301800Z 33003KT CAVOK M11/M17 Q1031...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>424777</th>
+      <td>201906</td>
+      <td>METAR RKSI 010830Z 30005KT 210V360 CAVOK 19/11...</td>
+    </tr>
+    <tr>
+      <th>424778</th>
+      <td>201906</td>
+      <td>METAR RKSI 010800Z 26003KT 360V070 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424779</th>
+      <td>201906</td>
+      <td>SPECI RKPS 010737Z 22008KT CAVOK 25/11 Q1009 R...</td>
+    </tr>
+    <tr>
+      <th>424780</th>
+      <td>201906</td>
+      <td>METAR RKSI 010730Z 21007KT 180V240 CAVOK 18/10...</td>
+    </tr>
+    <tr>
+      <th>424781</th>
+      <td>201906</td>
+      <td>METAR RKSI 010700Z 23008KT 200V270 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424782</th>
+      <td>201906</td>
+      <td>METAR RKSI 010630Z 22008KT 180V250 9999 FEW045...</td>
+    </tr>
+    <tr>
+      <th>424783</th>
+      <td>201906</td>
+      <td>METAR RKSO 010600Z 24003KT 9000 HZ BKN200 23/1...</td>
+    </tr>
+    <tr>
+      <th>424784</th>
+      <td>201906</td>
+      <td>METAR RKSI 010600Z 23010KT 200V260 CAVOK 19/09...</td>
+    </tr>
+    <tr>
+      <th>424785</th>
+      <td>201906</td>
+      <td>METAR RKSI 010530Z 21011KT 180V240 CAVOK 19/09...</td>
+    </tr>
+    <tr>
+      <th>424786</th>
+      <td>201906</td>
+      <td>METAR RKSI 010500Z 21009KT 160V240 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424787</th>
+      <td>201906</td>
+      <td>METAR RKPK 010500Z 18012KT CAVOK 25/12 Q1009 R...</td>
+    </tr>
+    <tr>
+      <th>424788</th>
+      <td>201906</td>
+      <td>METAR RKPK 010500Z 18012KT CAVOK 25/12 Q1009=</td>
+    </tr>
+    <tr>
+      <th>424789</th>
+      <td>201906</td>
+      <td>METAR RKSO 010500Z 25003KT 9000 HZ BKN200 22/1...</td>
+    </tr>
+    <tr>
+      <th>424790</th>
+      <td>201906</td>
+      <td>METAR RKSI 010430Z 22008KT 170V250 CAVOK 19/10...</td>
+    </tr>
+    <tr>
+      <th>424791</th>
+      <td>201906</td>
+      <td>METAR RKNW 010400Z 21006KT 9999 BKN200 23/12 A...</td>
+    </tr>
+    <tr>
+      <th>424792</th>
+      <td>201906</td>
+      <td>METAR RKSO 010400Z 33005KT 8000 HZ BKN200 22/1...</td>
+    </tr>
+    <tr>
+      <th>424793</th>
+      <td>201906</td>
+      <td>METAR RKSI 010400Z 22007KT 180V260 9999 FEW040...</td>
+    </tr>
+    <tr>
+      <th>424794</th>
+      <td>201906</td>
+      <td>METAR RKSI 010330Z 21006KT 180V260 9999 FEW020...</td>
+    </tr>
+    <tr>
+      <th>424795</th>
+      <td>201906</td>
+      <td>METAR RKSM 010300Z 23006KT 9999 FEW030 BKN200 ...</td>
+    </tr>
+    <tr>
+      <th>424796</th>
+      <td>201906</td>
+      <td>METAR RKSO 010300Z 30006KT 8000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424797</th>
+      <td>201906</td>
+      <td>METAR RKSM 010300Z 23006KT 9999 FEW030 BKN200 ...</td>
+    </tr>
+    <tr>
+      <th>424798</th>
+      <td>201906</td>
+      <td>METAR RKSI 010300Z 21006KT 160V310 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424799</th>
+      <td>201906</td>
+      <td>METAR RKSI 010230Z 23009KT 180V250 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424800</th>
+      <td>201906</td>
+      <td>METAR RKSI 010200Z 22008KT 9999 FEW015 SCT025 ...</td>
+    </tr>
+    <tr>
+      <th>424801</th>
+      <td>201906</td>
+      <td>METAR RKSO 010200Z 28007KT 9000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424802</th>
+      <td>201906</td>
+      <td>METAR RKSI 010130Z 22008KT 180V240 9999 SCT010...</td>
+    </tr>
+    <tr>
+      <th>424803</th>
+      <td>201906</td>
+      <td>METAR RKSI 010100Z 22007KT 180V260 9999 FEW015...</td>
+    </tr>
+    <tr>
+      <th>424804</th>
+      <td>201906</td>
+      <td>METAR RKSO 010100Z 14001KT 9000 HZ SCT030 BKN2...</td>
+    </tr>
+    <tr>
+      <th>424805</th>
+      <td>201906</td>
+      <td>METAR RKSI 010030Z 23009KT 200V260 9999 FEW010...</td>
+    </tr>
+    <tr>
+      <th>424806</th>
+      <td>201906</td>
+      <td>METAR RKSI 010000Z 24006KT 200V270 9999 BKN010...</td>
+    </tr>
+  </tbody>
+</table>
+<p>424807 rows × 2 columns</p>
+</div>
+
+    
+
+
+
+<div class="post-tags">
+  
+    
+    <a href="/tags.html#python">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">python</span>
+    </a>
+  
+    
+    <a href="/tags.html#crawling">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">crawling</span>
+    </a>
+  
+</div>
+  </div>
+
+  
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/2020/04/19/new-test.html">
+            test for posting
+            <small>19 Apr 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2019/09/14/python-statistics-chapter-2.html">
+            Python Statistics Chapter 2
+            <small>14 Sep 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2019/09/10/r-big-contest.html">
+            2019 Big Contest
+            <small>10 Sep 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
+</div>
+
+    </main>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>
