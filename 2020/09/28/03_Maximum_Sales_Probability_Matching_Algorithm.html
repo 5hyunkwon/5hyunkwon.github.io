@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      2020 Big Contest - 3 &middot; Data Flows in You
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://5hyunkwon.github.io/favicon.png" />
+<link rel="shortcut icon" href="https://5hyunkwon.github.io/favicon.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <header>
+    <div class="site-title">
+      <a href="/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Data Flows in You
+      </a>
+    </div>
+    <p class="lead"><a href="https://en.wikipedia.org/wiki/Data_science" target="_blank">Data Scientist</a>: The Sexiest Job of the 21st Century</p>
+  </header>
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/about.html">About</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <nav id="sidebar-icon-links">
+  
+  
+  
+  
+
+  
+    <a id="tags-link"
+       class="icon"
+       title="Tags" aria-label="Tags"
+       href="/tags.html">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+    </a>
+  
+
+  <a id="github-link"
+    class="icon" title="Github" aria-label="Github"
+    href="https://github.com/5hyunkwon"
+    target="_blank">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" height="24" width="28"><path d="M12 2c6.625 0 12 5.375 12 12 0 5.297-3.437 9.797-8.203 11.391-0.609 0.109-0.828-0.266-0.828-0.578 0-0.391 0.016-1.687 0.016-3.297 0-1.125-0.375-1.844-0.812-2.219 2.672-0.297 5.484-1.313 5.484-5.922 0-1.313-0.469-2.375-1.234-3.219 0.125-0.313 0.531-1.531-0.125-3.187-1-0.313-3.297 1.234-3.297 1.234-0.953-0.266-1.984-0.406-3-0.406s-2.047 0.141-3 0.406c0 0-2.297-1.547-3.297-1.234-0.656 1.656-0.25 2.875-0.125 3.187-0.766 0.844-1.234 1.906-1.234 3.219 0 4.594 2.797 5.625 5.469 5.922-0.344 0.313-0.656 0.844-0.766 1.609-0.688 0.313-2.438 0.844-3.484-1-0.656-1.141-1.844-1.234-1.844-1.234-1.172-0.016-0.078 0.734-0.078 0.734 0.781 0.359 1.328 1.75 1.328 1.75 0.703 2.141 4.047 1.422 4.047 1.422 0 1 0.016 1.937 0.016 2.234 0 0.313-0.219 0.688-0.828 0.578-4.766-1.594-8.203-6.094-8.203-11.391 0-6.625 5.375-12 12-12zM4.547 19.234c0.031-0.063-0.016-0.141-0.109-0.187-0.094-0.031-0.172-0.016-0.203 0.031-0.031 0.063 0.016 0.141 0.109 0.187 0.078 0.047 0.172 0.031 0.203-0.031zM5.031 19.766c0.063-0.047 0.047-0.156-0.031-0.25-0.078-0.078-0.187-0.109-0.25-0.047-0.063 0.047-0.047 0.156 0.031 0.25 0.078 0.078 0.187 0.109 0.25 0.047zM5.5 20.469c0.078-0.063 0.078-0.187 0-0.297-0.063-0.109-0.187-0.156-0.266-0.094-0.078 0.047-0.078 0.172 0 0.281s0.203 0.156 0.266 0.109zM6.156 21.125c0.063-0.063 0.031-0.203-0.063-0.297-0.109-0.109-0.25-0.125-0.313-0.047-0.078 0.063-0.047 0.203 0.063 0.297 0.109 0.109 0.25 0.125 0.313 0.047zM7.047 21.516c0.031-0.094-0.063-0.203-0.203-0.25-0.125-0.031-0.266 0.016-0.297 0.109s0.063 0.203 0.203 0.234c0.125 0.047 0.266 0 0.297-0.094zM8.031 21.594c0-0.109-0.125-0.187-0.266-0.172-0.141 0-0.25 0.078-0.25 0.172 0 0.109 0.109 0.187 0.266 0.172 0.141 0 0.25-0.078 0.25-0.172zM8.937 21.438c-0.016-0.094-0.141-0.156-0.281-0.141-0.141 0.031-0.234 0.125-0.219 0.234 0.016 0.094 0.141 0.156 0.281 0.125s0.234-0.125 0.219-0.219z"></path>
+</svg>
+
+  </a>
+
+  <!-- Optional additional links to insert for icons links -->
+<a id="facebook-link"
+   class="icon" title="Facebook" aria-label="Facebook"
+   href="https://www.facebook.com/5hyunkwon"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+</a>
+
+<a id="instagram-link"
+   class="icon" title="Instagram" aria-label="Instagram"
+   href="https://www.instagram.com/5hyun_kwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M17.34,5.46h0a1.2,1.2,0,1,0,1.2,1.2A1.2,1.2,0,0,0,17.34,5.46Zm4.6,2.42a7.59,7.59,0,0,0-.46-2.43,4.94,4.94,0,0,0-1.16-1.77,4.7,4.7,0,0,0-1.77-1.15,7.3,7.3,0,0,0-2.43-.47C15.06,2,14.72,2,12,2s-3.06,0-4.12.06a7.3,7.3,0,0,0-2.43.47A4.78,4.78,0,0,0,3.68,3.68,4.7,4.7,0,0,0,2.53,5.45a7.3,7.3,0,0,0-.47,2.43C2,8.94,2,9.28,2,12s0,3.06.06,4.12a7.3,7.3,0,0,0,.47,2.43,4.7,4.7,0,0,0,1.15,1.77,4.78,4.78,0,0,0,1.77,1.15,7.3,7.3,0,0,0,2.43.47C8.94,22,9.28,22,12,22s3.06,0,4.12-.06a7.3,7.3,0,0,0,2.43-.47,4.7,4.7,0,0,0,1.77-1.15,4.85,4.85,0,0,0,1.16-1.77,7.59,7.59,0,0,0,.46-2.43c0-1.06.06-1.4.06-4.12S22,8.94,21.94,7.88ZM20.14,16a5.61,5.61,0,0,1-.34,1.86,3.06,3.06,0,0,1-.75,1.15,3.19,3.19,0,0,1-1.15.75,5.61,5.61,0,0,1-1.86.34c-1,.05-1.37.06-4,.06s-3,0-4-.06A5.73,5.73,0,0,1,6.1,19.8,3.27,3.27,0,0,1,5,19.05a3,3,0,0,1-.74-1.15A5.54,5.54,0,0,1,3.86,16c0-1-.06-1.37-.06-4s0-3,.06-4A5.54,5.54,0,0,1,4.21,6.1,3,3,0,0,1,5,5,3.14,3.14,0,0,1,6.1,4.2,5.73,5.73,0,0,1,8,3.86c1,0,1.37-.06,4-.06s3,0,4,.06a5.61,5.61,0,0,1,1.86.34A3.06,3.06,0,0,1,19.05,5,3.06,3.06,0,0,1,19.8,6.1,5.61,5.61,0,0,1,20.14,8c.05,1,.06,1.37.06,4S20.19,15,20.14,16ZM12,6.87A5.13,5.13,0,1,0,17.14,12,5.12,5.12,0,0,0,12,6.87Zm0,8.46A3.33,3.33,0,1,1,15.33,12,3.33,3.33,0,0,1,12,15.33Z"/></svg>
+</a>
+
+<a id="linkedin-link"
+   class="icon" title="Linkedin" aria-label="Linkedin"
+   href="https://www.linkedin.com/in/5hyunkwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M20.47,2H3.53A1.45,1.45,0,0,0,2.06,3.43V20.57A1.45,1.45,0,0,0,3.53,22H20.47a1.45,1.45,0,0,0,1.47-1.43V3.43A1.45,1.45,0,0,0,20.47,2ZM8.09,18.74h-3v-9h3ZM6.59,8.48h0a1.56,1.56,0,1,1,0-3.12,1.57,1.57,0,1,1,0,3.12ZM18.91,18.74h-3V13.91c0-1.21-.43-2-1.52-2A1.65,1.65,0,0,0,12.85,13a2,2,0,0,0-.1.73v5h-3s0-8.18,0-9h3V11A3,3,0,0,1,15.46,9.5c2,0,3.45,1.29,3.45,4.06Z"/></svg>
+</a>
+</nav>
+
+  <p>
+  &copy; 2020.
+  <a href="/LICENSE.md">MIT License.</a>
+</p>
+
+</div>
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">2020 Big Contest - 3</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">28 Sep 2020</span>
+  <span class="post-categories">
+    
+  </span>
+</div>
+
+
+  <div class="post-body">
+    <h2 id="2-mspmamaximum-sales-probability-matching-algorithm">2. MSPMA(Maximum Sales Probability Matching Algorithm)</h2>
+
+<h2 id="2020년-6월-1일의-시간대별-상품-취급액-예측-후-mspma로-새로운-편성-확인">2020년 6월 1일의 시간대별 상품 취급액 예측 후 MSPMA로 새로운 편성 확인</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+
+<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/content/drive'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mounted at /content/drive
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
+
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Activation</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Conv1D</span><span class="p">,</span> <span class="n">MaxPooling1D</span><span class="p">,</span> <span class="n">AveragePooling1D</span><span class="p">,</span> <span class="n">GlobalMaxPooling1D</span><span class="p">,</span> <span class="n">Conv1DTranspose</span><span class="p">,</span> <span class="n">concatenate</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">add</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">BatchNormalization</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">Model</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/lib/python3.6/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  import pandas.util.testing as tm
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 숫자 표기법 변환
+</span><span class="n">pd</span><span class="p">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">'display.float_format'</span><span class="p">,</span> <span class="s">'{:.2f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">)</span>
+
+<span class="c1"># 한글 깨짐 방지
+</span><span class="n">plt</span><span class="p">.</span><span class="n">rc</span><span class="p">(</span><span class="s">'font'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s">'Malgun Gothic'</span><span class="p">)</span>
+
+<span class="c1"># 도화지 크기 설정
+</span><span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'figure.figsize'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="1-테스트-데이터의-6월-1일만-추출하여-데이터-셋-만들기">1. 테스트 데이터의 6월 1일만 추출하여 데이터 셋 만들기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">total_test</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'/content/drive/Shared drives/빅콘테스트2020/total_test.csv'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 테스트 데이터에서 2020년 6월 1일의 row는 06시부터 02시(다음날이지만 한 싸이클로 포함)까지 79개
+</span><span class="n">june_1st</span> <span class="o">=</span> <span class="n">total_test</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">79</span><span class="p">,</span> <span class="p">:]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 표시된 것 이외에는 1시간에 3개 row씩 존재
+</span><span class="n">product1</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:]</span>
+<span class="n">product2</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,:]</span>
+<span class="n">product3</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">,:]</span>
+<span class="n">product4</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">,:]</span>
+<span class="n">product5</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">15</span><span class="p">,:]</span>
+<span class="n">product6</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">18</span><span class="p">,:]</span>
+<span class="n">product7</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">18</span><span class="p">:</span><span class="mi">21</span><span class="p">,:]</span>
+<span class="n">product8</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">21</span><span class="p">:</span><span class="mi">27</span><span class="p">,:]</span> <span class="c1"># 6개
+</span><span class="n">product9</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">27</span><span class="p">:</span><span class="mi">28</span><span class="p">,:]</span> <span class="c1"># 1개
+</span><span class="n">product10</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">28</span><span class="p">:</span><span class="mi">31</span><span class="p">,:]</span>
+<span class="n">product11</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">31</span><span class="p">:</span><span class="mi">34</span><span class="p">,:]</span>
+<span class="n">product12</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">34</span><span class="p">:</span><span class="mi">40</span><span class="p">,:]</span> <span class="c1"># 6개
+</span><span class="n">product13</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">40</span><span class="p">:</span><span class="mi">43</span><span class="p">,:]</span>
+<span class="n">product14</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">43</span><span class="p">:</span><span class="mi">46</span><span class="p">,:]</span>
+<span class="n">product15</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">46</span><span class="p">:</span><span class="mi">49</span><span class="p">,:]</span>
+<span class="n">product16</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">49</span><span class="p">:</span><span class="mi">58</span><span class="p">,:]</span> <span class="c1"># 9개
+</span><span class="n">product17</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">58</span><span class="p">:</span><span class="mi">67</span><span class="p">,:]</span> <span class="c1"># 9개
+</span><span class="n">product18</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">67</span><span class="p">:</span><span class="mi">73</span><span class="p">,:]</span> <span class="c1"># 6개
+</span><span class="n">product19</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">73</span><span class="p">:</span><span class="mi">76</span><span class="p">,:]</span>
+<span class="n">product20</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">76</span><span class="p">:</span><span class="mi">79</span><span class="p">,:]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 각 시간대별 예측을 위해 시간 변수를 바꿔서 늘린 테스트 데이터의 마더코드별 데이터셋 구축
+</span><span class="n">product1_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product2_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product3_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product4_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product5_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product6_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product7_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product8_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product9_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product10_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product11_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product12_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product13_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product14_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product15_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product16_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product17_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product18_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product19_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">product20_total</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product1
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product1</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product1_total</span> <span class="o">=</span> <span class="n">product1_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product1_total</span> <span class="o">=</span> <span class="n">product1_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product2
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product2</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product2_total</span> <span class="o">=</span> <span class="n">product2_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product2_total</span> <span class="o">=</span> <span class="n">product2_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product3
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product3</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product3_total</span> <span class="o">=</span> <span class="n">product3_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product3_total</span> <span class="o">=</span> <span class="n">product3_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product4
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product4</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product4_total</span> <span class="o">=</span> <span class="n">product4_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product4_total</span> <span class="o">=</span> <span class="n">product4_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product5
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product5</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product5_total</span> <span class="o">=</span> <span class="n">product5_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product5_total</span> <span class="o">=</span> <span class="n">product5_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product6
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product6</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product6_total</span> <span class="o">=</span> <span class="n">product6_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product6_total</span> <span class="o">=</span> <span class="n">product6_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product7
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product7</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product7_total</span> <span class="o">=</span> <span class="n">product7_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product7_total</span> <span class="o">=</span> <span class="n">product7_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product8
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product8</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span>
+  <span class="n">product8_total</span> <span class="o">=</span> <span class="n">product8_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product8_total</span> <span class="o">=</span> <span class="n">product8_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product9
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product9</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span>
+  <span class="n">product9_total</span> <span class="o">=</span> <span class="n">product9_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product9_total</span> <span class="o">=</span> <span class="n">product9_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product10
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product10</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product10_total</span> <span class="o">=</span> <span class="n">product10_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product10_total</span> <span class="o">=</span> <span class="n">product10_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product11
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product11</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product11_total</span> <span class="o">=</span> <span class="n">product11_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product11_total</span> <span class="o">=</span> <span class="n">product11_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product12
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product12</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span>
+  <span class="n">product12_total</span> <span class="o">=</span> <span class="n">product12_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product12_total</span> <span class="o">=</span> <span class="n">product12_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product13
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product13</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product13_total</span> <span class="o">=</span> <span class="n">product13_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product13_total</span> <span class="o">=</span> <span class="n">product13_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product14
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product14</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product14_total</span> <span class="o">=</span> <span class="n">product14_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product14_total</span> <span class="o">=</span> <span class="n">product14_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product15
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product15</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product15_total</span> <span class="o">=</span> <span class="n">product15_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product15_total</span> <span class="o">=</span> <span class="n">product15_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product16
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product16</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">9</span>
+  <span class="n">product16_total</span> <span class="o">=</span> <span class="n">product16_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product16_total</span> <span class="o">=</span> <span class="n">product16_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product17
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product17</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">9</span>
+  <span class="n">product17_total</span> <span class="o">=</span> <span class="n">product17_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product17_total</span> <span class="o">=</span> <span class="n">product17_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product18
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product18</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span>
+  <span class="n">product18_total</span> <span class="o">=</span> <span class="n">product18_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product18_total</span> <span class="o">=</span> <span class="n">product18_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product19
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product19</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product19_total</span> <span class="o">=</span> <span class="n">product19_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product19_total</span> <span class="o">=</span> <span class="n">product19_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># product20
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">product20</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">]</span>
+  <span class="n">temp</span><span class="p">[</span><span class="s">'시간대'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span><span class="o">%</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="s">'시'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">product20_total</span> <span class="o">=</span> <span class="n">product20_total</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+  <span class="n">product20_total</span> <span class="o">=</span> <span class="n">product20_total</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">augmented_test</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">product1_total</span><span class="p">,</span> <span class="n">product2_total</span><span class="p">,</span> <span class="n">product3_total</span><span class="p">,</span> <span class="n">product4_total</span><span class="p">,</span> <span class="n">product5_total</span><span class="p">,</span>
+                            <span class="n">product6_total</span><span class="p">,</span> <span class="n">product7_total</span><span class="p">,</span> <span class="n">product8_total</span><span class="p">,</span> <span class="n">product9_total</span><span class="p">,</span> <span class="n">product10_total</span><span class="p">,</span>
+                            <span class="n">product11_total</span><span class="p">,</span> <span class="n">product12_total</span><span class="p">,</span> <span class="n">product13_total</span><span class="p">,</span> <span class="n">product14_total</span><span class="p">,</span> <span class="n">product15_total</span><span class="p">,</span>
+                            <span class="n">product16_total</span><span class="p">,</span> <span class="n">product17_total</span><span class="p">,</span> <span class="n">product18_total</span><span class="p">,</span> <span class="n">product19_total</span><span class="p">,</span> <span class="n">product20_total</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 사용할 변수 리스트
+</span><span class="n">col</span> <span class="o">=</span> <span class="p">[</span><span class="s">'emb_label_주문량'</span><span class="p">,</span> <span class="s">'emb_label2_주문량'</span><span class="p">,</span> <span class="s">'emb_label3_주문량'</span><span class="p">,</span> <span class="s">'월_주문량'</span><span class="p">,</span> <span class="s">'요일_주문량'</span><span class="p">,</span> <span class="s">'시등급_주문량'</span><span class="p">,</span> <span class="s">'분등급_주문량'</span><span class="p">,</span><span class="s">'노출횟수_주문량'</span><span class="p">,</span> <span class="s">'판매단가'</span><span class="p">,</span>
+       <span class="s">'emb_label'</span><span class="p">,</span><span class="s">'emb_label2'</span><span class="p">,</span><span class="s">'emb_label3'</span><span class="p">,</span> <span class="s">'시'</span><span class="p">,</span> <span class="s">'분'</span> <span class="p">,</span><span class="s">'월'</span><span class="p">,</span> <span class="s">'요일'</span><span class="p">,</span><span class="s">'노출횟수'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 사용할 변수 리스트에 임베딩 컬럼 추가
+</span><span class="n">col</span><span class="p">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">159</span><span class="p">)])</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>176
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">augmented_test_fit</span> <span class="o">=</span> <span class="n">augmented_test</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scaler</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+<span class="n">scaler</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">augmented_test_fit</span><span class="p">)</span>
+<span class="n">augmented_test_final</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">augmented_test_fit</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">augmented_test_fit</span><span class="p">.</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="2-모델에-train으로-학습된-weight를-넣고-합쳐진-test-데이터-prediction">2. 모델에 train으로 학습된 weight를 넣고 합쳐진 test 데이터 prediction</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="n">input_layer</span><span class="p">,</span> <span class="n">start_neurons</span><span class="p">):</span>
+    
+    <span class="n">conv1</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">augmented_test_final</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))(</span><span class="n">input_layer</span><span class="p">)</span>
+    <span class="n">conv1</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">conv1</span><span class="p">)</span>
+    <span class="n">pool1</span> <span class="o">=</span> <span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">conv1</span><span class="p">)</span>
+    <span class="n">pool1</span> <span class="o">=</span> <span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">pool1</span><span class="p">)</span>
+    <span class="n">pool1</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">pool1</span><span class="p">)</span>
+
+    <span class="n">conv2</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">pool1</span><span class="p">)</span>
+    <span class="n">conv2</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">conv2</span><span class="p">)</span>
+    <span class="n">pool2</span> <span class="o">=</span> <span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">conv2</span><span class="p">)</span>
+    <span class="n">pool2</span> <span class="o">=</span> <span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">pool2</span><span class="p">)</span>
+    <span class="n">pool2</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">pool2</span><span class="p">)</span>
+
+    <span class="n">conv3</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">pool2</span><span class="p">)</span>
+    <span class="n">conv3</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">conv3</span><span class="p">)</span>
+    <span class="n">pool3</span> <span class="o">=</span> <span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">conv3</span><span class="p">)</span>
+    <span class="n">pool3</span> <span class="o">=</span> <span class="n">AveragePooling1D</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">pool3</span><span class="p">)</span>
+    <span class="n">pool3</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">pool3</span><span class="p">)</span>
+
+
+    <span class="n">convm</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">pool3</span><span class="p">)</span>
+
+    <span class="n">deconv3</span> <span class="o">=</span> <span class="n">Conv1DTranspose</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">convm</span><span class="p">)</span>
+    <span class="n">uconv3</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">deconv3</span><span class="p">,</span> <span class="n">conv3</span><span class="p">])</span>
+    <span class="n">uconv3</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">uconv3</span><span class="p">)</span>
+    <span class="n">uconv3</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv3</span><span class="p">)</span>
+    <span class="n">uconv3</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv3</span><span class="p">)</span>
+    <span class="n">uconv3</span> <span class="o">=</span> <span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">uconv3</span><span class="p">)</span>
+    <span class="n">uconv3</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">uconv3</span><span class="p">)</span>
+
+    <span class="n">deconv2</span> <span class="o">=</span> <span class="n">Conv1DTranspose</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv3</span><span class="p">)</span>
+    <span class="n">uconv2</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">deconv2</span><span class="p">,</span> <span class="n">conv2</span><span class="p">])</span>
+    <span class="n">uconv2</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">uconv2</span><span class="p">)</span>
+    <span class="n">uconv2</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv2</span><span class="p">)</span>
+    <span class="n">uconv2</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv2</span><span class="p">)</span>
+    <span class="n">uconv2</span> <span class="o">=</span> <span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">uconv2</span><span class="p">)</span>
+    <span class="n">uconv2</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">uconv2</span><span class="p">)</span>
+
+    <span class="n">deconv1</span> <span class="o">=</span> <span class="n">Conv1DTranspose</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv2</span><span class="p">)</span>
+    <span class="n">uconv1</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">deconv1</span><span class="p">,</span> <span class="n">conv1</span><span class="p">])</span>
+    <span class="n">uconv1</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">uconv1</span><span class="p">)</span>
+    <span class="n">uconv1</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv1</span><span class="p">)</span>
+    <span class="n">uconv1</span> <span class="o">=</span> <span class="n">Conv1D</span><span class="p">(</span><span class="n">start_neurons</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">"elu"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s">'he_normal'</span><span class="p">)(</span><span class="n">uconv1</span><span class="p">)</span>
+    <span class="n">uconv1</span> <span class="o">=</span> <span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">uconv1</span><span class="p">)</span>
+    <span class="n">uconv1</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)(</span><span class="n">uconv1</span><span class="p">)</span>
+
+    <span class="n">flat</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">()(</span><span class="n">uconv1</span><span class="p">)</span>
+    <span class="n">dense1</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'elu'</span><span class="p">)(</span><span class="n">flat</span><span class="p">)</span>
+    <span class="n">dense2</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s">'elu'</span><span class="p">)(</span><span class="n">dense1</span><span class="p">)</span>
+    <span class="n">output_layer</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">dense2</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">output_layer</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># model 생성
+</span><span class="n">input_layer</span> <span class="o">=</span> <span class="n">Input</span><span class="p">((</span><span class="n">augmented_test_final</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">output_layer</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">input_layer</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">input_layer</span><span class="p">,</span> <span class="n">output_layer</span><span class="p">)</span>
+
+<span class="c1"># model 가중치 불러오기
+</span><span class="n">model</span><span class="p">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s">'/content/drive/Shared drives/빅콘테스트2020/weights/ds/functional_3.44-35.0913.hdf5'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 수량 예측
+</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">augmented_test_final</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="3-테스트-데이터의-판매단가와-예측된-수량을-곱하여-시간대별-취급액-계산">3. 테스트 데이터의 판매단가와 예측된 수량을 곱하여 시간대별 취급액 계산</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">augmented_test</span><span class="p">[</span><span class="s">'취급액'</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span> <span class="o">*</span> <span class="n">augmented_test</span><span class="p">[</span><span class="s">'판매단가'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 2020년 6월 1일 각 상품의 시간대별 예상 취급액
+</span><span class="n">mat</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">augmented_test</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s">'마더코드'</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s">'취급액'</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s">'sum'</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s">'시간대'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sorted_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s">'6시'</span><span class="p">,</span> <span class="s">'7시'</span><span class="p">,</span> <span class="s">'8시'</span><span class="p">,</span> <span class="s">'9시'</span><span class="p">,</span> <span class="s">'10시'</span><span class="p">,</span> <span class="s">'11시'</span><span class="p">,</span> <span class="s">'12시'</span><span class="p">,</span> <span class="s">'13시'</span><span class="p">,</span> <span class="s">'14시'</span><span class="p">,</span> <span class="s">'15시'</span><span class="p">,</span>
+               <span class="s">'16시'</span><span class="p">,</span> <span class="s">'17시'</span><span class="p">,</span> <span class="s">'18시'</span><span class="p">,</span> <span class="s">'19시'</span><span class="p">,</span> <span class="s">'20시'</span><span class="p">,</span> <span class="s">'21시'</span><span class="p">,</span> <span class="s">'22시'</span><span class="p">,</span> <span class="s">'23시'</span><span class="p">,</span> <span class="s">'0시'</span><span class="p">,</span> <span class="s">'1시'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="n">sorted_cols</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mat</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>시간대</th>
+      <th>6시</th>
+      <th>7시</th>
+      <th>8시</th>
+      <th>9시</th>
+      <th>10시</th>
+      <th>11시</th>
+      <th>12시</th>
+      <th>13시</th>
+      <th>14시</th>
+      <th>15시</th>
+      <th>16시</th>
+      <th>17시</th>
+      <th>18시</th>
+      <th>19시</th>
+      <th>20시</th>
+      <th>21시</th>
+      <th>22시</th>
+      <th>23시</th>
+      <th>0시</th>
+      <th>1시</th>
+    </tr>
+    <tr>
+      <th>마더코드</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>100012</th>
+      <td>58916498.68</td>
+      <td>60287677.17</td>
+      <td>61641217.79</td>
+      <td>62674660.48</td>
+      <td>63148839.87</td>
+      <td>63193057.50</td>
+      <td>62861731.05</td>
+      <td>62229824.30</td>
+      <td>61438704.87</td>
+      <td>60873860.99</td>
+      <td>60526567.97</td>
+      <td>60120257.77</td>
+      <td>59603198.79</td>
+      <td>59109913.69</td>
+      <td>58808172.59</td>
+      <td>58549890.24</td>
+      <td>58443557.48</td>
+      <td>52142905.49</td>
+      <td>53739720.47</td>
+      <td>54105199.32</td>
+    </tr>
+    <tr>
+      <th>100080</th>
+      <td>42652047.08</td>
+      <td>42970121.63</td>
+      <td>43666148.84</td>
+      <td>44976049.03</td>
+      <td>48548156.18</td>
+      <td>61126510.67</td>
+      <td>73266923.10</td>
+      <td>79114600.46</td>
+      <td>81624116.93</td>
+      <td>82458607.23</td>
+      <td>82118211.58</td>
+      <td>80976277.57</td>
+      <td>78914798.93</td>
+      <td>77018322.37</td>
+      <td>76040012.41</td>
+      <td>75678364.23</td>
+      <td>76032187.91</td>
+      <td>70523072.41</td>
+      <td>49785379.02</td>
+      <td>48175683.56</td>
+    </tr>
+    <tr>
+      <th>100148</th>
+      <td>185145973.22</td>
+      <td>180336217.41</td>
+      <td>174860482.96</td>
+      <td>167778606.00</td>
+      <td>158035734.75</td>
+      <td>145553533.81</td>
+      <td>131902052.96</td>
+      <td>120102252.09</td>
+      <td>111777401.54</td>
+      <td>103849914.15</td>
+      <td>96138615.72</td>
+      <td>88409898.77</td>
+      <td>81165384.75</td>
+      <td>77443930.87</td>
+      <td>77423945.02</td>
+      <td>80572644.01</td>
+      <td>86237346.59</td>
+      <td>122677394.84</td>
+      <td>228891067.62</td>
+      <td>220155730.78</td>
+    </tr>
+    <tr>
+      <th>100150</th>
+      <td>173788767.40</td>
+      <td>172738844.67</td>
+      <td>171254144.88</td>
+      <td>170248768.90</td>
+      <td>169294587.37</td>
+      <td>167296978.25</td>
+      <td>163249081.93</td>
+      <td>157810567.96</td>
+      <td>153697031.93</td>
+      <td>151154194.19</td>
+      <td>149049005.42</td>
+      <td>147403128.76</td>
+      <td>145845407.37</td>
+      <td>144940826.06</td>
+      <td>144642736.58</td>
+      <td>144657162.79</td>
+      <td>145173836.47</td>
+      <td>150836665.09</td>
+      <td>176814826.80</td>
+      <td>176304118.11</td>
+    </tr>
+    <tr>
+      <th>100205</th>
+      <td>28226509.34</td>
+      <td>28238176.09</td>
+      <td>28201691.42</td>
+      <td>28259724.45</td>
+      <td>28596455.75</td>
+      <td>29337910.06</td>
+      <td>30476169.31</td>
+      <td>32054912.64</td>
+      <td>33166910.40</td>
+      <td>33751216.56</td>
+      <td>34020670.60</td>
+      <td>34010987.85</td>
+      <td>33924703.66</td>
+      <td>33878473.95</td>
+      <td>33834178.50</td>
+      <td>33851773.20</td>
+      <td>34039954.67</td>
+      <td>28336878.91</td>
+      <td>27485001.80</td>
+      <td>27730118.86</td>
+    </tr>
+    <tr>
+      <th>100320</th>
+      <td>7938956.02</td>
+      <td>8117945.50</td>
+      <td>9059131.20</td>
+      <td>11625453.95</td>
+      <td>18760765.06</td>
+      <td>27099477.40</td>
+      <td>29725222.52</td>
+      <td>30840627.94</td>
+      <td>31704253.14</td>
+      <td>31994486.31</td>
+      <td>32081974.21</td>
+      <td>32486049.27</td>
+      <td>32742214.94</td>
+      <td>32531301.36</td>
+      <td>32246511.56</td>
+      <td>32009179.59</td>
+      <td>31876124.74</td>
+      <td>28074611.63</td>
+      <td>9180502.25</td>
+      <td>8931297.62</td>
+    </tr>
+    <tr>
+      <th>100348</th>
+      <td>36763874.52</td>
+      <td>36804761.46</td>
+      <td>37363498.79</td>
+      <td>40119459.07</td>
+      <td>49780673.91</td>
+      <td>59612440.52</td>
+      <td>60546210.00</td>
+      <td>58877353.01</td>
+      <td>57423587.98</td>
+      <td>55904948.04</td>
+      <td>54617023.09</td>
+      <td>53434339.93</td>
+      <td>52222687.49</td>
+      <td>50999411.69</td>
+      <td>49859578.74</td>
+      <td>48985449.68</td>
+      <td>48263319.06</td>
+      <td>48675752.17</td>
+      <td>41825978.41</td>
+      <td>40884313.77</td>
+    </tr>
+    <tr>
+      <th>100362</th>
+      <td>26368636.70</td>
+      <td>27728388.59</td>
+      <td>30624623.51</td>
+      <td>33663631.70</td>
+      <td>35949713.70</td>
+      <td>37114529.35</td>
+      <td>35365865.70</td>
+      <td>32464243.28</td>
+      <td>30342646.50</td>
+      <td>29245008.68</td>
+      <td>28710407.98</td>
+      <td>28285291.80</td>
+      <td>27913946.48</td>
+      <td>27670257.31</td>
+      <td>27716175.55</td>
+      <td>27885393.78</td>
+      <td>28072919.39</td>
+      <td>26859061.01</td>
+      <td>25490376.43</td>
+      <td>25236320.78</td>
+    </tr>
+    <tr>
+      <th>100381</th>
+      <td>34546547.21</td>
+      <td>33980521.36</td>
+      <td>34216914.78</td>
+      <td>36550405.47</td>
+      <td>43166371.95</td>
+      <td>50853467.15</td>
+      <td>52540481.29</td>
+      <td>51217258.47</td>
+      <td>50582446.70</td>
+      <td>51149911.18</td>
+      <td>51478257.13</td>
+      <td>51414595.54</td>
+      <td>51445932.98</td>
+      <td>51902137.77</td>
+      <td>52812497.44</td>
+      <td>53995163.13</td>
+      <td>55236354.39</td>
+      <td>50114881.42</td>
+      <td>40770344.10</td>
+      <td>39835769.91</td>
+    </tr>
+    <tr>
+      <th>100383</th>
+      <td>25795988.67</td>
+      <td>26308476.19</td>
+      <td>26836003.31</td>
+      <td>27334293.11</td>
+      <td>27774157.15</td>
+      <td>28006225.70</td>
+      <td>27873563.21</td>
+      <td>27587825.08</td>
+      <td>27239688.78</td>
+      <td>26959204.11</td>
+      <td>26615222.65</td>
+      <td>26251439.22</td>
+      <td>25925597.16</td>
+      <td>25644643.99</td>
+      <td>25377833.96</td>
+      <td>25131644.51</td>
+      <td>24954059.76</td>
+      <td>22525384.12</td>
+      <td>22741750.90</td>
+      <td>23179304.79</td>
+    </tr>
+    <tr>
+      <th>100416</th>
+      <td>14327550.22</td>
+      <td>14867988.34</td>
+      <td>15525866.19</td>
+      <td>16212338.76</td>
+      <td>16768610.61</td>
+      <td>17210767.53</td>
+      <td>17384077.67</td>
+      <td>17382776.61</td>
+      <td>17351670.19</td>
+      <td>17399072.14</td>
+      <td>17569929.93</td>
+      <td>17662096.40</td>
+      <td>17607717.00</td>
+      <td>17504066.26</td>
+      <td>17526958.10</td>
+      <td>17614586.69</td>
+      <td>17746300.34</td>
+      <td>14070753.33</td>
+      <td>12377328.13</td>
+      <td>12486886.61</td>
+    </tr>
+    <tr>
+      <th>100445</th>
+      <td>77066930.11</td>
+      <td>78113096.41</td>
+      <td>79281101.35</td>
+      <td>80374387.44</td>
+      <td>80414045.36</td>
+      <td>79388920.73</td>
+      <td>77965382.32</td>
+      <td>76888314.79</td>
+      <td>76193033.99</td>
+      <td>75997634.82</td>
+      <td>76073238.94</td>
+      <td>76199455.92</td>
+      <td>76540871.17</td>
+      <td>76762194.86</td>
+      <td>77066121.63</td>
+      <td>77503805.11</td>
+      <td>78022018.21</td>
+      <td>73733366.94</td>
+      <td>74841546.88</td>
+      <td>74679109.59</td>
+    </tr>
+    <tr>
+      <th>100501</th>
+      <td>63069155.23</td>
+      <td>67056032.59</td>
+      <td>72073387.64</td>
+      <td>77652225.77</td>
+      <td>82527294.41</td>
+      <td>85507336.40</td>
+      <td>86637820.91</td>
+      <td>86496734.21</td>
+      <td>86553635.22</td>
+      <td>85724530.95</td>
+      <td>84753991.04</td>
+      <td>84046419.11</td>
+      <td>83563565.87</td>
+      <td>83172484.45</td>
+      <td>83124369.28</td>
+      <td>83421136.71</td>
+      <td>83905492.47</td>
+      <td>72376527.08</td>
+      <td>54077488.01</td>
+      <td>54548861.85</td>
+    </tr>
+    <tr>
+      <th>100526</th>
+      <td>22544505.15</td>
+      <td>23836771.12</td>
+      <td>26709743.81</td>
+      <td>30292506.59</td>
+      <td>35255691.88</td>
+      <td>41581845.46</td>
+      <td>44553146.23</td>
+      <td>45773559.00</td>
+      <td>47273175.80</td>
+      <td>48664078.64</td>
+      <td>49266007.94</td>
+      <td>49423545.03</td>
+      <td>49745600.04</td>
+      <td>50150705.70</td>
+      <td>50419568.10</td>
+      <td>50437103.01</td>
+      <td>50349844.49</td>
+      <td>31991635.90</td>
+      <td>23335178.27</td>
+      <td>22642427.85</td>
+    </tr>
+    <tr>
+      <th>100537</th>
+      <td>46702416.06</td>
+      <td>47820613.32</td>
+      <td>49341207.21</td>
+      <td>50917615.20</td>
+      <td>53001099.49</td>
+      <td>54431675.46</td>
+      <td>53108927.39</td>
+      <td>50694715.59</td>
+      <td>49047923.70</td>
+      <td>48525274.86</td>
+      <td>48751755.58</td>
+      <td>48911946.14</td>
+      <td>48797552.66</td>
+      <td>48810764.18</td>
+      <td>48923133.92</td>
+      <td>48920405.16</td>
+      <td>48990596.68</td>
+      <td>49282686.89</td>
+      <td>45926297.86</td>
+      <td>45815307.72</td>
+    </tr>
+    <tr>
+      <th>100554</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>100555</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>100570</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>100638</th>
+      <td>61044321.01</td>
+      <td>61661966.61</td>
+      <td>62384578.93</td>
+      <td>63938272.18</td>
+      <td>66774916.68</td>
+      <td>70261121.25</td>
+      <td>71205205.51</td>
+      <td>72195166.05</td>
+      <td>73025397.90</td>
+      <td>74372216.35</td>
+      <td>75306994.13</td>
+      <td>75944766.21</td>
+      <td>76619282.71</td>
+      <td>77876457.57</td>
+      <td>79480489.47</td>
+      <td>81270224.37</td>
+      <td>82978546.89</td>
+      <td>67504282.46</td>
+      <td>62492017.18</td>
+      <td>61009966.62</td>
+    </tr>
+    <tr>
+      <th>100650</th>
+      <td>11000853.57</td>
+      <td>11253162.19</td>
+      <td>11700692.92</td>
+      <td>12590580.85</td>
+      <td>15015186.12</td>
+      <td>18397997.96</td>
+      <td>19520179.60</td>
+      <td>19656245.67</td>
+      <td>19542662.08</td>
+      <td>19167662.90</td>
+      <td>18825558.01</td>
+      <td>18366565.68</td>
+      <td>17836036.87</td>
+      <td>17157308.10</td>
+      <td>16643809.72</td>
+      <td>16234409.53</td>
+      <td>16004050.28</td>
+      <td>15791447.80</td>
+      <td>11563562.66</td>
+      <td>11412800.48</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="4-mspmamaximum-sales-probability-matching-algorithm-적용하여-각-상품별-최적-시간대-찾기">4. MSPMA(Maximum Sales Probability Matching Algorithm) 적용하여 각 상품별 최적 시간대 찾기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># maxtrix 내 선택을 위한 빈 slot 데이터프레임 만들기
+</span><span class="n">slot</span> <span class="o">=</span> <span class="n">mat</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 두 개의 취급액의 한 시간대를 놓고 경합할 경우의 확률적 선택 계산
+</span><span class="k">def</span> <span class="nf">probability_matching</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">prod1</span><span class="p">,</span> <span class="n">prod2</span><span class="p">):</span>
+    <span class="n">sale1</span> <span class="o">=</span> <span class="n">mat</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">prod1</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-15</span>
+    <span class="n">sale2</span> <span class="o">=</span> <span class="n">mat</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">prod2</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-15</span>
+    <span class="n">prob_sale1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">sale1</span> <span class="o">/</span> <span class="p">(</span><span class="n">sale1</span> <span class="o">+</span> <span class="n">sale2</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">prob_sale2</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">sale2</span> <span class="o">/</span> <span class="p">(</span><span class="n">sale1</span> <span class="o">+</span> <span class="n">sale2</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">package</span> <span class="o">=</span> <span class="p">[</span><span class="n">prod1</span><span class="p">,</span> <span class="n">prod2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">random</span><span class="p">.</span><span class="n">choices</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="n">prob_sale1</span><span class="p">,</span> <span class="n">prob_sale2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># MSPMA 알고리즘
+</span><span class="k">def</span> <span class="nf">mspma</span><span class="p">(</span><span class="n">now_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">):</span>
+    <span class="c1"># 현재 상태의 값을 slot에 표시
+</span>    <span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">now_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    
+    <span class="c1"># slot 테이블에서 max_col에 로우 두 개가 1로 된 경우
+</span>    <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">max_col</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">temp</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        
+        <span class="c1"># now_row외에 다른 1의 row위치를 찾기
+</span>        <span class="n">temp_col</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">max_col</span><span class="p">])</span>
+        <span class="n">temp_col</span><span class="p">[</span><span class="n">now_row</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">compare_row</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">temp_col</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="c1"># 확률 매칭 함수 적용
+</span>        <span class="n">result</span> <span class="o">=</span> <span class="n">probability_matching</span><span class="p">(</span><span class="n">max_col</span><span class="p">,</span> <span class="n">now_row</span><span class="p">,</span> <span class="n">compare_row</span><span class="p">)</span>
+        
+        <span class="c1"># 비교 대상(compare_row)이 선택되는 경우 (now_row의 max_col 위치가 바뀌어야 하는 상황)
+</span>        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">compare_row</span><span class="p">:</span>
+            <span class="c1"># now_row기존의 값을 -1로 대체
+</span>            <span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">now_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">mat</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">now_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            
+            <span class="c1"># now_row에 0만 있는 것들 중 가장 큰 것의 인덱스 찾기
+</span>            <span class="n">max_col</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mat</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">now_row</span><span class="p">,</span> <span class="p">:])</span>
+
+            <span class="c1"># slot에 현재 now_row에서 가장 큰 값이라고 표시
+</span>            <span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">now_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            
+            <span class="c1"># 재귀 함수
+</span>            <span class="n">mspma</span><span class="p">(</span><span class="n">now_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">)</span>
+
+        <span class="c1"># 현재 상품(now_row)이 선택되는 경우 (compare_row의 max_col 위치가 바뀌어야 하는 상황)
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># compare_row기존의 값을 -1로 대체
+</span>            <span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">compare_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">mat</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">compare_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            
+            <span class="c1"># compare_row에 0만 있는 것들 중 가장 큰 것의 인덱스 찾기
+</span>            <span class="n">max_col</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mat</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">now_row</span><span class="p">,</span> <span class="p">:])</span>
+            
+            <span class="c1"># slot에 현재 compare_row에서 가장 큰 값이라고 표시
+</span>            <span class="n">slot</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">compare_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            
+            <span class="c1"># 재귀함수
+</span>            <span class="n">mspma</span><span class="p">(</span><span class="n">compare_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 최종 구현
+</span><span class="n">start_row</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">new_col</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mat</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_row</span><span class="p">,</span> <span class="p">:])</span>   
+    <span class="n">mspma</span><span class="p">(</span><span class="n">start_row</span><span class="p">,</span> <span class="n">new_col</span><span class="p">)</span>
+    <span class="n">start_row</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">isHangul</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">pyVer3</span> <span class="o">=</span>  <span class="n">sys</span><span class="p">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pyVer3</span> <span class="p">:</span> <span class="c1"># for Ver 3 or later
+</span>        <span class="n">encText</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># for Ver 2.x
+</span>        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">unicode</span><span class="p">:</span>
+            <span class="n">encText</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">encText</span> <span class="o">=</span> <span class="n">text</span>
+
+    <span class="n">hanCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="s">u'[</span><span class="si">\</span><span class="se">u3130</span><span class="s">-</span><span class="si">\</span><span class="se">u318F</span><span class="si">\</span><span class="se">uAC00</span><span class="s">-</span><span class="si">\</span><span class="se">uD7A3</span><span class="s">]+'</span><span class="p">,</span> <span class="n">encText</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">hanCount</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">slot</span><span class="p">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">mother_code</span> <span class="o">=</span> <span class="n">slot</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">slot</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">].</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">june_1st</span><span class="p">[</span><span class="n">june_1st</span><span class="p">[</span><span class="s">'마더코드'</span><span class="p">]</span> <span class="o">==</span> <span class="n">mother_code</span><span class="p">][</span><span class="s">'상품명'</span><span class="p">]</span>
+    
+    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">name</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">j</span><span class="p">)):</span>
+            <span class="n">temp2</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">isHangul</span><span class="p">(</span><span class="n">temp2</span><span class="p">):</span>
+                <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+    <span class="k">print</span><span class="p">(</span><span class="s">'*'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'--------  '</span><span class="p">,</span> <span class="s">'------------------'</span><span class="p">,</span> <span class="s">' '</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="n">cnt</span><span class="o">+</span><span class="s">'--'</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'-------'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'|'</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="s">' |'</span><span class="p">,</span><span class="s">'-&gt; 마더코드:'</span><span class="p">,</span> <span class="n">mother_code</span><span class="p">,</span><span class="s">'| 상품:'</span><span class="p">,</span> <span class="nb">set</span><span class="p">(</span><span class="n">name</span><span class="p">.</span><span class="n">values</span><span class="p">),</span><span class="s">'|'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'--------  '</span><span class="p">,</span> <span class="s">'------------------'</span><span class="p">,</span> <span class="s">' '</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="n">cnt</span><span class="o">+</span><span class="s">'--'</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'-------'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'-------  '</span><span class="p">,</span> <span class="s">'------------------'</span><span class="p">,</span> <span class="s">' '</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="n">cnt</span><span class="o">+</span><span class="s">'--'</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'------'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'|'</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="s">' |'</span><span class="p">,</span><span class="s">'-&gt; 마더코드:'</span><span class="p">,</span> <span class="n">mother_code</span><span class="p">,</span><span class="s">'| 상품:'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">+</span><span class="s">'|'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'-------  '</span><span class="p">,</span> <span class="s">'------------------'</span><span class="p">,</span> <span class="s">' '</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="n">cnt</span><span class="o">+</span><span class="s">'--'</span><span class="o">+</span><span class="s">'-'</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s">'------'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+-------   ------------------  --------------------------------------------
+| 6시 | -&gt; 마더코드: 100554 | 상품: {'DB손해보험 참좋은운전자보험(1912)'}|
+-------   ------------------  --------------------------------------------
+*
+-------   ------------------  ------------------------------------------------
+| 7시 | -&gt; 마더코드: 100555 | 상품: {'디비손보 아임오케이 암보험(20.05런칭)'}|
+-------   ------------------  ------------------------------------------------
+*
+-------   ------------------  -----------------------------------------------
+| 8시 | -&gt; 마더코드: 100362 | 상품: {'에이유플러스 슈퍼선스틱 1004(최저가)'}|
+-------   ------------------  -----------------------------------------------
+*
+-------   ------------------  -----------------------------------------------
+| 9시 | -&gt; 마더코드: 100445 | 상품: {'쿠미투니카 쿨 레이시 란쥬쉐이퍼&amp;팬티'}|
+-------   ------------------  -----------------------------------------------
+*
+--------   ------------------  ---------------------------------
+| 10시 | -&gt; 마더코드: 100012 | 상품: {'AAC 삼채포기김치 10kg'} |
+--------   ------------------  ---------------------------------
+*
+--------   ------------------  ----------------------------------------
+| 11시 | -&gt; 마더코드: 100537 | 상품: {'[기간]제주바다자연산돔39마리'} |
+--------   ------------------  ----------------------------------------
+*
+--------   ------------------  -------------------------------------
+| 12시 | -&gt; 마더코드: 100650 | 상품: {'잭필드 남성  반팔셔츠 4종'} |
+--------   ------------------  -------------------------------------
+*
+--------   ------------------  -------------------------------------------------------------------------------------------------------------------------
+| 13시 | -&gt; 마더코드: 100383 | 상품: {'한라궁 황칠 제주오메기떡 2종 40개 (호박오메기20봉+팥오메기20봉)', '한라궁 황칠 제주오메기떡 40개 (60g * 40봉)'} |
+--------   ------------------  -------------------------------------------------------------------------------------------------------------------------
+*
+--------   ------------------  ----------------------------------------------------------
+| 14시 | -&gt; 마더코드: 100501 | 상품: {'파격가 노비타 스마트 비데 무료설치(변기세정제)'} |
+--------   ------------------  ----------------------------------------------------------
+*
+--------   ------------------  ---------------------------------------------
+| 15시 | -&gt; 마더코드: 100348 | 상품: {'벨레즈온 심리스 원피스 4종 패키지'} |
+--------   ------------------  ---------------------------------------------
+*
+--------   ------------------  --------------------------------------------------------------------------------------------------------------------------------------------------------
+| 16시 | -&gt; 마더코드: 100205 | 상품: {'보루네오 델루나 유로탑 슬라이딩 LED침대 슈퍼싱글', '보루네오 델루나 유로탑 슬라이딩 LED침대 퀸', '보루네오 델루나 유로탑 슬라이딩 LED침대 킹'} |
+--------   ------------------  --------------------------------------------------------------------------------------------------------------------------------------------------------
+*
+--------   ------------------  -----------------------------------------
+| 17시 | -&gt; 마더코드: 100416 | 상품: {'코몽트 남성 티셔츠 8종(시즌1)'} |
+--------   ------------------  -----------------------------------------
+*
+--------   ------------------  ------------------------------------------------------------
+| 18시 | -&gt; 마더코드: 100080 | 상품: {'아키 라이크라 릴렉스 보정브라 패키지(뉴아키28차)'} |
+--------   ------------------  ------------------------------------------------------------
+*
+--------   ------------------  ------------------------------------------------------------------
+| 19시 | -&gt; 마더코드: 100320 | 상품: {'올바로 문어발 샤워기 1세트', '올바로 문어발 샤워기 1+1'} |
+--------   ------------------  ------------------------------------------------------------------
+*
+--------   ------------------  ----------------------------------------
+| 20시 | -&gt; 마더코드: 100381 | 상품: {'바비리스 퍼펙트 볼륨스타일러'} |
+--------   ------------------  ----------------------------------------
+*
+--------   ------------------  -------------------------------------------------------------
+| 21시 | -&gt; 마더코드: 100526 | 상품: {'소노비 줄리엣 소가죽 토트백 1종+투숄더 버킷백 1종'} |
+--------   ------------------  -------------------------------------------------------------
+*
+--------   ------------------  -------------------------------
+| 22시 | -&gt; 마더코드: 100638 | 상품: {'램프쿡 자동회전냄비'} |
+--------   ------------------  -------------------------------
+*
+--------   ------------------  ---------------------------------------------------------------------
+| 23시 | -&gt; 마더코드: 100570 | 상품: {'(특)KT휴대폰_삼성갤럭시 A31', 'KT휴대폰_삼성갤럭시 노트10'} |
+--------   ------------------  ---------------------------------------------------------------------
+*
+-------   ------------------  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| 0시 | -&gt; 마더코드: 100148 | 상품: {'LG 울트라HD TV AI ThinQ(인공지능 씽큐) 65형 65UN7850KNA', 'LG 울트라HD TV AI ThinQ(인공지능 씽큐) 55형 55UN7850KNA', 'LG 울트라HD TV AI ThinQ(인공지능 씽큐) 75형 75UN7850KNA'}|
+-------   ------------------  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*
+-------   ------------------  -----------------------------------------------
+| 1시 | -&gt; 마더코드: 100150 | 상품: {'LG전자 통돌이 세탁기 TR14WK1(화이트)'}|
+-------   ------------------  -----------------------------------------------
+</code></pre></div></div>
+
+<h2 id="-참고-기존의-편성표-취급액-합과-mspma-적용-후-편성표-취급액-합-비교">* 참고: 기존의 편성표 취급액 합과 MSPMA 적용 후 편성표 취급액 합 비교</h2>
+
+<p>기존의 취급액 합</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sclr</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+<span class="n">sclr</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">june_1st</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+<span class="n">test_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sclr</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">june_1st</span><span class="p">[</span><span class="n">col</span><span class="p">]),</span> <span class="n">columns</span><span class="o">=</span><span class="n">june_1st</span><span class="p">[</span><span class="n">col</span><span class="p">].</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># model 생성
+</span><span class="n">input_layer</span> <span class="o">=</span> <span class="n">Input</span><span class="p">((</span><span class="n">test_scaled</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">output_layer</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">input_layer</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">input_layer</span><span class="p">,</span> <span class="n">output_layer</span><span class="p">)</span>
+
+<span class="c1"># model 가중치 불러오기
+</span><span class="n">model</span><span class="p">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s">'/content/drive/Shared drives/빅콘테스트2020/weights/ds/functional_3.44-35.0913.hdf5'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 수량 예측
+</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_scaled</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sum</span><span class="p">(</span><span class="n">june_1st</span><span class="p">[</span><span class="s">'판매단가'</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>862979925.8163452
+</code></pre></div></div>
+
+<p>MSPMA 이후 취급액 합</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">new_sum</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">slot</span><span class="p">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">mother_code</span> <span class="o">=</span> <span class="n">slot</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">slot</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">].</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">new_sum</span> <span class="o">+=</span> <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">mother_code</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">new_sum</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1172698313.564705
+</code></pre></div></div>
+
+<p>기존과 MSPMA 적용 후의 취급액 합 차이 비교</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'before'</span><span class="p">:</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">june_1st</span><span class="p">[</span><span class="s">'판매단가'</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_pred</span><span class="p">)],</span> <span class="s">'after'</span><span class="p">:[</span><span class="n">new_sum</span><span class="p">]}).</span><span class="n">T</span>
+<span class="n">df</span><span class="p">.</span><span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s">'취급액'</span><span class="p">]</span>
+<span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="p">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">"index"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"취급액"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f9004dae828&gt;
+
+
+
+findfont: Font family ['Malgun Gothic'] not found. Falling back to DejaVu Sans.
+/usr/local/lib/python3.6/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 52712 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/usr/local/lib/python3.6/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 44553 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/usr/local/lib/python3.6/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning: Glyph 50529 missing from current font.
+  font.set_text(s, 0.0, flags=flags)
+/usr/local/lib/python3.6/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 52712 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/usr/local/lib/python3.6/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 44553 missing from current font.
+  font.set_text(s, 0, flags=flags)
+/usr/local/lib/python3.6/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning: Glyph 50529 missing from current font.
+  font.set_text(s, 0, flags=flags)
+</code></pre></div></div>
+
+<p><img src="/assets/img/2020_big_contest/output_65_2.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+    
+
+
+
+<div class="post-tags">
+  
+    
+    <a href="/tags.html#python">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">python</span>
+    </a>
+  
+    
+    <a href="/tags.html#deep-learning">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">deep learning</span>
+    </a>
+  
+    
+    <a href="/tags.html#cnn">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">CNN</span>
+    </a>
+  
+    
+    <a href="/tags.html#bipartite-graph-matching-alogirthm">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">Bipartite Graph Matching Alogirthm</span>
+    </a>
+  
+    
+    <a href="/tags.html#genetic-algorithm">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">Genetic Algorithm</span>
+    </a>
+  
+</div>
+  </div>
+
+  
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/2020/09/28/02_NS_shop_code_final.html">
+            2020 Big Contest - 2
+            <small>28 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/09/28/01_MSPMA_design.html">
+            2020 Big Contest - 1
+            <small>28 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/06/29/03_preprocessing_modeling.html">
+            Year Prediction by Movie Posters using CNN - 3
+            <small>29 Jun 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
+</div>
+
+    </main>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>
