@@ -205,7 +205,7 @@
 </header>
 <div class="content">
   <div class="post-meta">
-  <span class="post-date">08 Jun 2021</span>
+  <span class="post-date">13 Jun 2021</span>
   <span class="post-categories">
     
   </span>
@@ -422,6 +422,145 @@
   <li>특정 키 입력을 확인하려면 ord() 함수 이용</li>
   <li>주요 특수키 코드: 27(ESC), 13(ENTER), 9(TAB)</li>
 </ul>
+
+<p><br /></p>
+
+<h3 id="matplotlib-사용하여-영상-출력하기">Matplotlib 사용하여 영상 출력하기</h3>
+
+<ul>
+  <li>컬러 영상 출력
+    <ul>
+      <li>컬러 영상 색상 정보가 RGB 순서이어야 함</li>
+      <li>cv2.imread() 함수로 불러온 영상은 BGR 순서이므로 RGB 순서로 변경해야 함 → cv2.cvtColor() 함수 이용</li>
+    </ul>
+  </li>
+  <li>그레이스케일 영상 출력
+    <ul>
+      <li>plt.imshow() 함수에서 컬러맵을 cmap=’gray’로 지정</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="c1"># 컬러 영상 출력
+</span><span class="n">imgBGR</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'cat.bmp'</span><span class="p">)</span>
+<span class="c1"># BGR 순서를 RGB 순서로 변경
+</span><span class="n">imgRGB</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imgBGR</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imgRGB</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 그레이스케일 영상 출력
+# 2차원 행렬의 밝기값만 저장
+</span><span class="n">imgGray</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'cat.bmp'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
+<span class="c1"># cmap='gray' 해주어야 그레이스케일 출력 가능
+</span><span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imgGray</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 두 개의 영상을 함께 출력
+# plt.subplot(행개수 열개수 순번)
+</span><span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imgRGB</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imgGray</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="이미지-슬라이드쇼">이미지 슬라이드쇼</h3>
+
+<ul>
+  <li>특정 폴더에 있는 이미지 파일(*.jpg) 목록 읽기
+    <ul>
+      <li>os.listdir()</li>
+    </ul>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">os</span>
+
+  <span class="n">file_list</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">'./images'</span><span class="p">)</span>
+  <span class="c1"># jpg만 발라내기
+</span>  <span class="n">img_files</span> <span class="o">=</span> <span class="p">[</span><span class="nb">file</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">file_list</span> <span class="k">if</span> <span class="nb">file</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">'.jpg'</span><span class="p">)]</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>glob.glob()</li>
+    </ul>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">glob</span>
+
+  <span class="c1"># 특정 패턴 문자열 불러오기
+</span>  <span class="n">img_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">'./images/*.jpg'</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>전체 화면 영상 출력 창 만들기</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 전체 화면으로 'image' 창 생성
+# 전체화면 가능하게 하기 위해 cv2.WINDOW_NORMAL 속성으로 설정
+</span><span class="n">cv2</span><span class="p">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">WINDOW_NORMAL</span><span class="p">)</span>
+<span class="c1"># 전체화면 속성 설정
+</span><span class="n">cv2</span><span class="p">.</span><span class="n">setWindowProperty</span><span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">WND_PROP_FULLSCREEN</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">WINDOW_FULLSCREEN</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>이미지 슬라이드쇼 전체 코드</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="c1"># 이미지 파일을 모두 img_files 리스트에 추가
+# glob.glob(): 특정 패턴 문자열 불러오기
+</span><span class="n">img_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">'./images/*.jpg'</span><span class="p">)</span>
+
+<span class="c1"># 파일 이름 리스트 출력해서 확인해보기
+</span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">img_files</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">img_files</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"There are no jpg files in 'images' folder"</span><span class="p">)</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">()</span>
+
+<span class="c1"># 전체 화면으로 'image' 창 생성
+# 전체화면 가능하게 하기 위해 cv2.WINDOW_NORMAL 속성으로 설정
+</span><span class="n">cv2</span><span class="p">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">WINDOW_NORMAL</span><span class="p">)</span>
+<span class="c1"># 전체화면 속성 설정
+</span><span class="n">cv2</span><span class="p">.</span><span class="n">setWindowProperty</span><span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">WND_PROP_FULLSCREEN</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">WINDOW_FULLSCREEN</span><span class="p">)</span>
+
+<span class="c1"># 무한 루프
+# 파일 개수 변수 만들기
+</span><span class="n">cnt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">img_files</span><span class="p">)</span>
+<span class="c1"># 인덱스 변수 만들기
+</span><span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="c1"># 이미지 불러오기
+</span>    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">img_files</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+
+    <span class="c1"># 제대로 불러왔는지 확인
+</span>    <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Image load failed!'</span><span class="p">)</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 이미지 출력하기
+</span>    <span class="n">cv2</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">'image'</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+    <span class="c1"># 대기 시간 1초(1000ms)
+</span>    <span class="c1"># 만약 1초를 기다렸는데 ESC키가 눌러지지 않는 경우 -1을 리턴하여 계속 while 루프를 돌게 함
+</span>    <span class="k">if</span> <span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>  <span class="c1"># ESC
+</span>        <span class="k">break</span>
+
+    <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># 인덱스가 개수보다 커지거나 같은 경우 0으로 초기화
+</span>    <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="n">cnt</span><span class="p">:</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">cv2</span><span class="p">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div></div>
 
 <p><br /></p>
 
