@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      Pytorch Computer Vision Ch01 &middot; Data Flows in You
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://5hyunkwon.github.io/favicon.png" />
+<link rel="shortcut icon" href="https://5hyunkwon.github.io/favicon.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <header>
+    <div class="site-title">
+      <a href="/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Data Flows in You
+      </a>
+    </div>
+    <p class="lead"><a href="https://en.wikipedia.org/wiki/Data_science" target="_blank">Data Scientist</a>: The Sexiest Job of the 21st Century</p>
+  </header>
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/about.html">About</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <nav id="sidebar-icon-links">
+  
+  
+  
+  
+
+  
+    <a id="tags-link"
+       class="icon"
+       title="Tags" aria-label="Tags"
+       href="/tags.html">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+    </a>
+  
+
+  <a id="github-link"
+    class="icon" title="Github" aria-label="Github"
+    href="https://github.com/5hyunkwon"
+    target="_blank">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" height="24" width="28"><path d="M12 2c6.625 0 12 5.375 12 12 0 5.297-3.437 9.797-8.203 11.391-0.609 0.109-0.828-0.266-0.828-0.578 0-0.391 0.016-1.687 0.016-3.297 0-1.125-0.375-1.844-0.812-2.219 2.672-0.297 5.484-1.313 5.484-5.922 0-1.313-0.469-2.375-1.234-3.219 0.125-0.313 0.531-1.531-0.125-3.187-1-0.313-3.297 1.234-3.297 1.234-0.953-0.266-1.984-0.406-3-0.406s-2.047 0.141-3 0.406c0 0-2.297-1.547-3.297-1.234-0.656 1.656-0.25 2.875-0.125 3.187-0.766 0.844-1.234 1.906-1.234 3.219 0 4.594 2.797 5.625 5.469 5.922-0.344 0.313-0.656 0.844-0.766 1.609-0.688 0.313-2.438 0.844-3.484-1-0.656-1.141-1.844-1.234-1.844-1.234-1.172-0.016-0.078 0.734-0.078 0.734 0.781 0.359 1.328 1.75 1.328 1.75 0.703 2.141 4.047 1.422 4.047 1.422 0 1 0.016 1.937 0.016 2.234 0 0.313-0.219 0.688-0.828 0.578-4.766-1.594-8.203-6.094-8.203-11.391 0-6.625 5.375-12 12-12zM4.547 19.234c0.031-0.063-0.016-0.141-0.109-0.187-0.094-0.031-0.172-0.016-0.203 0.031-0.031 0.063 0.016 0.141 0.109 0.187 0.078 0.047 0.172 0.031 0.203-0.031zM5.031 19.766c0.063-0.047 0.047-0.156-0.031-0.25-0.078-0.078-0.187-0.109-0.25-0.047-0.063 0.047-0.047 0.156 0.031 0.25 0.078 0.078 0.187 0.109 0.25 0.047zM5.5 20.469c0.078-0.063 0.078-0.187 0-0.297-0.063-0.109-0.187-0.156-0.266-0.094-0.078 0.047-0.078 0.172 0 0.281s0.203 0.156 0.266 0.109zM6.156 21.125c0.063-0.063 0.031-0.203-0.063-0.297-0.109-0.109-0.25-0.125-0.313-0.047-0.078 0.063-0.047 0.203 0.063 0.297 0.109 0.109 0.25 0.125 0.313 0.047zM7.047 21.516c0.031-0.094-0.063-0.203-0.203-0.25-0.125-0.031-0.266 0.016-0.297 0.109s0.063 0.203 0.203 0.234c0.125 0.047 0.266 0 0.297-0.094zM8.031 21.594c0-0.109-0.125-0.187-0.266-0.172-0.141 0-0.25 0.078-0.25 0.172 0 0.109 0.109 0.187 0.266 0.172 0.141 0 0.25-0.078 0.25-0.172zM8.937 21.438c-0.016-0.094-0.141-0.156-0.281-0.141-0.141 0.031-0.234 0.125-0.219 0.234 0.016 0.094 0.141 0.156 0.281 0.125s0.234-0.125 0.219-0.219z"></path>
+</svg>
+
+  </a>
+
+  <!-- Optional additional links to insert for icons links -->
+<a id="facebook-link"
+   class="icon" title="Facebook" aria-label="Facebook"
+   href="https://www.facebook.com/5hyunkwon"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+</a>
+
+<a id="instagram-link"
+   class="icon" title="Instagram" aria-label="Instagram"
+   href="https://www.instagram.com/5hyun_kwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M17.34,5.46h0a1.2,1.2,0,1,0,1.2,1.2A1.2,1.2,0,0,0,17.34,5.46Zm4.6,2.42a7.59,7.59,0,0,0-.46-2.43,4.94,4.94,0,0,0-1.16-1.77,4.7,4.7,0,0,0-1.77-1.15,7.3,7.3,0,0,0-2.43-.47C15.06,2,14.72,2,12,2s-3.06,0-4.12.06a7.3,7.3,0,0,0-2.43.47A4.78,4.78,0,0,0,3.68,3.68,4.7,4.7,0,0,0,2.53,5.45a7.3,7.3,0,0,0-.47,2.43C2,8.94,2,9.28,2,12s0,3.06.06,4.12a7.3,7.3,0,0,0,.47,2.43,4.7,4.7,0,0,0,1.15,1.77,4.78,4.78,0,0,0,1.77,1.15,7.3,7.3,0,0,0,2.43.47C8.94,22,9.28,22,12,22s3.06,0,4.12-.06a7.3,7.3,0,0,0,2.43-.47,4.7,4.7,0,0,0,1.77-1.15,4.85,4.85,0,0,0,1.16-1.77,7.59,7.59,0,0,0,.46-2.43c0-1.06.06-1.4.06-4.12S22,8.94,21.94,7.88ZM20.14,16a5.61,5.61,0,0,1-.34,1.86,3.06,3.06,0,0,1-.75,1.15,3.19,3.19,0,0,1-1.15.75,5.61,5.61,0,0,1-1.86.34c-1,.05-1.37.06-4,.06s-3,0-4-.06A5.73,5.73,0,0,1,6.1,19.8,3.27,3.27,0,0,1,5,19.05a3,3,0,0,1-.74-1.15A5.54,5.54,0,0,1,3.86,16c0-1-.06-1.37-.06-4s0-3,.06-4A5.54,5.54,0,0,1,4.21,6.1,3,3,0,0,1,5,5,3.14,3.14,0,0,1,6.1,4.2,5.73,5.73,0,0,1,8,3.86c1,0,1.37-.06,4-.06s3,0,4,.06a5.61,5.61,0,0,1,1.86.34A3.06,3.06,0,0,1,19.05,5,3.06,3.06,0,0,1,19.8,6.1,5.61,5.61,0,0,1,20.14,8c.05,1,.06,1.37.06,4S20.19,15,20.14,16ZM12,6.87A5.13,5.13,0,1,0,17.14,12,5.12,5.12,0,0,0,12,6.87Zm0,8.46A3.33,3.33,0,1,1,15.33,12,3.33,3.33,0,0,1,12,15.33Z"/></svg>
+</a>
+
+<a id="linkedin-link"
+   class="icon" title="Linkedin" aria-label="Linkedin"
+   href="https://www.linkedin.com/in/5hyunkwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M20.47,2H3.53A1.45,1.45,0,0,0,2.06,3.43V20.57A1.45,1.45,0,0,0,3.53,22H20.47a1.45,1.45,0,0,0,1.47-1.43V3.43A1.45,1.45,0,0,0,20.47,2ZM8.09,18.74h-3v-9h3ZM6.59,8.48h0a1.56,1.56,0,1,1,0-3.12,1.57,1.57,0,1,1,0,3.12ZM18.91,18.74h-3V13.91c0-1.21-.43-2-1.52-2A1.65,1.65,0,0,0,12.85,13a2,2,0,0,0-.1.73v5h-3s0-8.18,0-9h3V11A3,3,0,0,1,15.46,9.5c2,0,3.45,1.29,3.45,4.06Z"/></svg>
+</a>
+</nav>
+
+  <p>
+  &copy; 2021.
+  <a href="/LICENSE.md">MIT License.</a>
+</p>
+
+</div>
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">Pytorch Computer Vision Ch01</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">20 Jul 2021</span>
+  <span class="post-categories">
+    
+  </span>
+</div>
+
+
+  <div class="post-body">
+    <h2 id="loading-and-processing-data">Loading and processing data</h2>
+
+<h3 id="1-data-load">1. Data Load</h3>
+
+<h4 id="mnist-dataset-load">MNIST Dataset Load</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">path2data</span> <span class="o">=</span> <span class="s">'./data'</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># train_data = datasets.MNIST(path2data, train=True, download=True)
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to ./data/MNIST/raw/train-images-idx3-ubyte.gz
+
+
+
+0it [00:00, ?it/s]
+
+
+Extracting ./data/MNIST/raw/train-images-idx3-ubyte.gz to ./data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to ./data/MNIST/raw/train-labels-idx1-ubyte.gz
+
+
+
+0it [00:00, ?it/s]
+
+
+Extracting ./data/MNIST/raw/train-labels-idx1-ubyte.gz to ./data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw/t10k-images-idx3-ubyte.gz
+
+
+
+0it [00:00, ?it/s]
+
+
+Extracting ./data/MNIST/raw/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+
+
+
+0it [00:00, ?it/s]
+
+
+Extracting ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw
+Processing...
+Done!
+
+
+/Users/ohhyunkwon/.virtualenvs/torch_oh/lib/python3.6/site-packages/torchvision/datasets/mnist.py:480: UserWarning: The given NumPy array is not writeable, and PyTorch does not support non-writeable tensors. This means you can write to the underlying (supposedly non-writeable) NumPy array using the tensor. You may want to copy the array to protect its data or make it writeable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at  ../torch/csrc/utils/tensor_numpy.cpp:141.)
+  return torch.from_numpy(parsed.astype(m[2], copy=False)).view(*s)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">path2data</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_data</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Dataset MNIST
+    Number of datapoints: 60000
+    Root location: ./data
+    Split: Train
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">.</span><span class="n">data</span><span class="p">,</span> <span class="n">train_data</span><span class="p">.</span><span class="n">targets</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y_train</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([60000, 28, 28])
+torch.Size([60000])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># val_data = datasets.MNIST(path2data, train=False, download=True)
+</span><span class="n">val_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">path2data</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">val_data</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Dataset MNIST
+    Number of datapoints: 10000
+    Root location: ./data
+    Split: Test
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">val_data</span><span class="p">.</span><span class="n">data</span><span class="p">,</span> <span class="n">val_data</span><span class="p">.</span><span class="n">targets</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_val</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y_val</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([10000, 28, 28])
+torch.Size([10000])
+</code></pre></div></div>
+
+<h4 id="add-new-dimension-to-tensors">Add New Dimension to Tensors</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># unsqueeze(): 특정 위치에 1인 차원 추가
+</span><span class="k">print</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x_train</span><span class="p">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([60000, 28, 28]) torch.Size([60000, 1, 28, 28])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_val</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">x_val</span> <span class="o">=</span> <span class="n">x_val</span><span class="p">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_val</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([60000, 1, 28, 28])
+torch.Size([10000, 1, 28, 28])
+</code></pre></div></div>
+
+<h4 id="display-sample-images">Display Sample Images</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># retina 옵션으로 해상도 올리기
+</span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span>
+<span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s">'retina'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="c1"># 텐서를 넘파이 array로 변환
+</span>    <span class="n">npimg</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="c1"># H * W * C 모양으로 변환
+</span>    <span class="c1"># np.transpose(대상, (바꾸고자하는 기존 차원 순서))
+</span>    <span class="n">npimg_tr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">npimg</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">npimg_tr</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s">'nearest'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 40개의 이미지 격자 만들기 (한 행에 8개씩)
+# padding 2로 각 숫자 사이 빈 공간 및 상하좌우 여백 조금씩 두게 함
+</span><span class="n">x_grid</span> <span class="o">=</span> <span class="n">utils</span><span class="p">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">x_train</span><span class="p">[:</span><span class="mi">40</span><span class="p">],</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_grid</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([3, 152, 242])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">show</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch01/output_20_0.png" alt="png" /></p>
+
+<h3 id="2-data-transformation">2. Data Transformation</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># torchvisison.Compose(): Composes several transforms together
+</span><span class="n">data_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="c1"># torchvision.transforms.RandomHorizontalFlip(p=0.5): Horizontally flip the given image randomly with a given probability
+</span>    <span class="n">transforms</span><span class="p">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="c1"># torchvision.transforms.RandomVerticalFlip(p=0.5): Vertically flip the given image randomly with a given probability
+</span>    <span class="n">transforms</span><span class="p">.</span><span class="n">RandomVerticalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="c1"># torchvision.transforms.ToTensor(): Convert a PIL Image or numpy.ndarray to tensor
+</span>    <span class="c1"># 
+</span>    <span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+<span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data_transform</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Compose(
+    RandomHorizontalFlip(p=1)
+    RandomVerticalFlip(p=1)
+    ToTensor()
+)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get a sample image from training dataset
+</span><span class="n">img</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">img</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch01/output_25_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># transform sample image
+</span><span class="n">img_tr</span> <span class="o">=</span> <span class="n">data_transform</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># convert tensor to numpy array
+</span><span class="n">img_tr_np</span> <span class="o">=</span> <span class="n">img_tr</span><span class="p">.</span><span class="n">numpy</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># show original and transformed images
+</span><span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'original'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_tr_np</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'transformed'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'transformed')
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch01/output_28_1.png" alt="png" /></p>
+
+<p>MNIST 불러오면서 바로 transformations까지 같이 진행</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># train_data = datasets.MNIST(path2data, train=True, download=True, transform=data_transform)
+</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">path2data</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">data_transform</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_data</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Dataset MNIST
+    Number of datapoints: 60000
+    Root location: ./data
+    Split: Train
+    StandardTransform
+Transform: Compose(
+               RandomHorizontalFlip(p=1)
+               RandomVerticalFlip(p=1)
+               ToTensor()
+           )
+</code></pre></div></div>
+
+<h3 id="3-wrapping-tensors-into-a-dataset">3. Wrapping tensors into a dataset</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">TensorDataset</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># pytorch dataset 만들기
+</span><span class="n">train_ds</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">val_ds</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="p">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([1, 28, 28]) 5
+</code></pre></div></div>
+
+<h3 id="4-creating-data-loaders">4. Creating data loaders</h3>
+
+<p><code class="highlighter-rouge">DataLoader</code>: Combines a dataset and a sampler, and provides an iterable over the given dataset.</p>
+
+<p>The DataLoader supports both map-style and iterable-style datasets with single- or multi-process loading, customizing loading order and optional automatic batching (collation) and memory pinning.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># data loaders for training / validation datasets
+</span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create a data loader from dataset
+</span><span class="n">train_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">val_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">val_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># iterate over batches
+</span><span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">train_dl</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">xb</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">yb</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([8, 1, 28, 28])
+torch.Size([8])
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="building-models">Building models</h2>
+
+<p><code class="highlighter-rouge">nn</code>: collection of modules that provide common deep learning layers</p>
+<ul>
+  <li>a module of layer of <code class="highlighter-rouge">nn</code> receives input tensors, computes output tensors, and holds the weights</li>
+  <li><code class="highlighter-rouge">nn.Sequential</code>, <code class="highlighter-rouge">nn.Module</code></li>
+</ul>
+
+<h3 id="1-defining-a-linear-layer">1. Defining a linear layer</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># input tensor dimension 64 * 1000
+# torch.randn(size): Returns a tensor filled with random numbers from a normal distribution with mean 0 and variance 1 (also called the standard normal distribution)
+</span><span class="n">input_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># linear layer with 1000 inputs and 100 outputs
+# torch.nn.Linear(in_features, out_features, ...): Applies a linear transformation to the incoming data
+</span><span class="n">linear_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># output of the linear layer
+</span><span class="n">output</span> <span class="o">=</span> <span class="n">linear_layer</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([64, 100])
+</code></pre></div></div>
+
+<h3 id="2-defining-models-using-nnsequential">2. Defining models using nn.Sequential</h3>
+
+<p><code class="highlighter-rouge">nn.Sequential</code>: A sequential container. Modules will be added to it in the order they are passed in the constructor.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define a two-layer model
+# input layer nodes: 4, hidden layer nodes: 5, output layer nodes: 1
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Sequential</span><span class="p">(</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">ReLU</span><span class="p">(),</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sequential(
+  (0): Linear(in_features=4, out_features=5, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=5, out_features=1, bias=True)
+)
+</code></pre></div></div>
+
+<h3 id="3-defining-models-using-nnmodule">3. Defining models using nn.Module</h3>
+
+<p><code class="highlighter-rouge">nn.Module</code>: Base class for all neural network modules.</p>
+
+<p>Your models should also subclass this class.</p>
+
+<p>Modules can also contain other Modules, allowing to nest them in a tree structure. You can assign the submodules as regular attributes</p>
+<ul>
+  <li>This method provides better flexibility for building customized models.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="n">F</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># implement bulk of the class
+# model has two convolutional layers and two fully connected layers
+</span><span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net()
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">torch.nn.Conv2d</code></p>
+
+<p>torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True, padding_mode=’zeros’, device=None, dtype=None)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define __init__, forward function
+</span><span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Tensor.view(*shape) → Tensor: Returns a new tensor with the same data as the self tensor but of a different shape.
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># torch.nn.functional.log_softmax(input, dim=None, ...): Applies a softmax followed by a logarithm.
+</span>        <span class="c1"># dim(int): A dimension along which log_softmax will be computed.
+</span>        <span class="k">return</span> <span class="n">F</span><span class="p">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net(
+  (conv1): Conv2d(1, 20, kernel_size=(5, 5), stride=(1, 1))
+  (conv2): Conv2d(20, 50, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=800, out_features=500, bias=True)
+  (fc2): Linear(in_features=500, out_features=10, bias=True)
+)
+</code></pre></div></div>
+
+<h4 id="moving-the-model-to-a-cuda-device-local-mac-does-not-support">Moving the model to a CUDA device (local MAC does not support)</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">()).</span><span class="n">device</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpu
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># device = torch.device("cuda:0")
+# model.to(device)
+# print(next(model.parameters()).device)
+</span></code></pre></div></div>
+
+<h3 id="4-printing-the-model-summary">4. Printing the model summary</h3>
+
+<p><code class="highlighter-rouge">torchsummary</code>: package to get a summary of the model to see the output shape and the number of parameters in each layer.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torchsummary</span> <span class="kn">import</span> <span class="n">summary</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">input_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1           [-1, 20, 24, 24]             520
+            Conv2d-2             [-1, 50, 8, 8]          25,050
+            Linear-3                  [-1, 500]         400,500
+            Linear-4                   [-1, 10]           5,010
+================================================================
+Total params: 431,080
+Trainable params: 431,080
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.00
+Forward/backward pass size (MB): 0.12
+Params size (MB): 1.64
+Estimated Total Size (MB): 1.76
+----------------------------------------------------------------
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="defining-the-loss-function-and-optimizer">Defining the loss function and optimizer</h2>
+
+<p><strong>loss function</strong>: computes the distance between the model outputs and targets. (objective function, cost function, criterion)</p>
+<ul>
+  <li>e.g. classification problems: cross-entropy loss</li>
+</ul>
+
+<p><strong>optimizer</strong>: updates the model parameters (also called weights) during training.</p>
+<ul>
+  <li><code class="highlighter-rouge">optim</code>: provides implementations of various optimization alogrithms.</li>
+  <li>e.g. Stochastic Gradient Descent(SGD), Adam, RMSprop</li>
+</ul>
+
+<h3 id="1-defining-the-loss-function">1. Defining the loss function</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># defining a loss function, testing it on a mini-batch
+# nn.NLLLoss(): The negative log likelihood loss. It is useful to train a classification problem with C classes.
+# If provided, the optional argument weight should be a 1D Tensor assigning weight to each of the classes.
+# This is particularly useful when you have an unbalanced training set.
+</span><span class="n">loss_func</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">NLLLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s">'sum'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># test the loss function on a mini-batch
+</span><span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">train_dl</span><span class="p">:</span>
+    <span class="c1"># move batch to cuda device
+</span>    <span class="c1"># xb = xb.type(torch.float).to(device)
+</span>    <span class="c1"># yb = yb.to(device)
+</span>    
+    <span class="c1"># get model output
+</span>    <span class="n">xb</span> <span class="o">=</span> <span class="n">xb</span><span class="p">.</span><span class="nb">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
+    
+    <span class="c1"># calculate loss value
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">yb</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">loss</span><span class="p">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>68.28255462646484
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># compute gradients
+</span><span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="2-defining-the-optimizer">2. Defining the optimizer</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">optim</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># iterable parameters
+</span><span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;generator object Module.parameters at 0x7fda47b270f8&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">param</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([20, 1, 5, 5])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># defining Adam optimizer
+# torch.optim.Adam(params, ...)
+# params(iterable): iterable of parameters to optimize or dicts defining parameter groups
+</span><span class="n">opt</span> <span class="o">=</span> <span class="n">optim</span><span class="p">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">opt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0001
+    weight_decay: 0
+)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># update model parameters
+# torch.optim.Adam.step: Performs a single optimization step.
+</span><span class="n">opt</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set gradients to zero
+# torch.optim.Adam.zero_grad: Sets the gradients of all optimized 'torch.Tensor's to zero.
+</span><span class="n">opt</span><span class="p">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="3-training-and-evaluation">3. Training and evaluation</h3>
+
+<h4 id="develop-a-helper-function-to-compute-the-loss-value-per-mini-batch">Develop a helper function to compute the loss value per mini-batch</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">loss_batch</span><span class="p">(</span><span class="n">loss_func</span><span class="p">,</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span><span class="p">,</span> <span class="n">yb_h</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="c1"># obtain loss
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">yb_h</span><span class="p">,</span> <span class="n">yb</span><span class="p">)</span>
+    
+    <span class="c1"># obtain performance metric
+</span>    <span class="n">metric_b</span> <span class="o">=</span> <span class="n">metrics_batch</span><span class="p">(</span><span class="n">yb</span><span class="p">,</span> <span class="n">yb_h</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">opt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">opt</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="n">opt</span><span class="p">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">loss</span><span class="p">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">metric_b</span>
+</code></pre></div></div>
+
+<h4 id="define-a-helper-function-to-compute-the-accuracy-per-mini-batch">Define a helper function to compute the accuracy per mini-batch</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">metrics_batch</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="c1"># obtain output class
+</span>    <span class="c1"># torch.argmax(input, dim, keepdim=False) → LongTensor
+</span>    <span class="c1"># Returns the indices of the maximum values of a tensor across a dimension.
+</span>    <span class="c1"># - input(Tensor): the input tensor.
+</span>    <span class="c1"># - dim(int): the dimension to reduce. If None, the argmax of the flattened input is returned.
+</span>    <span class="c1"># - keepdim(bool): whether the output tensor has dim retained or not. Ignored if dim=None.
+</span>    <span class="n">pred</span> <span class="o">=</span> <span class="n">output</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    
+    <span class="c1"># compare output class with target class
+</span>    
+    <span class="c1"># torch.eq(input, other, *, out=None) → Tensor
+</span>    <span class="c1"># Computes element-wise equality
+</span>    <span class="c1"># The second argument can be a number or a tensor whose shape is broadcastable with the first argument.
+</span>    <span class="c1"># - input(Tensor): the tensor to compare
+</span>    <span class="c1"># - other(Tensor or float): the tensor or value to compare
+</span>    
+    <span class="c1"># Tensor.view_as(other) → Tensor
+</span>    <span class="c1"># View this tensor as the same size as other. self.view_as(other) is equivalent to self.view(other.size()).
+</span>    <span class="n">corrects</span> <span class="o">=</span> <span class="n">pred</span><span class="p">.</span><span class="n">eq</span><span class="p">(</span><span class="n">target</span><span class="p">.</span><span class="n">view_as</span><span class="p">(</span><span class="n">pred</span><span class="p">)).</span><span class="nb">sum</span><span class="p">().</span><span class="n">item</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">corrects</span>
+</code></pre></div></div>
+
+<h4 id="define-a-helper-function-to-compute-the-loss-and-metric-values-for-a-dataset">Define a helper function to compute the loss and metric values for a dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">loss_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">dataset_dl</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">metric</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">len_data</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset_dl</span><span class="p">.</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">dataset_dl</span><span class="p">:</span>
+        <span class="c1"># xb = xb.type(torch.float).to(device)
+</span>        <span class="n">xb</span> <span class="o">=</span> <span class="n">xb</span><span class="p">.</span><span class="nb">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">)</span>
+        <span class="c1"># yb = yb.to(device)
+</span>        
+        <span class="c1"># obtain model output
+</span>        <span class="n">yb_h</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
+        
+        <span class="n">loss_b</span><span class="p">,</span> <span class="n">metric_b</span> <span class="o">=</span> <span class="n">loss_batch</span><span class="p">(</span><span class="n">loss_func</span><span class="p">,</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span><span class="p">,</span> <span class="n">yb_h</span><span class="p">,</span> <span class="n">opt</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">+=</span> <span class="n">loss_b</span>
+        <span class="k">if</span> <span class="n">metric_b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">metric</span> <span class="o">+=</span> <span class="n">metric_b</span>
+    
+    <span class="n">loss</span> <span class="o">/=</span> <span class="n">len_data</span>
+    <span class="n">metric</span> <span class="o">/=</span> <span class="n">len_data</span>
+    
+    <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">metric</span>
+</code></pre></div></div>
+
+<h4 id="define-the-train_val-function">Define the train_val function</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">train_val</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">train_dl</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="c1"># training mode
+</span>        <span class="n">model</span><span class="p">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">train_loss</span><span class="p">,</span> <span class="n">train_metric</span> <span class="o">=</span> <span class="n">loss_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">train_dl</span><span class="p">,</span> <span class="n">opt</span><span class="p">)</span>
+        
+        <span class="c1"># evaluation mode
+</span>        <span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+        <span class="c1"># torch.no_grad()
+</span>        <span class="c1"># Context-manager that disabled gradient calculation.
+</span>        <span class="c1"># Disabling gradient calculation is useful for inference, when you are sure that you will not call Tensor.backward().
+</span>        <span class="c1"># It will reduce memory consumption for computations that would otherwise have requires_grad=True.
+</span>        <span class="c1"># In this mode, the result of every computation will have requires_grad=False, even when the inputs have requires_grad=True.
+</span>        <span class="c1"># This context manager is thread local; it will not affect computation in other threads.
+</span>        <span class="c1"># Also functions as a decorator. (Make sure to instantiate with parenthesis.)
+</span>        <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">val_loss</span><span class="p">,</span> <span class="n">val_metric</span> <span class="o">=</span> <span class="n">loss_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">)</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">val_metric</span>
+        
+        <span class="k">print</span><span class="p">(</span><span class="s">"epoch: %d, train loss: %.6f, val loss: %.6f, accuracy: %.2f"</span> <span class="o">%</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">train_loss</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h4 id="train-the-model-for-a-few-epochs">Train the model for a few epochs</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net(
+  (conv1): Conv2d(1, 20, kernel_size=(5, 5), stride=(1, 1))
+  (conv2): Conv2d(20, 50, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=800, out_features=500, bias=True)
+  (fc2): Linear(in_features=500, out_features=10, bias=True)
+)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">loss_func</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NLLLoss()
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">opt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0001
+    weight_decay: 0
+)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_dl</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;torch.utils.data.dataloader.DataLoader at 0x7fda46553e10&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">val_dl</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;torch.utils.data.dataloader.DataLoader at 0x7fda46553dd8&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># call train_val function
+</span><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">train_val</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">train_dl</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>epoch: 0, train loss: 0.148757, val loss: 0.065733, accuracy: 97.92
+epoch: 1, train loss: 0.047690, val loss: 0.051643, accuracy: 98.35
+epoch: 2, train loss: 0.026132, val loss: 0.052601, accuracy: 98.62
+epoch: 3, train loss: 0.018569, val loss: 0.055401, accuracy: 98.66
+epoch: 4, train loss: 0.014280, val loss: 0.052832, accuracy: 98.86
+</code></pre></div></div>
+
+<h3 id="4-storing-and-loading-models">4. Storing and loading models</h3>
+
+<h4 id="method-1">method 1</h4>
+
+<p>storing trained parameters in a file for deployment and future use</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define path2weights
+</span><span class="n">path2weights</span> <span class="o">=</span> <span class="s">"./models/weights.pt"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># store state_dict to file
+</span><span class="n">torch</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">path2weights</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>loading the model parameters from the file</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define model: weights are randomly initiated
+</span><span class="n">_model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load state_dict from the file
+</span><span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">path2weights</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set state_dict to the model
+</span><span class="n">_model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;All keys matched successfully&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">_model</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net(
+  (conv1): Conv2d(1, 20, kernel_size=(5, 5), stride=(1, 1))
+  (conv2): Conv2d(20, 50, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=800, out_features=500, bias=True)
+  (fc2): Linear(in_features=500, out_features=10, bias=True)
+)
+</code></pre></div></div>
+
+<h4 id="method-2">method 2</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define path2model
+</span><span class="n">path2model</span> <span class="o">=</span> <span class="s">"./models/model.pt"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># store model and weights into a file
+</span><span class="n">torch</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">path2model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define model: weights are randomly initiated
+</span><span class="n">_model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load the model from the local file
+</span><span class="n">_model</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">path2model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">_model</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net(
+  (conv1): Conv2d(1, 20, kernel_size=(5, 5), stride=(1, 1))
+  (conv2): Conv2d(20, 50, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=800, out_features=500, bias=True)
+  (fc2): Linear(in_features=500, out_features=10, bias=True)
+)
+</code></pre></div></div>
+
+<h3 id="5-deploying-the-model">5. Deploying the model</h3>
+
+<p>Once the model has been loaded into memory, we can pass new data to the model</p>
+
+<h4 id="sample-tensor">Sample tensor</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get a sample tensor
+</span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x_val</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y_val</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([1, 28, 28])
+
+
+
+
+
+&lt;matplotlib.image.AxesImage at 0x7fda47c98080&gt;
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch01/output_117_2.png" alt="png" /></p>
+
+<h4 id="preprocess-the-tensor">Preprocess the tensor</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># we use unsqueeze to expand dimensions to 1 * C * H * W
+</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([1, 1, 28, 28])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># convert to torch.float32
+</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nb">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">.</span><span class="nb">type</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'torch.FloatTensor'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># move to cuda device
+# x = x.to(device)
+</span></code></pre></div></div>
+
+<h4 id="get-the-model-prediction">Get the model prediction</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get model output
+</span><span class="n">output</span> <span class="o">=</span> <span class="n">_model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[-36.4784, -35.5031, -40.6827, -41.9933, -28.2125, -22.9492,   0.0000,
+         -46.7921, -31.0788, -45.1914]], grad_fn=&lt;LogSoftmaxBackward&gt;)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get predicted class
+</span><span class="n">pred</span> <span class="o">=</span> <span class="n">output</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pred</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[6]])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">pred</span><span class="p">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">y</span><span class="p">.</span><span class="n">item</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6 6
+</code></pre></div></div>
+
+
+    
+
+
+
+<div class="post-tags">
+  
+    
+    <a href="/tags.html#computer-vision">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">computer vision</span>
+    </a>
+  
+    
+    <a href="/tags.html#pytorch">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">pytorch</span>
+    </a>
+  
+    
+    <a href="/tags.html#python">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">python</span>
+    </a>
+  
+</div>
+  </div>
+
+  
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/2021/06/13/OpenCV-Python-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">
+            OpenCV-Python 시작하기
+            <small>13 Jun 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/09/28/03_Maximum_Sales_Probability_Matching_Algorithm.html">
+            2020 Big Contest - 3
+            <small>28 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/09/28/02_NS_shop_code_final.html">
+            2020 Big Contest - 2
+            <small>28 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
+</div>
+
+    </main>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>
