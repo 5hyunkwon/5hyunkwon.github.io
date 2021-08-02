@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      Python 클래스 개념 &middot; Data Flows in You
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://5hyunkwon.github.io/favicon.png" />
+<link rel="shortcut icon" href="https://5hyunkwon.github.io/favicon.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <header>
+    <div class="site-title">
+      <a href="/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Data Flows in You
+      </a>
+    </div>
+    <p class="lead"><a href="https://en.wikipedia.org/wiki/Data_science" target="_blank">Data Scientist</a>: The Sexiest Job of the 21st Century</p>
+  </header>
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/about.html">About</a>
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+      <a class="category-link "
+          href="/category/cv.html">Computer Vision</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <nav id="sidebar-icon-links">
+  
+  
+  
+  
+
+  
+    <a id="tags-link"
+       class="icon"
+       title="Tags" aria-label="Tags"
+       href="/tags.html">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+    </a>
+  
+
+  <a id="github-link"
+    class="icon" title="Github" aria-label="Github"
+    href="https://github.com/5hyunkwon"
+    target="_blank">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" height="24" width="28"><path d="M12 2c6.625 0 12 5.375 12 12 0 5.297-3.437 9.797-8.203 11.391-0.609 0.109-0.828-0.266-0.828-0.578 0-0.391 0.016-1.687 0.016-3.297 0-1.125-0.375-1.844-0.812-2.219 2.672-0.297 5.484-1.313 5.484-5.922 0-1.313-0.469-2.375-1.234-3.219 0.125-0.313 0.531-1.531-0.125-3.187-1-0.313-3.297 1.234-3.297 1.234-0.953-0.266-1.984-0.406-3-0.406s-2.047 0.141-3 0.406c0 0-2.297-1.547-3.297-1.234-0.656 1.656-0.25 2.875-0.125 3.187-0.766 0.844-1.234 1.906-1.234 3.219 0 4.594 2.797 5.625 5.469 5.922-0.344 0.313-0.656 0.844-0.766 1.609-0.688 0.313-2.438 0.844-3.484-1-0.656-1.141-1.844-1.234-1.844-1.234-1.172-0.016-0.078 0.734-0.078 0.734 0.781 0.359 1.328 1.75 1.328 1.75 0.703 2.141 4.047 1.422 4.047 1.422 0 1 0.016 1.937 0.016 2.234 0 0.313-0.219 0.688-0.828 0.578-4.766-1.594-8.203-6.094-8.203-11.391 0-6.625 5.375-12 12-12zM4.547 19.234c0.031-0.063-0.016-0.141-0.109-0.187-0.094-0.031-0.172-0.016-0.203 0.031-0.031 0.063 0.016 0.141 0.109 0.187 0.078 0.047 0.172 0.031 0.203-0.031zM5.031 19.766c0.063-0.047 0.047-0.156-0.031-0.25-0.078-0.078-0.187-0.109-0.25-0.047-0.063 0.047-0.047 0.156 0.031 0.25 0.078 0.078 0.187 0.109 0.25 0.047zM5.5 20.469c0.078-0.063 0.078-0.187 0-0.297-0.063-0.109-0.187-0.156-0.266-0.094-0.078 0.047-0.078 0.172 0 0.281s0.203 0.156 0.266 0.109zM6.156 21.125c0.063-0.063 0.031-0.203-0.063-0.297-0.109-0.109-0.25-0.125-0.313-0.047-0.078 0.063-0.047 0.203 0.063 0.297 0.109 0.109 0.25 0.125 0.313 0.047zM7.047 21.516c0.031-0.094-0.063-0.203-0.203-0.25-0.125-0.031-0.266 0.016-0.297 0.109s0.063 0.203 0.203 0.234c0.125 0.047 0.266 0 0.297-0.094zM8.031 21.594c0-0.109-0.125-0.187-0.266-0.172-0.141 0-0.25 0.078-0.25 0.172 0 0.109 0.109 0.187 0.266 0.172 0.141 0 0.25-0.078 0.25-0.172zM8.937 21.438c-0.016-0.094-0.141-0.156-0.281-0.141-0.141 0.031-0.234 0.125-0.219 0.234 0.016 0.094 0.141 0.156 0.281 0.125s0.234-0.125 0.219-0.219z"></path>
+</svg>
+
+  </a>
+
+  <!-- Optional additional links to insert for icons links -->
+<a id="facebook-link"
+   class="icon" title="Facebook" aria-label="Facebook"
+   href="https://www.facebook.com/5hyunkwon"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+</a>
+
+<a id="instagram-link"
+   class="icon" title="Instagram" aria-label="Instagram"
+   href="https://www.instagram.com/5hyun_kwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M17.34,5.46h0a1.2,1.2,0,1,0,1.2,1.2A1.2,1.2,0,0,0,17.34,5.46Zm4.6,2.42a7.59,7.59,0,0,0-.46-2.43,4.94,4.94,0,0,0-1.16-1.77,4.7,4.7,0,0,0-1.77-1.15,7.3,7.3,0,0,0-2.43-.47C15.06,2,14.72,2,12,2s-3.06,0-4.12.06a7.3,7.3,0,0,0-2.43.47A4.78,4.78,0,0,0,3.68,3.68,4.7,4.7,0,0,0,2.53,5.45a7.3,7.3,0,0,0-.47,2.43C2,8.94,2,9.28,2,12s0,3.06.06,4.12a7.3,7.3,0,0,0,.47,2.43,4.7,4.7,0,0,0,1.15,1.77,4.78,4.78,0,0,0,1.77,1.15,7.3,7.3,0,0,0,2.43.47C8.94,22,9.28,22,12,22s3.06,0,4.12-.06a7.3,7.3,0,0,0,2.43-.47,4.7,4.7,0,0,0,1.77-1.15,4.85,4.85,0,0,0,1.16-1.77,7.59,7.59,0,0,0,.46-2.43c0-1.06.06-1.4.06-4.12S22,8.94,21.94,7.88ZM20.14,16a5.61,5.61,0,0,1-.34,1.86,3.06,3.06,0,0,1-.75,1.15,3.19,3.19,0,0,1-1.15.75,5.61,5.61,0,0,1-1.86.34c-1,.05-1.37.06-4,.06s-3,0-4-.06A5.73,5.73,0,0,1,6.1,19.8,3.27,3.27,0,0,1,5,19.05a3,3,0,0,1-.74-1.15A5.54,5.54,0,0,1,3.86,16c0-1-.06-1.37-.06-4s0-3,.06-4A5.54,5.54,0,0,1,4.21,6.1,3,3,0,0,1,5,5,3.14,3.14,0,0,1,6.1,4.2,5.73,5.73,0,0,1,8,3.86c1,0,1.37-.06,4-.06s3,0,4,.06a5.61,5.61,0,0,1,1.86.34A3.06,3.06,0,0,1,19.05,5,3.06,3.06,0,0,1,19.8,6.1,5.61,5.61,0,0,1,20.14,8c.05,1,.06,1.37.06,4S20.19,15,20.14,16ZM12,6.87A5.13,5.13,0,1,0,17.14,12,5.12,5.12,0,0,0,12,6.87Zm0,8.46A3.33,3.33,0,1,1,15.33,12,3.33,3.33,0,0,1,12,15.33Z"/></svg>
+</a>
+
+<a id="linkedin-link"
+   class="icon" title="Linkedin" aria-label="Linkedin"
+   href="https://www.linkedin.com/in/5hyunkwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M20.47,2H3.53A1.45,1.45,0,0,0,2.06,3.43V20.57A1.45,1.45,0,0,0,3.53,22H20.47a1.45,1.45,0,0,0,1.47-1.43V3.43A1.45,1.45,0,0,0,20.47,2ZM8.09,18.74h-3v-9h3ZM6.59,8.48h0a1.56,1.56,0,1,1,0-3.12,1.57,1.57,0,1,1,0,3.12ZM18.91,18.74h-3V13.91c0-1.21-.43-2-1.52-2A1.65,1.65,0,0,0,12.85,13a2,2,0,0,0-.1.73v5h-3s0-8.18,0-9h3V11A3,3,0,0,1,15.46,9.5c2,0,3.45,1.29,3.45,4.06Z"/></svg>
+</a>
+</nav>
+
+  <p>
+  &copy; 2021.
+  <a href="/LICENSE.md">MIT License.</a>
+</p>
+
+</div>
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">Python 클래스 개념</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">02 Aug 2021</span>
+  <span class="post-categories">
+    
+  </span>
+</div>
+
+
+  <div class="post-body">
+    <h2 id="python의-class-개념에-대한-정리">Python의 class 개념에 대한 정리</h2>
+
+<p>[참고] 파이썬 - 기본을 갈고 닦자! (<a href="https://wikidocs.net/book/1553" target="_blank">https://wikidocs.net/book/1553</a>)</p>
+
+<p><br /></p>
+
+<h3 id="class-instance-method-attribute">Class, Instance, Method, Attribute</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 메소드 작성하기
+</span><span class="k">class</span> <span class="nc">Flight</span><span class="p">:</span>
+
+	<span class="c1"># 클래스 속성: class 안에서 바로 할당하는 속성 (__init__에서 할당했던 변수들은 모두 인스턴스 속성)
+</span>	<span class="c1"># 클래스 속성에서의 직접 접근, 객체에서의 접근할 때 모두 똑같은 값을 공유함
+</span>	<span class="n">class_attr</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="c1"># 생성자(constructor)로 객체 생성을 호출받으면 먼저 __new__를 호출하여 객체를 생성할당하고, __new__ 메소드가 __init__ 메소드를 호출하여 객체에서 사용할 초기값 초기화
+</span>	<span class="c1"># __init__(): 메소드만 오버라이딩하여 객체초기화에만 이용할 뿐 생성자는 아님
+</span>	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+		<span class="c1"># super().__init__()
+</span>
+		<span class="c1"># 초기화자(__init__)에 객체의 불변성 확립 (유효성 검증 수행)
+</span>		<span class="c1"># 객체 생성시 들어올 값에 대해 __init__에서 validation 수행
+</span>		<span class="c1"># e.g. 비행기의 번호는 앞 두글자는 영문이어야하고 대문자이며, 뒤 세번째 글자부터 마지막까지는 양의 정수
+</span>		<span class="c1"># 객체 생성시 규칙에 맞지 않는 값이 들어오면 ValueError 발생시키기
+</span>		<span class="k">if</span> <span class="ow">not</span> <span class="n">number</span><span class="p">[:</span><span class="mi">2</span><span class="p">].</span><span class="n">isalpha</span><span class="p">():</span>
+			<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"첫 두글자가 알파벳이 아닙니다."</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">number</span><span class="p">[:</span><span class="mi">2</span><span class="p">].</span><span class="n">isupper</span><span class="p">():</span>
+			<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"첫 두글자가 대문자가 아닙니다."</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">number</span><span class="p">[</span><span class="mi">2</span><span class="p">:].</span><span class="n">isdigit</span><span class="p">():</span>
+			<span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"세 번째 글자 이상이 양의 숫자가 아닙니다."</span><span class="p">)</span>
+
+		<span class="c1"># `_` 네이밍 컨벤션 (_single_leading_underscore: 내부적으로 사용되는 변수)
+</span>		<span class="c1"># [참고] Python은 기본적으로 다른 언어와 달리 접근 제어자(public, private, protected)가 없고, 모두 public (생성된 인스턴스에서 _number 변수 접근 가능)
+</span>		<span class="c1"># self._number = number
+</span>		<span class="c1"># [참고] 변수 왼쪽에 __(더블스코어)를 붙인 경우 (Mangling): 선언된 클래스 안에서만 해당 이름으로 사용 가능
+</span>		<span class="c1"># 외부에서 접근이 불가능하지만, `_클래스명__변수명` 형식으로는 접근 가능
+</span>		<span class="c1"># e.g. &gt;&gt;&gt; f = Flight("AB001")
+</span>		<span class="c1">#      &gt;&gt;&gt; print(f._Flight__number)
+</span>		<span class="c1">#      'AB001'
+</span>		<span class="bp">self</span><span class="p">.</span><span class="n">__number</span> <span class="o">=</span> <span class="n">number</span>
+
+	<span class="c1"># 객체 생성 시 __new__가 클래스 자체를 받으며 할당하게 되고, __init__가 self를 받으며 객체의 내부에서 사용할 속성 초기화
+</span>	<span class="c1"># __new__ 메소드는 자동으로 실행되므로 굳이 작성하지 않아도 됨
+</span>	<span class="c1"># def __new__(cls):
+</span>	<span class="c1"># 	print('new')
+</span>	<span class="c1"># 	return super().__new__(cls)
+</span>
+	<span class="c1"># 인스턴스 메소드: 객체에서 호출되어질 수 있는 함수
+</span>	<span class="c1"># 파이썬 메소드의 첫 번째 파라미터명은 관례적으로 self라는 이름 사용
+</span>	<span class="c1"># 호출 시 호출한 객체 자신이 전달되기 때문에 self라는 이름 사용 (메소드의 첫 번째 인자로 항상 인스턴스(객체)가 전달)
+</span>	<span class="c1"># 이를 이용하여 클래스에서 바로 메소드로 접근하면서 위에서 할당한 Flight의 객체 f를 파라미터로 전달해도 똑같은 결과값 얻음
+</span>	<span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__number</span>
+
+	<span class="k">def</span> <span class="nf">add_class_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+		<span class="n">Flight</span><span class="p">.</span><span class="n">class_attr</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Fly</span><span class="p">:</span>
+
+	<span class="c1"># 비공개 클래스 속성: 언더바 두 개(__)로 시작 (비공개 속성으로 만들기)
+</span>	<span class="n">__private_attr</span> <span class="o">=</span> <span class="mi">5</span>
+
+	<span class="n">class_attr</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="c1"># 클래스 속성과 인스턴스 속성을 동일하게 만들면, 인스턴스 속성을 먼저 찾게됨
+</span>	<span class="c1"># [참고] 속성과 메소드 이름 찾는 순서: 인스턴스 -&gt; 클래스
+</span>	<span class="c1"># [주의] 클래스 속성은 여러 객체가 공유함
+</span>	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">class_attr</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="k">def</span> <span class="nf">add_instance_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">class_attr</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">add_class_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+		<span class="n">Fly</span><span class="p">.</span><span class="n">class_attr</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="method-overloading-python에서-불가능">Method Overloading (Python에서 불가능)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+파이썬은 메소드 오버로딩 불가능
+(아래의 클래스의 show 메소드는 가장 밑에 있는 것으로 동작)
+
+메소드 오버로딩: 하나의 클래스 내부에서 메소드 명칭은 똑같고, 인자를 다르게하는 형태 (Java에서는 가능)
+"""</span>
+<span class="k">class</span> <span class="nc">Korea</span><span class="p">:</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">capital</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">population</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">capital</span> <span class="o">=</span> <span class="n">capital</span>
+
+	<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span>
+			<span class="s">"""
+			국가의 이름은 {} 입니다.
+			국가의 인구는 {} 입니다.
+			국가의 수도는 {} 입니다.
+			"""</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">population</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">capital</span><span class="p">)</span>
+			<span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">abc</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">'abc :'</span><span class="p">,</span> <span class="n">abc</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="inheritance">Inheritance</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+상속(inheritance)
+- 물려주는 클래스(Parent Class, Super Class)의 내용(속성과 메소드)을 물려받는 클래스(Child Class, Sub Class)가 가지게 되는 것
+
+e.g. 국가 클래스 -&gt; 한국, 일본, 중국, 미국 클래스
+- 국가 클래스가 속성으로 인구를 만들었으면, 상속 받은 한국, 일본, 중국, 미국 클래스에서는 부모 클래스의 속성인 인구를 비롯하여 메소드 사용 가능
+
+자식 클래스를 선언할 때 소괄호로 부모 클래스 포함하면, 자식 클래스에서는 부모 클래스의 속성과 메소드 사용 가능
+"""</span>
+
+<span class="k">class</span> <span class="nc">Country</span><span class="p">:</span>
+	<span class="s">"""Super Class"""</span>
+
+	<span class="n">name</span> <span class="o">=</span> <span class="s">'국가명'</span>
+	<span class="n">population</span> <span class="o">=</span> <span class="s">'인구'</span>
+	<span class="n">capital</span> <span class="o">=</span> <span class="s">'수도'</span>
+
+	<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">'국가 클래스의 메소드입니다.'</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Province</span><span class="p">:</span>
+	<span class="n">Province_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">'province show method!'</span><span class="p">)</span>
+
+<span class="c1"># 상속받은 서브 클래스에서는 상속해준 슈퍼 클래스의 속성과 메소드 모두 사용 가능
+# 파이썬은 다중 상속 가능 (C#, Java는 불가능, C++은 가능)
+</span><span class="k">class</span> <span class="nc">Korea</span><span class="p">(</span><span class="n">Country</span><span class="p">,</span> <span class="n">Province</span><span class="p">):</span>
+	<span class="s">"""Sub Class"""</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">capital</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">population</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">capital</span> <span class="o">=</span> <span class="n">capital</span>
+
+	<span class="c1"># 메소드 오버라이딩 (Method Overriding): 부모 클래스의 메소드를 자식 클래스에서 재정의
+</span>	<span class="c1"># 부모 클래스의 메소드는 무시되고 자식 클래스의 메소드가 수행
+</span>	<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="c1"># super() 사용시 자식 클래스 내에서 부모 클래스 호출 가능
+</span>		<span class="nb">super</span><span class="p">().</span><span class="n">show</span><span class="p">()</span>
+		<span class="k">print</span><span class="p">(</span>
+			<span class="s">"""
+			국가의 이름은 {} 입니다.
+			국가의 인구는 {} 입니다.
+			국가의 수도는 {} 입니다.
+			"""</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">population</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">capital</span><span class="p">)</span>
+			<span class="p">)</span>
+
+	<span class="k">def</span> <span class="nf">show_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">'국가 이름은 : '</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="static-method--class-method">Static Method &amp; Class Method</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+정적 메소드 (@classmethod, @staticmethod)
+
+- 정적 메소드: 클래스에서 직접 접근할 수 있는 메소드
+- [주의] 파이썬에서는 다른 언어와 다르게 정적 메소드임에도 불구하고 인스턴스에서도 접근 가능
+"""</span>
+
+<span class="k">class</span> <span class="nc">CustomClass</span><span class="p">:</span>
+
+	<span class="c1"># instance method는 첫 번째 인자로 객체 자신 self를 입력
+</span>	<span class="k">def</span> <span class="nf">add_instance_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+	<span class="c1"># classmethod는 첫 번째 인자로 클래스를 입력
+</span>	<span class="o">@</span><span class="nb">classmethod</span>
+	<span class="k">def</span> <span class="nf">add_class_method</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+	<span class="c1"># staticmethod는 특별히 추가되는 인자가 없음
+</span>	<span class="o">@</span><span class="nb">staticmethod</span>
+	<span class="k">def</span> <span class="nf">add_static_method</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+정적 메소드
+- 일반적으로 인스턴스 데이터를 액세스할 필요가 없는 경우 클래스 메소드 혹은 정적 메소드 사용
+- 클래스 변수를 액세스할 필요가 있을 때 클래스 메드 사용
+- 클래스 변수를 액세스할 필요가 없을 때 정적 메소드 사용
+
+@classmethod와 @staticmethod의 차이
+
+staticmethod에서는 부모 클래스의 클래스 속성 값을 가져오지만,
+classmethod에서는 cls 인자를 활용하여 cls의 클래스 속성을 가져옴
+"""</span>
+
+<span class="k">class</span> <span class="nc">Language</span><span class="p">:</span>
+	<span class="n">default_language</span> <span class="o">=</span> <span class="s">"English"</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">show</span> <span class="o">=</span> <span class="s">'나의 언어는'</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">default_language</span>
+
+	<span class="c1"># 클래스 메소드(classmethod): cls라는 클래스를 의미하는 파라미터 전달 받아서, 클래스 변수 등에 액세스 가능
+</span>	<span class="c1"># 
+</span>	<span class="o">@</span><span class="nb">classmethod</span>
+	<span class="k">def</span> <span class="nf">class_my_language</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">cls</span><span class="p">()</span>
+
+	<span class="c1"># 정적 메소드(staticmethod): self 파라미터를 갖지 않고 인스턴스 변수에 액세스할 수 없음
+</span>	<span class="c1"># 보통 객체 필드와 독립적이지만 로직상 클래스 내에 포함되는 메소드에 사용
+</span>	<span class="o">@</span><span class="nb">staticmethod</span>
+	<span class="k">def</span> <span class="nf">static_my_language</span><span class="p">():</span>
+		<span class="k">return</span> <span class="n">Language</span><span class="p">()</span>
+
+	<span class="k">def</span> <span class="nf">print_language</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">show</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">KoreanLanguage</span><span class="p">(</span><span class="n">Language</span><span class="p">):</span>
+	<span class="n">default_language</span> <span class="o">=</span> <span class="s">"한국어"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+정적 메소드 사용 예제
+
+- 인스턴스 데이터 액세스 필요 없을 때: class method, static method 사용
+- 클래스 변수 액세스 필요 있을 때: class method 사용
+- 클래스 변수 액세스 필요 없을 때: static method 사용
+"""</span>
+
+<span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+
+	<span class="c1"># 클래스 변수
+</span>	<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+		<span class="n">Rectangle</span><span class="p">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+	<span class="c1"># instance method
+</span>	<span class="k">def</span> <span class="nf">calc_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">area</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">height</span>
+		<span class="k">return</span> <span class="n">area</span>
+
+	<span class="c1"># static method
+</span>	<span class="o">@</span><span class="nb">staticmethod</span>
+	<span class="k">def</span> <span class="nf">is_square</span><span class="p">(</span><span class="n">rectWidth</span><span class="p">,</span> <span class="n">rectHeight</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">rectWidth</span> <span class="o">==</span> <span class="n">rectHeight</span>
+
+	<span class="c1"># class method
+</span>	<span class="o">@</span><span class="nb">classmethod</span>
+	<span class="k">def</span> <span class="nf">print_count</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="n">cls</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="abstract-class">Abstract Class</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+추상 클래스(abstract class)
+- 미구현 추상 메소드를 한 개 이상 가지며, 자식 클래스에서 해당 추상 메소드를 반드시 구현하도록 강제
+- 상속받은 클래스는 추상 메소드를 구현하지 않아도, import 할 때까지는 에러 발생하지 않으나 객체 생성 시 에러 발생
+- 반드시 `abc` 모듈 import 필요
+- 추상메소드를 추가한 후에는 해당 클래스로 객체를 생성하면 에러 발생
+
+e.g.
+from abc import *
+class 추상클래스명(metaclass=ABCMeta):
+
+	@abstractmethod
+	def 추상메소드(self):
+		pass
+"""</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">AbstractCountry</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+	<span class="n">name</span> <span class="o">=</span> <span class="s">'국가명'</span>
+	<span class="n">population</span> <span class="o">=</span> <span class="s">'인구'</span>
+	<span class="n">capital</span> <span class="o">=</span> <span class="s">'수도'</span>
+
+	<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">'국가 클래스의 메소드입니다.'</span><span class="p">)</span>
+
+	<span class="c1"># 추상메소드 추가
+</span>	<span class="o">@</span><span class="n">abstractmethod</span>
+	<span class="k">def</span> <span class="nf">show_capital</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">'국가의 수도는?'</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Korea</span><span class="p">(</span><span class="n">AbstractCountry</span><span class="p">):</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">capital</span><span class="p">):</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">population</span>
+		<span class="bp">self</span><span class="p">.</span><span class="n">capital</span> <span class="o">=</span> <span class="n">capital</span>
+
+	<span class="k">def</span> <span class="nf">show_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">'국가 이름은 : '</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+
+	<span class="c1"># 상속받은 추상메소드 구현(필수)
+</span>	<span class="k">def</span> <span class="nf">show_capital</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">super</span><span class="p">().</span><span class="n">show_capital</span><span class="p">()</span>
+		<span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">capital</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="duck-typing">Duck Typing</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+Duck Typing
+'If it walks like a duck and it quacks like a duck, then it must be a duck'
+'오리처럼 걷고, 오리처럼 꽥꽥거리면, 그것은 틀림없이 오리다.'
+
+- 본질적으로 다른 클래스라도 객체의 적합성은 객체의 실제 유형이 아니라 특정 메소드와 속성의 존재에 의해 결정됨
+"""</span>
+
+<span class="k">class</span> <span class="nc">Parrot</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">"Parrot flying"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Airplone</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">fly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">"Airplane flying"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Whale</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">swim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">print</span><span class="p">(</span><span class="s">"Whale swimming"</span><span class="p">)</span>
+
+<span class="c1"># Parrot 클래스와 Airplane 클래스는 서로 상속 등의 관계가 없으나, 내부에 동일한 메소드인 fly()가 있기 때문에, lift_off 함수 호출 시 fly 정상 실행
+# 반면, Whale 클래스는 fly() 메소드가 없기 때문에, AttributeError 발생
+</span><span class="k">def</span> <span class="nf">lift_off</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+	<span class="n">entity</span><span class="p">.</span><span class="n">fly</span><span class="p">()</span>
+
+<span class="n">parrot</span> <span class="o">=</span> <span class="n">Parrot</span><span class="p">()</span>
+<span class="n">airplane</span> <span class="o">=</span> <span class="n">Airplone</span><span class="p">()</span>
+<span class="n">whale</span> <span class="o">=</span> <span class="n">Whale</span><span class="p">()</span>
+
+<span class="n">lift_off</span><span class="p">(</span><span class="n">parrot</span><span class="p">)</span>  <span class="c1"># prints "Parrot flying"
+</span><span class="n">lift_off</span><span class="p">(</span><span class="n">airplane</span><span class="p">)</span>  <span class="c1"># prints "Airplane flying"
+</span><span class="n">lift_off</span><span class="p">(</span><span class="n">whale</span><span class="p">)</span>  <span class="c1"># Throws the error `'Whale' object has no attribute 'fly'`
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+    
+
+
+
+<div class="post-tags">
+  
+    
+    <a href="/tags.html#python">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">python</span>
+    </a>
+  
+    
+    <a href="/tags.html#class">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">class</span>
+    </a>
+  
+    
+    <a href="/tags.html#programming">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">programming</span>
+    </a>
+  
+</div>
+  </div>
+
+  
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/computer%20vision/2021/07/20/Pytorch-Computer-Vision-Ch01.html">
+            Pytorch Computer Vision Ch01
+            <small>20 Jul 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/computer%20vision/2021/06/13/OpenCV-Python-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">
+            OpenCV-Python 시작하기
+            <small>13 Jun 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/09/28/03_Maximum_Sales_Probability_Matching_Algorithm.html">
+            2020 Big Contest - 3
+            <small>28 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
+</div>
+
+    </main>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>
