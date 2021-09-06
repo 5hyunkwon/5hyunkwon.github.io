@@ -1,0 +1,2719 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      Pytorch Computer Vision Ch02 &middot; Data Flows in You
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://5hyunkwon.github.io/favicon.png" />
+<link rel="shortcut icon" href="https://5hyunkwon.github.io/favicon.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <header>
+    <div class="site-title">
+      <a href="/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Data Flows in You
+      </a>
+    </div>
+    <p class="lead"><a href="https://en.wikipedia.org/wiki/Data_science" target="_blank">Data Scientist</a>: The Sexiest Job of the 21st Century</p>
+  </header>
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/about.html">About</a>
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+      <a class="category-link "
+          href="/category/cv.html">Computer Vision</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <nav id="sidebar-icon-links">
+  
+  
+  
+  
+
+  
+    <a id="tags-link"
+       class="icon"
+       title="Tags" aria-label="Tags"
+       href="/tags.html">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+    </a>
+  
+
+  <a id="github-link"
+    class="icon" title="Github" aria-label="Github"
+    href="https://github.com/5hyunkwon"
+    target="_blank">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" height="24" width="28"><path d="M12 2c6.625 0 12 5.375 12 12 0 5.297-3.437 9.797-8.203 11.391-0.609 0.109-0.828-0.266-0.828-0.578 0-0.391 0.016-1.687 0.016-3.297 0-1.125-0.375-1.844-0.812-2.219 2.672-0.297 5.484-1.313 5.484-5.922 0-1.313-0.469-2.375-1.234-3.219 0.125-0.313 0.531-1.531-0.125-3.187-1-0.313-3.297 1.234-3.297 1.234-0.953-0.266-1.984-0.406-3-0.406s-2.047 0.141-3 0.406c0 0-2.297-1.547-3.297-1.234-0.656 1.656-0.25 2.875-0.125 3.187-0.766 0.844-1.234 1.906-1.234 3.219 0 4.594 2.797 5.625 5.469 5.922-0.344 0.313-0.656 0.844-0.766 1.609-0.688 0.313-2.438 0.844-3.484-1-0.656-1.141-1.844-1.234-1.844-1.234-1.172-0.016-0.078 0.734-0.078 0.734 0.781 0.359 1.328 1.75 1.328 1.75 0.703 2.141 4.047 1.422 4.047 1.422 0 1 0.016 1.937 0.016 2.234 0 0.313-0.219 0.688-0.828 0.578-4.766-1.594-8.203-6.094-8.203-11.391 0-6.625 5.375-12 12-12zM4.547 19.234c0.031-0.063-0.016-0.141-0.109-0.187-0.094-0.031-0.172-0.016-0.203 0.031-0.031 0.063 0.016 0.141 0.109 0.187 0.078 0.047 0.172 0.031 0.203-0.031zM5.031 19.766c0.063-0.047 0.047-0.156-0.031-0.25-0.078-0.078-0.187-0.109-0.25-0.047-0.063 0.047-0.047 0.156 0.031 0.25 0.078 0.078 0.187 0.109 0.25 0.047zM5.5 20.469c0.078-0.063 0.078-0.187 0-0.297-0.063-0.109-0.187-0.156-0.266-0.094-0.078 0.047-0.078 0.172 0 0.281s0.203 0.156 0.266 0.109zM6.156 21.125c0.063-0.063 0.031-0.203-0.063-0.297-0.109-0.109-0.25-0.125-0.313-0.047-0.078 0.063-0.047 0.203 0.063 0.297 0.109 0.109 0.25 0.125 0.313 0.047zM7.047 21.516c0.031-0.094-0.063-0.203-0.203-0.25-0.125-0.031-0.266 0.016-0.297 0.109s0.063 0.203 0.203 0.234c0.125 0.047 0.266 0 0.297-0.094zM8.031 21.594c0-0.109-0.125-0.187-0.266-0.172-0.141 0-0.25 0.078-0.25 0.172 0 0.109 0.109 0.187 0.266 0.172 0.141 0 0.25-0.078 0.25-0.172zM8.937 21.438c-0.016-0.094-0.141-0.156-0.281-0.141-0.141 0.031-0.234 0.125-0.219 0.234 0.016 0.094 0.141 0.156 0.281 0.125s0.234-0.125 0.219-0.219z"></path>
+</svg>
+
+  </a>
+
+  <!-- Optional additional links to insert for icons links -->
+<a id="facebook-link"
+   class="icon" title="Facebook" aria-label="Facebook"
+   href="https://www.facebook.com/5hyunkwon"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+</a>
+
+<a id="instagram-link"
+   class="icon" title="Instagram" aria-label="Instagram"
+   href="https://www.instagram.com/5hyun_kwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M17.34,5.46h0a1.2,1.2,0,1,0,1.2,1.2A1.2,1.2,0,0,0,17.34,5.46Zm4.6,2.42a7.59,7.59,0,0,0-.46-2.43,4.94,4.94,0,0,0-1.16-1.77,4.7,4.7,0,0,0-1.77-1.15,7.3,7.3,0,0,0-2.43-.47C15.06,2,14.72,2,12,2s-3.06,0-4.12.06a7.3,7.3,0,0,0-2.43.47A4.78,4.78,0,0,0,3.68,3.68,4.7,4.7,0,0,0,2.53,5.45a7.3,7.3,0,0,0-.47,2.43C2,8.94,2,9.28,2,12s0,3.06.06,4.12a7.3,7.3,0,0,0,.47,2.43,4.7,4.7,0,0,0,1.15,1.77,4.78,4.78,0,0,0,1.77,1.15,7.3,7.3,0,0,0,2.43.47C8.94,22,9.28,22,12,22s3.06,0,4.12-.06a7.3,7.3,0,0,0,2.43-.47,4.7,4.7,0,0,0,1.77-1.15,4.85,4.85,0,0,0,1.16-1.77,7.59,7.59,0,0,0,.46-2.43c0-1.06.06-1.4.06-4.12S22,8.94,21.94,7.88ZM20.14,16a5.61,5.61,0,0,1-.34,1.86,3.06,3.06,0,0,1-.75,1.15,3.19,3.19,0,0,1-1.15.75,5.61,5.61,0,0,1-1.86.34c-1,.05-1.37.06-4,.06s-3,0-4-.06A5.73,5.73,0,0,1,6.1,19.8,3.27,3.27,0,0,1,5,19.05a3,3,0,0,1-.74-1.15A5.54,5.54,0,0,1,3.86,16c0-1-.06-1.37-.06-4s0-3,.06-4A5.54,5.54,0,0,1,4.21,6.1,3,3,0,0,1,5,5,3.14,3.14,0,0,1,6.1,4.2,5.73,5.73,0,0,1,8,3.86c1,0,1.37-.06,4-.06s3,0,4,.06a5.61,5.61,0,0,1,1.86.34A3.06,3.06,0,0,1,19.05,5,3.06,3.06,0,0,1,19.8,6.1,5.61,5.61,0,0,1,20.14,8c.05,1,.06,1.37.06,4S20.19,15,20.14,16ZM12,6.87A5.13,5.13,0,1,0,17.14,12,5.12,5.12,0,0,0,12,6.87Zm0,8.46A3.33,3.33,0,1,1,15.33,12,3.33,3.33,0,0,1,12,15.33Z"/></svg>
+</a>
+
+<a id="linkedin-link"
+   class="icon" title="Linkedin" aria-label="Linkedin"
+   href="https://www.linkedin.com/in/5hyunkwon/"
+   target="_blank">
+   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24"><path d="M20.47,2H3.53A1.45,1.45,0,0,0,2.06,3.43V20.57A1.45,1.45,0,0,0,3.53,22H20.47a1.45,1.45,0,0,0,1.47-1.43V3.43A1.45,1.45,0,0,0,20.47,2ZM8.09,18.74h-3v-9h3ZM6.59,8.48h0a1.56,1.56,0,1,1,0-3.12,1.57,1.57,0,1,1,0,3.12ZM18.91,18.74h-3V13.91c0-1.21-.43-2-1.52-2A1.65,1.65,0,0,0,12.85,13a2,2,0,0,0-.1.73v5h-3s0-8.18,0-9h3V11A3,3,0,0,1,15.46,9.5c2,0,3.45,1.29,3.45,4.06Z"/></svg>
+</a>
+</nav>
+
+  <p>
+  &copy; 2021.
+  <a href="/LICENSE.md">MIT License.</a>
+</p>
+
+</div>
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">Pytorch Computer Vision Ch02</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">06 Sep 2021</span>
+  <span class="post-categories">
+    
+      &bull;
+
+      
+      
+      
+
+      
+        <a href="/category/cv.html">
+          Computer Vision
+        </a>
+      
+    
+  </span>
+</div>
+
+
+  <div class="post-body">
+    <h2 id="binary-image-classification">Binary Image Classification</h2>
+
+<h3 id="1-exploring-the-dataset">1. Exploring the dataset</h3>
+
+<ul>
+  <li><strong>Dataset</strong>: Histopathologic Cancer Detection competition on Kaggle.</li>
+  <li><strong>Goal</strong>: Classifying image patches as normal or malignant.</li>
+</ul>
+
+<h4 id="read-train_labelscsv-and-explore">Read train_labels.csv and explore</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">path2csv</span> <span class="o">=</span> <span class="s">'./data/histopathologic-cancer-detection/train_labels.csv'</span>
+<span class="n">labels_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path2csv</span><span class="p">)</span>
+<span class="n">labels_df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>f38a6374c348f90b587e046aac6079959adf3835</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>c18f2d887b7ae4f6742ee445113fa1aef383ed77</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>755db6279dae599ebb4d39a9123cce439965282d</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>bc3f0c64fb968ff4a8bd33af6971ecae77c75e08</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>068aba587a4950175d04c680d38943fd488d6a9d</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># count the number of normal and malignant cases
+</span><span class="n">labels_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0    130908
+1     89117
+Name: label, dtype: int64
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># retina option
+</span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span>
+<span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s">'retina'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># look at a histogram of the labels
+</span><span class="n">labels_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">].</span><span class="n">hist</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;AxesSubplot:&gt;
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch02/output_8_1.png" alt="png" /></p>
+
+<h4 id="visualize-a-few-images-that-have-a-positive-label">Visualize a few images that have a positive label</h4>
+
+<p><strong>positive</strong>: at least one pixel of tumor tissue</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get ids for malignant images
+</span><span class="n">malignantIds</span> <span class="o">=</span> <span class="n">labels_df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">labels_df</span><span class="p">[</span><span class="s">'label'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s">'id'</span><span class="p">].</span><span class="n">values</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">malignantIds</span><span class="p">))</span>
+<span class="n">malignantIds</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>89117
+
+
+
+
+
+array(['c18f2d887b7ae4f6742ee445113fa1aef383ed77',
+       'a24ce148f6ffa7ef8eefb4efb12ebffe8dd700da',
+       '7f6ccae485af121e0b6ee733022e226ee6b0c65f', ...,
+       '309210db7f424edbc22b2d13bf2fa27518b18f5c',
+       'd4b854fe38b07fe2831ad73892b3cec877689576',
+       'a81f84895ddcd522302ddf34be02eb1b3e5af1cb'], dtype=object)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># data is stored here
+</span><span class="n">path2train</span> <span class="o">=</span> <span class="s">'./data/histopathologic-cancer-detection/train/'</span>
+</code></pre></div></div>
+
+<h4 id="define-a-flag-to-show-images-in-grayscale-or-color-mode">Define a flag to show images in grayscale or color mode</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># show images in grayscale, if you want color change it to True
+</span><span class="n">color</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<h4 id="set-figure-sizes">Set figure sizes</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'figure.figsize'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Figure size 720x720 with 0 Axes&gt;
+</code></pre></div></div>
+
+<h4 id="display-the-images">Display the images</h4>
+
+<p><code class="highlighter-rouge">PIL.ImageDraw.Draw(im, mode=None)</code><br />
+Creates an object that can be used to draw in the given image. Note that the image will be modified in place.</p>
+
+<p><code class="highlighter-rouge">ImageDraw.rectangle(xy, fill=None, outline=None, width=1)</code><br />
+Draws a rectangle.</p>
+<ul>
+  <li>xy: Two points to define the bounding box. Sequence of either [(x0, y0), (x1, y1)] or [x0, y0, x1, y1]. The second point is just outside the drawn rectangle.</li>
+  <li>outline: Color to use for the outline.</li>
+  <li>fill: Color to use for the fill.</li>
+  <li>width: The line width, in pixels.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">id_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">malignantIds</span><span class="p">[:</span><span class="n">nrows</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">]):</span>
+    <span class="n">full_filenames</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">path2train</span><span class="p">,</span> <span class="n">id_</span> <span class="o">+</span> <span class="s">'.tif'</span><span class="p">)</span>
+    
+    <span class="c1"># load image
+</span>    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">full_filenames</span><span class="p">)</span>
+    
+    <span class="c1"># draw a 32 * 32 rectangle
+</span>    <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="p">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">draw</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">)),</span> <span class="n">outline</span><span class="o">=</span><span class="s">'green'</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)[:,:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch02/output_22_0.png" alt="png" /></p>
+
+<h4 id="images-shape-and-minimummaximum-pixel-values">Image’s shape and minimum/maximum pixel values</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'image shape:'</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">).</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'pixel values range from %s to %s'</span> <span class="o">%</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">img</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>image shape: (96, 96, 3)
+pixel values range from 0 to 255
+</code></pre></div></div>
+
+<h3 id="2-creating-a-custom-dataset">2. Creating a custom dataset</h3>
+
+<p><code class="highlighter-rouge">Dataset</code> (class): a powerful tool to handle large datasets in PyTorch</p>
+<ul>
+  <li><code class="highlighter-rouge">__len__</code>: returns the dataset’s length.</li>
+  <li><code class="highlighter-rouge">__getitem__</code>: returns an image at the specified index.</li>
+</ul>
+
+<h4 id="define-a-class-for-the-custom-dataset">Define a class for the custom dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load the required packages
+</span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="n">transforms</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># fix torch random seed
+</span><span class="n">torch</span><span class="p">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;torch._C.Generator at 0x7fb741048d98&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">help</span><span class="p">(</span><span class="n">Dataset</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Help on class Dataset in module torch.utils.data.dataset:
+
+class Dataset(typing.Generic)
+ |  An abstract class representing a :class:`Dataset`.
+ |  
+ |  All datasets that represent a map from keys to data samples should subclass
+ |  it. All subclasses should overwrite :meth:`__getitem__`, supporting fetching a
+ |  data sample for a given key. Subclasses could also optionally overwrite
+ |  :meth:`__len__`, which is expected to return the size of the dataset by many
+ |  :class:`~torch.utils.data.Sampler` implementations and the default options
+ |  of :class:`~torch.utils.data.DataLoader`.
+ |  
+ |  .. note::
+ |    :class:`~torch.utils.data.DataLoader` by default constructs a index
+ |    sampler that yields integral indices.  To make it work with a map-style
+ |    dataset with non-integral indices/keys, a custom sampler must be provided.
+ |  
+ |  Method resolution order:
+ |      Dataset
+ |      typing.Generic
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __add__(self, other:'Dataset[T_co]') -&gt; 'ConcatDataset[T_co]'
+ |  
+ |  __getitem__(self, index) -&gt; +T_co
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __abstractmethods__ = frozenset()
+ |  
+ |  __args__ = None
+ |  
+ |  __extra__ = None
+ |  
+ |  __next_in_mro__ = &lt;class 'object'&gt;
+ |      The most base type
+ |  
+ |  __orig_bases__ = (typing.Generic[+T_co],)
+ |  
+ |  __origin__ = None
+ |  
+ |  __parameters__ = (+T_co,)
+ |  
+ |  __tree_hash__ = -9223363260025027557
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from typing.Generic:
+ |  
+ |  __new__(cls, *args, **kwds)
+ |      Create and return a new object.  See help(type) for accurate signature.
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the histoCancerDataset class
+</span><span class="k">class</span> <span class="nc">histoCancerDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s">'train'</span><span class="p">):</span>
+        <span class="c1"># path to images
+</span>        <span class="n">path2data</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">data_type</span><span class="p">)</span>
+        
+        <span class="c1"># get a list of images
+</span>        <span class="n">filenames</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path2data</span><span class="p">)</span>
+        
+        <span class="c1"># get the full path to images
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">full_filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">path2data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+        
+        <span class="c1"># labels are in a csv file named train_labels.csv
+</span>        <span class="n">csv_filename</span> <span class="o">=</span> <span class="n">data_type</span> <span class="o">+</span> <span class="s">'_labels.csv'</span>
+        <span class="n">path2csvLabels</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">csv_filename</span><span class="p">)</span>
+        <span class="n">labels_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path2csvLabels</span><span class="p">)</span>
+        
+        <span class="c1"># set data frame index to id
+</span>        <span class="n">labels_df</span><span class="p">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        
+        <span class="c1"># obtain labels form data frame
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels_df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]].</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
+        
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># return size of dataset
+</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">full_filenames</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="c1"># open image, apply transforms and return with label
+</span>        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">full_filenames</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>  <span class="c1"># PIL image
+</span>        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h4 id="define-the-transformation-function">Define the transformation function</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="n">transforms</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># simple transformation that only converts a PIL image into Pytorch tensors.
+</span><span class="n">data_transformer</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">()])</span>
+</code></pre></div></div>
+
+<h4 id="define-an-object-of-the-custom-dataset-for-the-train-folder">Define an object of the custom dataset for the train folder</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data_dir</span> <span class="o">=</span> <span class="s">'./data/histopathologic-cancer-detection/'</span>
+<span class="n">histo_dataset</span> <span class="o">=</span> <span class="n">histoCancerDataset</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">data_transformer</span><span class="p">,</span> <span class="s">'train'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">histo_dataset</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>220025
+</code></pre></div></div>
+
+<h4 id="load-an-image-using-the-custom-dataset">Load an image using the custom dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load an image
+</span><span class="n">img</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">histo_dataset</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">img</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([3, 96, 96]) tensor(0.0549) tensor(1.)
+</code></pre></div></div>
+
+<h3 id="3-splitting-the-dataset">3. Splitting the dataset</h3>
+
+<p>For tracking the model’s performance during training, we need to provide a validation dataset</p>
+<ul>
+  <li>20% of histo_dataset as the validation dataset</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">random_split</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># split histo_dataset
+</span><span class="n">len_histo</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">histo_dataset</span><span class="p">)</span>
+<span class="n">len_train</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="n">len_histo</span><span class="p">)</span>
+<span class="n">len_val</span> <span class="o">=</span> <span class="n">len_histo</span> <span class="o">-</span> <span class="n">len_train</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">torch.utils.data.random_split(dataset, lengths, generator=&lt;torch._C.Generator object&gt;)</code><br />
+Randomly split a dataset into non-overlapping new datasets of given lengths.<br />
+Optionally fix the generator for reproducible results</p>
+<ul>
+  <li>dataset(Dataset): Dataset to be split</li>
+  <li>lengths(sequence): lengths of splits to be produced</li>
+  <li>generator(Generator): Generator used for the random permutation.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_ds</span><span class="p">,</span> <span class="n">val_ds</span> <span class="o">=</span> <span class="n">random_split</span><span class="p">(</span><span class="n">histo_dataset</span><span class="p">,</span> <span class="p">[</span><span class="n">len_train</span><span class="p">,</span> <span class="n">len_val</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'train dataset length:'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_ds</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'validation dataset length:'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_ds</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>train dataset length: 176020
+validation dataset length: 44005
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get an image from the training dataset
+</span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([3, 96, 96]) 0
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get an image from the validation dataset
+</span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_ds</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([3, 96, 96]) 1
+</code></pre></div></div>
+
+<h4 id="display-a-few-samples">Display a few samples</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Define a helper function to show an image</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="c1"># convert tensor to numpy array
+</span>    <span class="n">npimg</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">numpy</span><span class="p">()</span>
+    
+    <span class="c1"># convert to H * W * C shape
+</span>    <span class="n">npimg_tr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">npimg</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">npimg_tr</span> <span class="o">=</span> <span class="n">npimg_tr</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">npimg_tr</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s">'nearest'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'gray'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># display images
+</span>        <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">npimg_tr</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s">'nearest'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'label: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Create a grid of sample images</p>
+
+<p><code class="highlighter-rouge">torchvision.utils.make_grid(tensor: Union[torch.Tensor, List[torch.Tensor]], nrow: int = 8, padding: int = 2, normalize: bool = False, value_range: Optional[Tuple[int, int]] = None, scale_each: bool = False, pad_value: int = 0, **kwargs) → torch.Tensor</code><br />
+Make a grid of images.</p>
+<ul>
+  <li>tensor (Tensor or list) – 4D mini-batch Tensor of shape (B x C x H x W) or a list of images all of the same size.</li>
+  <li>nrow (int, optional) – Number of images displayed in each row of the grid. The final grid size is (B / nrow, nrow). Default: 8.</li>
+  <li>padding (int, optional) – amount of padding. Default: 2.</li>
+  <li>normalize (bool, optional) – If True, shift the image to the range (0, 1), by the min and max values specified by range. Default: False.</li>
+  <li>value_range (tuple, optional) – tuple (min, max) where min and max are numbers, then these numbers are used to normalize the image. By default, min and max are computed from the tensor.</li>
+  <li>scale_each (bool, optional) – If True, scale each image in the batch of images separately rather than the (min, max) over all images. Default: False.</li>
+  <li>pad_value (float, optional) – Value for the padded pixels. Default: 0.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grid_size</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">rnd_inds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_ds</span><span class="p">),</span> <span class="n">grid_size</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'image indices:'</span><span class="p">,</span> <span class="n">rnd_inds</span><span class="p">)</span>
+
+<span class="n">x_grid_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">train_ds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rnd_inds</span><span class="p">]</span>
+<span class="n">y_grid_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">train_ds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rnd_inds</span><span class="p">]</span>
+
+<span class="n">x_grid_train</span> <span class="o">=</span> <span class="n">utils</span><span class="p">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">x_grid_train</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_grid_train</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'figure.figsize'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">x_grid_train</span><span class="p">,</span> <span class="n">y_grid_train</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>image indices: [ 43567 173685 117952 152315]
+torch.Size([3, 100, 394])
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch02/output_53_1.png" alt="png" /></p>
+
+<p>show a few samples from val_ds</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grid_size</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">rnd_inds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_ds</span><span class="p">),</span> <span class="n">grid_size</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'image indices:'</span><span class="p">,</span> <span class="n">rnd_inds</span><span class="p">)</span>
+
+<span class="n">x_grid_val</span> <span class="o">=</span> <span class="p">[</span><span class="n">val_ds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_size</span><span class="p">)]</span>
+<span class="n">y_grid_val</span> <span class="o">=</span> <span class="p">[</span><span class="n">val_ds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_size</span><span class="p">)]</span>
+
+<span class="n">x_grid_val</span> <span class="o">=</span> <span class="n">utils</span><span class="p">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">x_grid_val</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_grid_val</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">show</span><span class="p">(</span><span class="n">x_grid_val</span><span class="p">,</span> <span class="n">y_grid_val</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>image indices: [30403 32103 41993 20757]
+torch.Size([3, 100, 394])
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch02/output_55_1.png" alt="png" /></p>
+
+<h3 id="4-transforming-the-data">4. Transforming the data</h3>
+
+<p><strong>Image transformation</strong>: expanding the dataset or resizing and normalizing it to achieve better model performance.</p>
+<ul>
+  <li>horizontal and vertical flipping</li>
+  <li>rotation</li>
+  <li>resizing</li>
+</ul>
+
+<p><code class="highlighter-rouge">torchvision</code> package has the on-the-fly image transformation method</p>
+
+<h4 id="define-a-few-image-transformations">Define a few image transformations</h4>
+
+<p><code class="highlighter-rouge">torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=&lt;InterpolationMode.BILINEAR: 'bilinear'&gt;)</code><br />
+Crop a random portion of image and resize it to a given size.<br />
+If the image is torch Tensor, it is expected to have […, H, W] shape, where … means an arbitrary number of leading dimensions.<br />
+A crop of the original image is made: the crop has a random area (H * W) and a random aspect ratio.<br />
+This crop is finally resized to the given size. This is popularly used to train the Inception networks.</p>
+<ul>
+  <li>size(int or sequence): expected output size of the crop, for each edge.
+    <ul>
+      <li>If size is an int instead of sequence like (h, w), a square output size (size, size) is made.</li>
+      <li>If provided a sequence of length 1, it will be interpreted as (size[0], size[0]).</li>
+    </ul>
+  </li>
+  <li>scale(tuple of python:float): Specifies the lower and upper bounds for the random area of the crop, before resizing.
+    <ul>
+      <li>The scale is defined with respect to the area of the original image.</li>
+    </ul>
+  </li>
+  <li>ratio(tuple of python:float): lower and upper bounds for the random aspect ratio of the crop, before resizing.</li>
+  <li>interpolation(InterpolationMode): Desired interpolation enum defined by <code class="highlighter-rouge">torchvision.transforms.InterpolationMode</code>.
+    <ul>
+      <li>Default is <code class="highlighter-rouge">InterpolationMode.BILINEAR</code>.</li>
+      <li>If input is Tensor, only <code class="highlighter-rouge">InterpolationMode.NEAREST</code>, <code class="highlighter-rouge">InterpolationMode.BILINEAR</code> and <code class="highlighter-rouge">InterpolationMode.BICUBIC</code> are supported.</li>
+      <li>For backward compatibility integer values (e.g. <code class="highlighter-rouge">PIL.Image.NEAREST</code>) are still acceptable.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the transformations for the training dataset
+</span><span class="n">train_transformer</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="p">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="p">.</span><span class="n">RandomVerticalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="p">.</span><span class="n">RandomRotation</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="p">.</span><span class="n">RandomResizedCrop</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">ratio</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)),</span>
+    <span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">()</span>
+<span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_transformer</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Compose(
+    RandomHorizontalFlip(p=0.5)
+    RandomVerticalFlip(p=0.5)
+    RandomRotation(degrees=[-45.0, 45.0], resample=False, expand=False)
+    RandomResizedCrop(size=(96, 96), scale=(0.8, 1.0), ratio=(1.0, 1.0), interpolation=PIL.Image.BILINEAR)
+    ToTensor()
+)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># valdiation dataset -&gt; don't need any augmentation, only convert the images into tensors
+</span><span class="n">val_transformer</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">()])</span>
+</code></pre></div></div>
+
+<h4 id="overwrite-the-transform-functions-of-train_ds-and-val_ds">Overwrite the transform functions of train_ds and val_ds</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># overwrite the transform functions
+</span><span class="n">train_ds</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">train_transformer</span>
+<span class="n">val_ds</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">val_transformer</span>
+</code></pre></div></div>
+
+<h3 id="5-creating-dataloaders">5. Creating dataloaders</h3>
+
+<p>If we do not use dataloaders, we have to write code to loop over datasets and extract a data batch</p>
+<ul>
+  <li><strong>Using PyTorch Dataloader, this process can be made automatically</strong></li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, sampler=None, batch_sampler=None, num_workers=0, collate_fn=None, pin_memory=False, drop_last=False, timeout=0, worker_init_fn=None, multiprocessing_context=None, generator=None, *, prefetch_factor=2, persistent_workers=False)</code><br />
+Data loader. Combines a dataset and a sampler, and provides an iterable over the given dataset.<br />
+The DataLoader supports both map-style and iterable-style datasets with single- or multi-process loading, customizing loading order and optional automatic batching (collation) and memory pinning.</p>
+<ul>
+  <li>dataset (Dataset) – dataset from which to load the data.</li>
+  <li>batch_size (int, optional) – how many samples per batch to load (default: 1).</li>
+  <li>shuffle (bool, optional) – set to True to have the data reshuffled at every epoch (default: False).</li>
+  <li>sampler (Sampler or Iterable, optional) – defines the strategy to draw samples from the dataset. Can be any Iterable with <code class="highlighter-rouge">__len__</code> implemented. If specified, shuffle must not be specified.</li>
+  <li>batch_sampler (Sampler or Iterable, optional) – like sampler, but returns a batch of indices at a time. Mutually exclusive with batch_size, shuffle, sampler, and drop_last.</li>
+  <li>num_workers (int, optional) – how many subprocesses to use for data loading. 0 means that the data will be loaded in the main process. (default: 0)</li>
+  <li>collate_fn (callable, optional) – merges a list of samples to form a mini-batch of Tensor(s). Used when using batched loading from a map-style dataset.</li>
+  <li>pin_memory (bool, optional) – If True, the data loader will copy Tensors into CUDA pinned memory before returning them. If your data elements are a custom type, or your collate_fn returns a batch that is a custom type, see the example below.</li>
+  <li>drop_last (bool, optional) – set to True to drop the last incomplete batch, if the dataset size is not divisible by the batch size. If False and the size of dataset is not divisible by the batch size, then the last batch will be smaller. (default: False)</li>
+  <li>timeout (numeric, optional) – if positive, the timeout value for collecting a batch from workers. Should always be non-negative. (default: 0)</li>
+  <li>worker_init_fn (callable, optional) – If not None, this will be called on each worker subprocess with the worker id (an int in [0, num_workers - 1]) as input, after seeding and before data loading. (default: None)</li>
+  <li>generator (torch.Generator, optional) – If not None, this RNG will be used by RandomSampler to generate random indexes and multiprocessing to generate base_seed for workers. (default: None)</li>
+  <li>prefetch_factor (int, optional, keyword-only arg) – Number of samples loaded in advance by each worker. 2 means there will be a total of 2 * num_workers samples prefetched across all workers. (default: 2)</li>
+  <li>persistent_workers (bool, optional) – If True, the data loader will not shutdown the worker processes after a dataset has been consumed once. This allows to maintain the workers Dataset instances alive. (default: False)</li>
+</ul>
+
+<h4 id="define-two-dataloaders-for-the-datasets">define two dataloaders for the datasets</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">val_dl</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">val_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># extract a batch from training data
+</span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">train_dl</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([32, 3, 96, 96])
+torch.Size([32])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># extract a batch from validation data
+</span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_dl</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">break</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([64, 3, 96, 96])
+torch.Size([64])
+</code></pre></div></div>
+
+<h3 id="6-building-the-classification-model">6. Building the classification model</h3>
+
+<p>model: four <strong>CNNs(Convolutional Neural Networks)</strong> and two <strong>FCLs(Fully Connected Layers)</strong></p>
+<ul>
+  <li>after each convolutional layer, there is a pooling layer</li>
+  <li>output layer is for the binary classification</li>
+</ul>
+
+<h4 id="create-dumb-baselines-for-the-validation-dataset">create dumb baselines for the validation dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get labels for validation dataset
+</span><span class="n">y_val</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_ds</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define a function to calculate the classification accuracy
+</span><span class="k">def</span> <span class="nf">accuracy</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">out</span><span class="o">==</span><span class="n">labels</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">numpy.zeros_like(a, dtype=None, order='K', subok=True, shape=None)</code><br />
+Return an array of zeros with the same shape and type as a given array.</p>
+<ul>
+  <li>a(array_like): The shape and data-type of a define these same attributes of the returned array.</li>
+  <li>dtype(data-type, optional): Overrides the data type of the result.</li>
+  <li>order({‘C’, ‘F’, ‘A’, or ‘K’}, optional): Overrides the memory layout of the result. ‘C’ means C-order, ‘F’ means F-order, ‘A’ means ‘F’ if a is Fortran contiguous, ‘C’ otherwise. ‘K’ means match the layout of a as closely as possible.</li>
+  <li>subok(bool, optional): If True, then the newly created array will use the sub-class type of a, otherwise it will be a base-class array. Defaults to True.</li>
+  <li>shape(int or sequence of ints, optional): Overrides the shape of the result. If order=’K’ and the number of dimensions is unchanged, will try to keep order, otherwise, order=’C’ is implied.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># accuracy all zero predictions
+</span><span class="n">acc_all_zeros</span> <span class="o">=</span> <span class="n">accuracy</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">y_val</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"accuracy all zero prediction: %.2f"</span> <span class="o">%</span><span class="n">acc_all_zeros</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>accuracy all zero prediction: 0.59
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># accuracy all ones predictions
+</span><span class="n">acc_all_ones</span> <span class="o">=</span> <span class="n">accuracy</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y_val</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"accuracy all one prediction: %.2f"</span> <span class="o">%</span><span class="n">acc_all_ones</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>accuracy all one prediction: 0.41
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># accuracy random predictions
+</span><span class="n">acc_random</span> <span class="o">=</span> <span class="n">accuracy</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">y_val</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"accuracy random prediction: %.2f"</span> <span class="o">%</span><span class="n">acc_random</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>accuracy random prediction: 0.50
+</code></pre></div></div>
+
+<h4 id="implement-a-helper-function-to-calculate-the-output-size-of-a-cnn-layer">implement a helper function to calculate the output size of a CNN layer</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the helper function
+</span><span class="k">def</span> <span class="nf">findConv2dOutShape</span><span class="p">(</span><span class="n">H_in</span><span class="p">,</span> <span class="n">W_in</span><span class="p">,</span> <span class="n">conv</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="c1"># get conv arguments
+</span>    <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">conv</span><span class="p">.</span><span class="n">kernel_size</span>
+    <span class="n">stride</span> <span class="o">=</span> <span class="n">conv</span><span class="p">.</span><span class="n">stride</span>
+    <span class="n">padding</span> <span class="o">=</span> <span class="n">conv</span><span class="p">.</span><span class="n">padding</span>
+    <span class="n">dilation</span> <span class="o">=</span> <span class="n">conv</span><span class="p">.</span><span class="n">dilation</span>
+    
+    <span class="c1"># Ref: https://pytorch.org/docs/stable/nn.html
+</span>    <span class="n">H_out</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">floor</span><span class="p">((</span><span class="n">H_in</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">dilation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">stride</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">W_out</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">floor</span><span class="p">((</span><span class="n">W_in</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dilation</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">stride</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">pool</span><span class="p">:</span>
+        <span class="n">H_out</span> <span class="o">/=</span> <span class="n">pool</span>
+        <span class="n">W_out</span> <span class="o">/=</span> <span class="n">pool</span>
+    
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">H_out</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">W_out</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># example
+</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">findConv2dOutShape</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="n">conv1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>47 47
+</code></pre></div></div>
+
+<h4 id="implement-the-cnn-model">implement the CNN model</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># import required packages
+</span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="n">F</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the Net class
+</span><span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="n">C_in</span><span class="p">,</span> <span class="n">H_in</span><span class="p">,</span> <span class="n">W_in</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'input_shape'</span><span class="p">]</span>
+        <span class="n">init_f</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'initial_filters'</span><span class="p">]</span>
+        <span class="n">num_fc1</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'num_fc1'</span><span class="p">]</span>
+        <span class="n">num_classes</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'num_classes'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dropout_rate</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'dropout_rate'</span><span class="p">]</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">C_in</span><span class="p">,</span> <span class="n">init_f</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">findConv2dOutShape</span><span class="p">(</span><span class="n">H_in</span><span class="p">,</span> <span class="n">W_in</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">conv1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">init_f</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">init_f</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">findConv2dOutShape</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">conv2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">init_f</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">init_f</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">findConv2dOutShape</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">conv3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">conv4</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">init_f</span><span class="p">,</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">init_f</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">findConv2dOutShape</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">conv4</span><span class="p">)</span>
+        
+        <span class="c1"># compute the flatten size
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">num_flatten</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">init_f</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">num_flatten</span><span class="p">,</span> <span class="n">num_fc1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_fc1</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">conv3</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">conv4</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">num_flatten</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">dropout_rate</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">training</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="p">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="construct-an-object-of-the-net-class">construct an object of the Net class</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># dict to define model parameters
+</span><span class="n">params_model</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'input_shape'</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">96</span><span class="p">),</span>
+    <span class="s">'initial_filters'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s">'num_fc1'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s">'dropout_rate'</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+    <span class="s">'num_classes'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create model
+</span><span class="n">cnn_model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">params_model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="move-the-model-to-a-cuda-device-if-ones-available">move the model to a cuda device if one’s available</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># move model to cuda/gpu device
+</span><span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s">'cuda'</span><span class="p">)</span>
+    <span class="n">cnn_model</span> <span class="o">=</span> <span class="n">cnn_model</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="model-check">model check</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cnn_model</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net(
+  (conv1): Conv2d(3, 8, kernel_size=(3, 3), stride=(1, 1))
+  (conv2): Conv2d(8, 16, kernel_size=(3, 3), stride=(1, 1))
+  (conv3): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1))
+  (conv4): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+  (fc1): Linear(in_features=1024, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=2, bias=True)
+)
+</code></pre></div></div>
+
+<h4 id="verify-the-model-device">verify the model device</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">next</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">.</span><span class="n">parameters</span><span class="p">()).</span><span class="n">device</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>device(type='cpu')
+</code></pre></div></div>
+
+<h4 id="get-a-summary-of-the-model">get a summary of the model</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torchsummary</span> <span class="kn">import</span> <span class="n">summary</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summary</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">input_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">96</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s">'cpu'</span><span class="p">).</span><span class="nb">type</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1            [-1, 8, 94, 94]             224
+            Conv2d-2           [-1, 16, 45, 45]           1,168
+            Conv2d-3           [-1, 32, 20, 20]           4,640
+            Conv2d-4             [-1, 64, 8, 8]          18,496
+            Linear-5                  [-1, 100]         102,500
+            Linear-6                    [-1, 2]             202
+================================================================
+Total params: 127,230
+Trainable params: 127,230
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.11
+Forward/backward pass size (MB): 0.92
+Params size (MB): 0.49
+Estimated Total Size (MB): 1.51
+----------------------------------------------------------------
+</code></pre></div></div>
+
+<h3 id="7-defining-th-loss-function">7. Defining th loss function</h3>
+
+<p>standard loss function for classification tasks</p>
+<ul>
+  <li>cross-entropy loss</li>
+  <li>logloss</li>
+</ul>
+
+<p><strong>output activation / number of outputs / loss function</strong><br />
+None / 1 / <code class="highlighter-rouge">nn.BCEWithLogitsLoss</code><br />
+Sigmoid / 1 / <code class="highlighter-rouge">nn.BCELoss</code><br />
+None / 2 / <code class="highlighter-rouge">nn.CrossEntropyLoss</code><br />
+log_softmax / 2 / <code class="highlighter-rouge">nn.NLLLoss</code></p>
+
+<p><strong>log_softmax</strong> function: easier to expand to multi-class classification</p>
+<ul>
+  <li>PyTorch combines the log and softmax operations into one function due to numerical stability and speed</li>
+</ul>
+
+<h4 id="define-the-loss-function">define the loss function</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># nn.NLLLoss(): negative log-likelihood loss
+</span><span class="n">loss_func</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">NLLLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s">'sum'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="use-the-loss-in-an-example">use the loss in an example</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># fix random seed
+</span><span class="n">torch</span><span class="p">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;torch._C.Generator at 0x7fb83a9b2de0&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ls_F</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">LogSoftmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_out</span> <span class="o">=</span> <span class="n">ls_F</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[-1.0674, -0.7172],
+        [ 1.0897, -1.5747],
+        [ 1.4460,  0.6191],
+        [-0.7737, -2.4656],
+        [ 0.9968,  0.4524],
+        [-0.3464, -0.7245],
+        [ 1.7059,  2.2282],
+        [-0.0677,  0.2331]], requires_grad=True)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_out</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[-0.8835, -0.5333],
+        [-0.0673, -2.7317],
+        [-0.3628, -1.1897],
+        [-0.1690, -1.8609],
+        [-0.4576, -1.0019],
+        [-0.5218, -0.9000],
+        [-0.9880, -0.4657],
+        [-0.8548, -0.5540]], grad_fn=&lt;LogSoftmaxBackward&gt;)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_out</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([8, 2])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">target</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([0, 1, 1, 1, 1, 0, 0, 0])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">target</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([8])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">loss</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">y_out</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">loss</span><span class="p">.</span><span class="n">item</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10.032448768615723
+</code></pre></div></div>
+
+<h4 id="compute-the-gradients-of-the-loss-with-respect-to-y">compute the gradients of the loss with respect to y</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="p">.</span><span class="n">data</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[-1.0674, -0.7172],
+        [ 1.0897, -1.5747],
+        [ 1.4460,  0.6191],
+        [-0.7737, -2.4656],
+        [ 0.9968,  0.4524],
+        [-0.3464, -0.7245],
+        [ 1.7059,  2.2282],
+        [-0.0677,  0.2331]])
+</code></pre></div></div>
+
+<h3 id="8-defining-the-optimizer">8. Defining the optimizer</h3>
+
+<p><code class="highlighter-rouge">torch.optim</code> packages provides the implementation of common optimizers</p>
+<ul>
+  <li><strong>optimizer</strong>: holds the current state and updates the parameters based on the computed gradients</li>
+  <li>binary classification tasks - SGD, Adam</li>
+  <li>learning schedules: tools for automatically adjusting the learning rate during training to improve model performance</li>
+</ul>
+
+<h4 id="define-an-object-of-the-adam-optimizer-with-a-learning-rate-of-3e-4">define an object of the Adam optimizer with a learning rate of 3e-4</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">optim</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">opt</span> <span class="o">=</span> <span class="n">optim</span><span class="p">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">opt</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0003
+    weight_decay: 0
+)
+</code></pre></div></div>
+
+<h4 id="read-the-current-value-of-the-learning-rate">read the current value of the learning rate</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get learning rate
+</span><span class="k">def</span> <span class="nf">get_lr</span><span class="p">(</span><span class="n">opt</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">opt</span><span class="p">.</span><span class="n">param_groups</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">param_group</span><span class="p">[</span><span class="s">'lr'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">current_lr</span> <span class="o">=</span> <span class="n">get_lr</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'current lr={}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">current_lr</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>current lr=0.0003
+</code></pre></div></div>
+
+<h4 id="define-a-learning-scheduler-using-the-reducelronplateau-method">define a learning scheduler using the ReduceLROnPlateau method</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">torch.optim.lr_scheduler</span> <span class="kn">import</span> <span class="n">ReduceLROnPlateau</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=10, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=0, eps=1e-08, verbose=False)</code><br />
+Reduce learning rate when a metric has stopped improving. Models often benefit from reducing the learning rate by a factor of 2-10 once learning stagnates. This scheduler reads a metrics quantity and if no improvement is seen for a ‘patience’ number of epochs, the learning rate is reduced.</p>
+<ul>
+  <li>optimizer (Optimizer) – Wrapped optimizer.</li>
+  <li>mode (str) – One of min, max. In min mode, lr will be reduced when the quantity monitored has stopped decreasing; in max mode it will be reduced when the quantity monitored has stopped increasing. Default: ‘min’.</li>
+  <li>factor (float) – Factor by which the learning rate will be reduced. new_lr = lr * factor. Default: 0.1.</li>
+  <li>patience (int) – Number of epochs with no improvement after which learning rate will be reduced. For example, if patience = 2, then we will ignore the first 2 epochs with no improvement, and will only decrease the LR after the 3rd epoch if the loss still hasn’t improved then. Default: 10.</li>
+  <li>threshold (float) – Threshold for measuring the new optimum, to only focus on significant changes. Default: 1e-4.</li>
+  <li>threshold_mode (str) – One of rel, abs. In rel mode, dynamic_threshold = best * ( 1 + threshold ) in ‘max’ mode or best * ( 1 - threshold ) in min mode. In abs mode, dynamic_threshold = best + threshold in max mode or best - threshold in min mode. Default: ‘rel’.</li>
+  <li>cooldown (int) – Number of epochs to wait before resuming normal operation after lr has been reduced. Default: 0.</li>
+  <li>min_lr (float or list) – A scalar or a list of scalars. A lower bound on the learning rate of all param groups or each group respectively. Default: 0.</li>
+  <li>eps (float) – Minimal decay applied to lr. If the difference between new and old lr is smaller than eps, the update is ignored. Default: 1e-8.</li>
+  <li>verbose (bool) – If True, prints a message to stdout for each update. Default: False.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define learning rate scheduler
+</span><span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'min'</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="learn-how-the-learning-rate-schedule-works">learn how the learning rate schedule works</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">lr_scheduler</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch    22: reducing learning rate of group 0 to 1.5000e-04.
+Epoch    43: reducing learning rate of group 0 to 7.5000e-05.
+Epoch    64: reducing learning rate of group 0 to 3.7500e-05.
+Epoch    85: reducing learning rate of group 0 to 1.8750e-05.
+</code></pre></div></div>
+
+<h3 id="9-training-and-evaluation-of-the-model">9. Training and evaluation of the model</h3>
+
+<p>build a few helper functions for better code readability and to avoid code repetition</p>
+
+<h4 id="develop-a-helper-function-to-count-the-number-of-correct-predictions-per-data-batch">develop a helper function to count the number of correct predictions per data batch</h4>
+
+<p><code class="highlighter-rouge">torch.eq(input, other, *, out=None) → Tensor</code><br />
+Computes element-wise equality<br />
+The second argument can be a number or a tensor whose shape is broadcastable with the first argument.</p>
+<ul>
+  <li>input (Tensor) – the tensor to compare</li>
+  <li>other (Tensor or float) – the tensor or value to compare</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">metrics_batch</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="c1"># get output class
+</span>    <span class="n">pred</span> <span class="o">=</span> <span class="n">output</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># compare output class with target class
+</span>    <span class="n">corrects</span> <span class="o">=</span> <span class="n">pred</span><span class="p">.</span><span class="n">eq</span><span class="p">(</span><span class="n">target</span><span class="p">.</span><span class="n">view_as</span><span class="p">(</span><span class="n">pred</span><span class="p">)).</span><span class="nb">sum</span><span class="p">().</span><span class="n">item</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">corrects</span>
+</code></pre></div></div>
+
+<h4 id="develop-a-helper-function-to-compute-the-loss-value-per-batch-of-data">develop a helper function to compute the loss value per batch of data</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">loss_batch</span><span class="p">(</span><span class="n">loss_func</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">metric_b</span> <span class="o">=</span> <span class="n">metrics_batch</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">opt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">opt</span><span class="p">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">opt</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">loss</span><span class="p">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">metric_b</span>
+</code></pre></div></div>
+
+<h4 id="develop-a-helper-function-to-compute-the-loss-value-and-the-performance-metric-for-the-entire-dataset-also-called-an-epoch">develop a helper function to compute the loss value and the performance metric for the entire dataset, also called an epoch</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the loss_epoch function
+</span><span class="k">def</span> <span class="nf">loss_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">dataset_dl</span><span class="p">,</span> <span class="n">sanity_check</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">running_metric</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">len_data</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset_dl</span><span class="p">.</span><span class="n">dataset</span><span class="p">)</span>
+    
+    <span class="c1"># internal loop over the dataset
+</span>    <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">dataset_dl</span><span class="p">:</span>
+        <span class="c1"># move batch to device
+</span>        <span class="c1"># xb = xb.to(device)
+</span>        <span class="c1"># yb = yb.to(device)
+</span>        <span class="c1"># get model output
+</span>        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
+        <span class="c1"># get loss per batch
+</span>        <span class="n">loss_b</span><span class="p">,</span> <span class="n">metric_b</span> <span class="o">=</span> <span class="n">loss_batch</span><span class="p">(</span><span class="n">loss_func</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">yb</span><span class="p">,</span> <span class="n">opt</span><span class="p">)</span>
+        
+        <span class="c1"># update running loss
+</span>        <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss_b</span>
+        <span class="c1"># update running metric
+</span>        <span class="k">if</span> <span class="n">metric_b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">running_metric</span> <span class="o">+=</span> <span class="n">metric_b</span>
+        
+        <span class="c1"># break the loop in case of sanity check
+</span>        <span class="k">if</span> <span class="n">sanity_check</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">break</span>
+    
+    <span class="c1"># average loss value
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">len_data</span><span class="p">)</span>
+    <span class="c1"># average metric value
+</span>    <span class="n">metric</span> <span class="o">=</span> <span class="n">running_metric</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">len_data</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">metric</span>
+</code></pre></div></div>
+
+<h4 id="develop-the-train_val-function">develop the train_val function</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">train_val</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="c1"># extract model parameters
+</span>    <span class="n">num_epochs</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'num_epochs'</span><span class="p">]</span>
+    <span class="n">loss_func</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'loss_func'</span><span class="p">]</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'optimizer'</span><span class="p">]</span>
+    <span class="n">train_dl</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'train_dl'</span><span class="p">]</span>
+    <span class="n">val_dl</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'val_dl'</span><span class="p">]</span>
+    <span class="n">sanity_check</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'sanity_check'</span><span class="p">]</span>
+    <span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'lr_scheduler'</span><span class="p">]</span>
+    <span class="n">path2weights</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">'path2weights'</span><span class="p">]</span>
+    
+    <span class="c1"># history of loss values in each epoch
+</span>    <span class="n">loss_history</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'train'</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s">'val'</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># history of metric values in each epoch
+</span>    <span class="n">metric_history</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'train'</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s">'val'</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># a deep copy of weights for the best performing model
+</span>    <span class="n">best_model_wts</span> <span class="o">=</span> <span class="n">copy</span><span class="p">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">())</span>
+    
+    <span class="c1"># initialize best loss to a large value
+</span>    <span class="n">best_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
+    
+    <span class="c1"># define a loop that calculates the training loss over an epoch
+</span>    <span class="c1"># main loop
+</span>    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+        <span class="c1"># get current learning rate
+</span>        <span class="n">current_lr</span> <span class="o">=</span> <span class="n">get_lr</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Epoch {}/{}, current lr={}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">current_lr</span><span class="p">))</span>
+        
+        <span class="c1"># train model on training dataset
+</span>        <span class="n">model</span><span class="p">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">train_loss</span><span class="p">,</span> <span class="n">train_metric</span> <span class="o">=</span> <span class="n">loss_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">train_dl</span><span class="p">,</span> <span class="n">sanity_check</span><span class="p">,</span> <span class="n">opt</span><span class="p">)</span>
+        
+        <span class="c1"># collect loss and metric for training dataset
+</span>        <span class="n">loss_history</span><span class="p">[</span><span class="s">'train'</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">train_loss</span><span class="p">)</span>
+        <span class="n">metric_history</span><span class="p">[</span><span class="s">'train'</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">train_metric</span><span class="p">)</span>
+        
+        <span class="c1"># evaluate model on validation dataset
+</span>        <span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">val_loss</span><span class="p">,</span> <span class="n">val_metric</span> <span class="o">=</span> <span class="n">loss_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">,</span> <span class="n">sanity_check</span><span class="p">)</span>
+        
+        <span class="c1"># collect loss and metric for validation dataset
+</span>        <span class="n">loss_history</span><span class="p">[</span><span class="s">'val'</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+        <span class="n">metric_history</span><span class="p">[</span><span class="s">'val'</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">val_metric</span><span class="p">)</span>
+        
+        <span class="c1"># store best model
+</span>        <span class="k">if</span> <span class="n">val_loss</span> <span class="o">&lt;</span> <span class="n">best_loss</span><span class="p">:</span>
+            <span class="n">best_loss</span> <span class="o">=</span> <span class="n">val_loss</span>
+            <span class="n">best_model_wts</span> <span class="o">=</span> <span class="n">copy</span><span class="p">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">())</span>
+            <span class="c1"># store weights into a local file
+</span>            <span class="n">torch</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">path2weights</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'Copied best model weights!'</span><span class="p">)</span>
+        
+        <span class="c1"># learning rate schedule
+</span>        <span class="n">lr_scheduler</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">current_lr</span> <span class="o">!=</span> <span class="n">get_lr</span><span class="p">(</span><span class="n">opt</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'Loading best model weights!'</span><span class="p">)</span>
+            <span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_model_wts</span><span class="p">)</span>
+            
+        <span class="c1"># print the loss and accuracy values and return the trained model
+</span>        <span class="k">print</span><span class="p">(</span><span class="s">'train loss: %.6f, dev loss: %.6f, accuracy: %.2f'</span> <span class="o">%</span><span class="p">(</span><span class="n">train_loss</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">val_metric</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+        
+    <span class="c1"># load best model weights
+</span>    <span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_model_wts</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">loss_history</span><span class="p">,</span> <span class="n">metric_history</span>
+</code></pre></div></div>
+
+<h4 id="set-the-sanity_check-flag-to-true-and-run-the-code">set the sanity_check flag to True and run the code</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">copy</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the objects for the optimization, loss, and learning rate schedule
+</span><span class="n">loss_func</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">NLLLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s">'sum'</span><span class="p">)</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">optim</span><span class="p">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+<span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'min'</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the training parameters and call the train_val helper function
+</span><span class="n">params_train</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'num_epochs'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s">'optimizer'</span><span class="p">:</span> <span class="n">opt</span><span class="p">,</span>
+    <span class="s">'loss_func'</span><span class="p">:</span> <span class="n">loss_func</span><span class="p">,</span>
+    <span class="s">'train_dl'</span><span class="p">:</span> <span class="n">train_dl</span><span class="p">,</span>
+    <span class="s">'val_dl'</span><span class="p">:</span> <span class="n">val_dl</span><span class="p">,</span>
+    <span class="s">'sanity_check'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s">'lr_scheduler'</span><span class="p">:</span> <span class="n">lr_scheduler</span><span class="p">,</span>
+    <span class="s">'path2weights'</span><span class="p">:</span> <span class="s">'./models/histopathologic-cancer-detection/weights.pt'</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># train and validate the model
+</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">loss_hist</span><span class="p">,</span> <span class="n">metric_hist</span> <span class="o">=</span> <span class="n">train_val</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">params_train</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch 0/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000125, dev loss: 0.001004, accuracy: 0.08
+----------
+Epoch 1/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000125, dev loss: 0.001002, accuracy: 0.08
+----------
+Epoch 2/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000124, dev loss: 0.001000, accuracy: 0.08
+----------
+Epoch 3/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000125, dev loss: 0.000999, accuracy: 0.08
+----------
+Epoch 4/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000126, dev loss: 0.000998, accuracy: 0.08
+----------
+Epoch 5/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000127, dev loss: 0.000998, accuracy: 0.08
+----------
+Epoch 6/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000124, dev loss: 0.000997, accuracy: 0.08
+----------
+Epoch 7/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000124, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 8/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000126, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 9/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000126, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 10/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000119, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 11/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000122, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 12/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000119, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 13/99, current lr=0.0003
+train loss: 0.000132, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 14/99, current lr=0.0003
+train loss: 0.000119, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 15/99, current lr=0.0003
+train loss: 0.000111, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 16/99, current lr=0.0003
+train loss: 0.000131, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 17/99, current lr=0.0003
+train loss: 0.000119, dev loss: 0.000997, accuracy: 0.08
+----------
+Epoch 18/99, current lr=0.0003
+train loss: 0.000122, dev loss: 0.000999, accuracy: 0.08
+----------
+Epoch 19/99, current lr=0.0003
+train loss: 0.000118, dev loss: 0.001000, accuracy: 0.08
+----------
+Epoch 20/99, current lr=0.0003
+train loss: 0.000135, dev loss: 0.001000, accuracy: 0.08
+----------
+Epoch 21/99, current lr=0.0003
+train loss: 0.000120, dev loss: 0.001000, accuracy: 0.08
+----------
+Epoch 22/99, current lr=0.0003
+train loss: 0.000127, dev loss: 0.000999, accuracy: 0.08
+----------
+Epoch 23/99, current lr=0.0003
+train loss: 0.000109, dev loss: 0.001000, accuracy: 0.08
+----------
+Epoch 24/99, current lr=0.0003
+train loss: 0.000133, dev loss: 0.000999, accuracy: 0.08
+----------
+Epoch 25/99, current lr=0.0003
+train loss: 0.000121, dev loss: 0.000998, accuracy: 0.08
+----------
+Epoch 26/99, current lr=0.0003
+train loss: 0.000131, dev loss: 0.000997, accuracy: 0.08
+----------
+Epoch 27/99, current lr=0.0003
+train loss: 0.000123, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 28/99, current lr=0.0003
+train loss: 0.000125, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 29/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000120, dev loss: 0.000994, accuracy: 0.08
+----------
+Epoch 30/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000122, dev loss: 0.000994, accuracy: 0.08
+----------
+Epoch 31/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000134, dev loss: 0.000993, accuracy: 0.08
+----------
+Epoch 32/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000122, dev loss: 0.000993, accuracy: 0.08
+----------
+Epoch 33/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000121, dev loss: 0.000993, accuracy: 0.08
+----------
+Epoch 34/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000119, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 35/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000119, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 36/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000120, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 37/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000129, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 38/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000117, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 39/99, current lr=0.0003
+train loss: 0.000115, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 40/99, current lr=0.0003
+train loss: 0.000125, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 41/99, current lr=0.0003
+train loss: 0.000114, dev loss: 0.000993, accuracy: 0.08
+----------
+Epoch 42/99, current lr=0.0003
+train loss: 0.000131, dev loss: 0.000994, accuracy: 0.08
+----------
+Epoch 43/99, current lr=0.0003
+train loss: 0.000128, dev loss: 0.000993, accuracy: 0.08
+----------
+Epoch 44/99, current lr=0.0003
+train loss: 0.000119, dev loss: 0.000993, accuracy: 0.08
+----------
+Epoch 45/99, current lr=0.0003
+train loss: 0.000119, dev loss: 0.000994, accuracy: 0.08
+----------
+Epoch 46/99, current lr=0.0003
+train loss: 0.000117, dev loss: 0.000995, accuracy: 0.08
+----------
+Epoch 47/99, current lr=0.0003
+train loss: 0.000120, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 48/99, current lr=0.0003
+train loss: 0.000126, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 49/99, current lr=0.0003
+train loss: 0.000124, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 50/99, current lr=0.0003
+train loss: 0.000130, dev loss: 0.000994, accuracy: 0.08
+----------
+Epoch 51/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000134, dev loss: 0.000991, accuracy: 0.08
+----------
+Epoch 52/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000117, dev loss: 0.000990, accuracy: 0.08
+----------
+Epoch 53/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000109, dev loss: 0.000990, accuracy: 0.08
+----------
+Epoch 54/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000132, dev loss: 0.000989, accuracy: 0.08
+----------
+Epoch 55/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.000117, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 56/99, current lr=0.0003
+train loss: 0.000112, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 57/99, current lr=0.0003
+train loss: 0.000114, dev loss: 0.000989, accuracy: 0.08
+----------
+Epoch 58/99, current lr=0.0003
+train loss: 0.000124, dev loss: 0.000991, accuracy: 0.08
+----------
+Epoch 59/99, current lr=0.0003
+train loss: 0.000113, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 60/99, current lr=0.0003
+train loss: 0.000113, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 61/99, current lr=0.0003
+train loss: 0.000126, dev loss: 0.000998, accuracy: 0.08
+----------
+Epoch 62/99, current lr=0.0003
+train loss: 0.000107, dev loss: 0.001003, accuracy: 0.08
+----------
+Epoch 63/99, current lr=0.0003
+train loss: 0.000114, dev loss: 0.001009, accuracy: 0.08
+----------
+Epoch 64/99, current lr=0.0003
+train loss: 0.000113, dev loss: 0.001015, accuracy: 0.08
+----------
+Epoch 65/99, current lr=0.0003
+train loss: 0.000114, dev loss: 0.001023, accuracy: 0.08
+----------
+Epoch 66/99, current lr=0.0003
+train loss: 0.000112, dev loss: 0.001032, accuracy: 0.08
+----------
+Epoch 67/99, current lr=0.0003
+train loss: 0.000134, dev loss: 0.001031, accuracy: 0.08
+----------
+Epoch 68/99, current lr=0.0003
+train loss: 0.000127, dev loss: 0.001025, accuracy: 0.08
+----------
+Epoch 69/99, current lr=0.0003
+train loss: 0.000124, dev loss: 0.001016, accuracy: 0.08
+----------
+Epoch 70/99, current lr=0.0003
+train loss: 0.000114, dev loss: 0.001009, accuracy: 0.08
+----------
+Epoch 71/99, current lr=0.0003
+train loss: 0.000107, dev loss: 0.001006, accuracy: 0.08
+----------
+Epoch 72/99, current lr=0.0003
+train loss: 0.000115, dev loss: 0.001003, accuracy: 0.08
+----------
+Epoch 73/99, current lr=0.0003
+train loss: 0.000121, dev loss: 0.001000, accuracy: 0.08
+----------
+Epoch 74/99, current lr=0.0003
+train loss: 0.000126, dev loss: 0.000996, accuracy: 0.08
+----------
+Epoch 75/99, current lr=0.0003
+train loss: 0.000116, dev loss: 0.000992, accuracy: 0.08
+----------
+Epoch 76/99, current lr=0.0003
+Epoch    77: reducing learning rate of group 0 to 1.5000e-04.
+Loading best model weights!
+train loss: 0.000114, dev loss: 0.000989, accuracy: 0.08
+----------
+Epoch 77/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000125, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 78/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000118, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 79/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000118, dev loss: 0.000987, accuracy: 0.08
+----------
+Epoch 80/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000119, dev loss: 0.000987, accuracy: 0.08
+----------
+Epoch 81/99, current lr=0.00015
+train loss: 0.000111, dev loss: 0.000987, accuracy: 0.08
+----------
+Epoch 82/99, current lr=0.00015
+train loss: 0.000115, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 83/99, current lr=0.00015
+train loss: 0.000118, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 84/99, current lr=0.00015
+train loss: 0.000125, dev loss: 0.000989, accuracy: 0.08
+----------
+Epoch 85/99, current lr=0.00015
+train loss: 0.000122, dev loss: 0.000989, accuracy: 0.08
+----------
+Epoch 86/99, current lr=0.00015
+train loss: 0.000130, dev loss: 0.000989, accuracy: 0.08
+----------
+Epoch 87/99, current lr=0.00015
+train loss: 0.000130, dev loss: 0.000989, accuracy: 0.08
+----------
+Epoch 88/99, current lr=0.00015
+train loss: 0.000118, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 89/99, current lr=0.00015
+train loss: 0.000123, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 90/99, current lr=0.00015
+train loss: 0.000109, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 91/99, current lr=0.00015
+train loss: 0.000124, dev loss: 0.000988, accuracy: 0.08
+----------
+Epoch 92/99, current lr=0.00015
+train loss: 0.000125, dev loss: 0.000987, accuracy: 0.08
+----------
+Epoch 93/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000121, dev loss: 0.000987, accuracy: 0.08
+----------
+Epoch 94/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000130, dev loss: 0.000986, accuracy: 0.08
+----------
+Epoch 95/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000123, dev loss: 0.000986, accuracy: 0.08
+----------
+Epoch 96/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000122, dev loss: 0.000985, accuracy: 0.08
+----------
+Epoch 97/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000126, dev loss: 0.000984, accuracy: 0.08
+----------
+Epoch 98/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000119, dev loss: 0.000984, accuracy: 0.08
+----------
+Epoch 99/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.000117, dev loss: 0.000983, accuracy: 0.08
+----------
+</code></pre></div></div>
+
+<h4 id="plot-the-training-validations-progress-using-the-returned-values">plot the training validation’s progress using the returned values</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Train-Validation Progress
+</span><span class="n">num_epochs</span> <span class="o">=</span> <span class="n">params_train</span><span class="p">[</span><span class="s">'num_epochs'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># plot loss progress
+</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Train-Val Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loss_hist</span><span class="p">[</span><span class="s">'train'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'train'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loss_hist</span><span class="p">[</span><span class="s">'val'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'val'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Training Epochs'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch02/output_155_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># plot accuracy progress
+</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Train-Val Accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metric_hist</span><span class="p">[</span><span class="s">'train'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'train'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metric_hist</span><span class="p">[</span><span class="s">'val'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'val'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Training Epochs'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch02/output_156_0.png" alt="png" /></p>
+
+<p>By doing this, we’ve made sure that all the elements are implemented correctly</p>
+
+<h4 id="set-the-flag-to-sanity_check-false-and-run-the-code">set the flag to sanity_check: False and run the code</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the objects for the optimization, loss, and learning rate schedule
+</span><span class="n">loss_func</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">NLLLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s">'sum'</span><span class="p">)</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">optim</span><span class="p">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">)</span>
+<span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'min'</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the training parameters and call the train_val helper function
+</span><span class="n">params_train</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'num_epochs'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s">'optimizer'</span><span class="p">:</span> <span class="n">opt</span><span class="p">,</span>
+    <span class="s">'loss_func'</span><span class="p">:</span> <span class="n">loss_func</span><span class="p">,</span>
+    <span class="s">'train_dl'</span><span class="p">:</span> <span class="n">train_dl</span><span class="p">,</span>
+    <span class="s">'val_dl'</span><span class="p">:</span> <span class="n">val_dl</span><span class="p">,</span>
+    <span class="s">'sanity_check'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s">'lr_scheduler'</span><span class="p">:</span> <span class="n">lr_scheduler</span><span class="p">,</span>
+    <span class="s">'path2weights'</span><span class="p">:</span> <span class="s">'./models/histopathologic-cancer-detection/weights.pt'</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># train and validate the model
+</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">loss_hist</span><span class="p">,</span> <span class="n">metric_hist</span> <span class="o">=</span> <span class="n">train_val</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">params_train</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch 0/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.431245, dev loss: 0.371016, accuracy: 84.18
+----------
+Epoch 1/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.364880, dev loss: 0.336902, accuracy: 85.71
+----------
+Epoch 2/99, current lr=0.0003
+train loss: 0.334907, dev loss: 0.348402, accuracy: 85.07
+----------
+Epoch 3/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.312569, dev loss: 0.285598, accuracy: 88.26
+----------
+Epoch 4/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.289273, dev loss: 0.271422, accuracy: 89.22
+----------
+Epoch 5/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.273691, dev loss: 0.266002, accuracy: 89.09
+----------
+Epoch 6/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.260208, dev loss: 0.259683, accuracy: 89.44
+----------
+Epoch 7/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.250342, dev loss: 0.253600, accuracy: 89.58
+----------
+Epoch 8/99, current lr=0.0003
+train loss: 0.240702, dev loss: 0.257903, accuracy: 89.54
+----------
+Epoch 9/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.230366, dev loss: 0.245778, accuracy: 90.14
+----------
+Epoch 10/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.221776, dev loss: 0.237988, accuracy: 90.41
+----------
+Epoch 11/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.215566, dev loss: 0.218620, accuracy: 91.27
+----------
+Epoch 12/99, current lr=0.0003
+train loss: 0.207928, dev loss: 0.220410, accuracy: 91.35
+----------
+Epoch 13/99, current lr=0.0003
+train loss: 0.201828, dev loss: 0.233551, accuracy: 90.65
+----------
+Epoch 14/99, current lr=0.0003
+train loss: 0.195854, dev loss: 0.220554, accuracy: 91.53
+----------
+Epoch 15/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.191410, dev loss: 0.208908, accuracy: 91.93
+----------
+Epoch 16/99, current lr=0.0003
+train loss: 0.184770, dev loss: 0.222821, accuracy: 91.24
+----------
+Epoch 17/99, current lr=0.0003
+train loss: 0.178854, dev loss: 0.230533, accuracy: 90.86
+----------
+Epoch 18/99, current lr=0.0003
+train loss: 0.174249, dev loss: 0.242982, accuracy: 90.92
+----------
+Epoch 19/99, current lr=0.0003
+Copied best model weights!
+train loss: 0.171158, dev loss: 0.206852, accuracy: 92.13
+----------
+Epoch 20/99, current lr=0.0003
+train loss: 0.165627, dev loss: 0.231116, accuracy: 91.18
+----------
+Epoch 21/99, current lr=0.0003
+train loss: 0.162174, dev loss: 0.223826, accuracy: 91.46
+----------
+Epoch 22/99, current lr=0.0003
+train loss: 0.158736, dev loss: 0.248748, accuracy: 90.37
+----------
+Epoch 23/99, current lr=0.0003
+train loss: 0.154363, dev loss: 0.215472, accuracy: 92.06
+----------
+Epoch 24/99, current lr=0.0003
+train loss: 0.149600, dev loss: 0.240038, accuracy: 91.12
+----------
+Epoch 25/99, current lr=0.0003
+train loss: 0.146160, dev loss: 0.229289, accuracy: 91.73
+----------
+Epoch 26/99, current lr=0.0003
+train loss: 0.142025, dev loss: 0.220742, accuracy: 91.96
+----------
+Epoch 27/99, current lr=0.0003
+train loss: 0.138858, dev loss: 0.224885, accuracy: 91.84
+----------
+Epoch 28/99, current lr=0.0003
+train loss: 0.134581, dev loss: 0.230112, accuracy: 91.65
+----------
+Epoch 29/99, current lr=0.0003
+train loss: 0.130833, dev loss: 0.268184, accuracy: 90.29
+----------
+Epoch 30/99, current lr=0.0003
+train loss: 0.126733, dev loss: 0.240424, accuracy: 91.77
+----------
+Epoch 31/99, current lr=0.0003
+train loss: 0.123765, dev loss: 0.263925, accuracy: 91.39
+----------
+Epoch 32/99, current lr=0.0003
+train loss: 0.120903, dev loss: 0.247722, accuracy: 91.18
+----------
+Epoch 33/99, current lr=0.0003
+train loss: 0.116467, dev loss: 0.260422, accuracy: 91.29
+----------
+Epoch 34/99, current lr=0.0003
+train loss: 0.114482, dev loss: 0.316318, accuracy: 90.08
+----------
+Epoch 35/99, current lr=0.0003
+train loss: 0.111843, dev loss: 0.293863, accuracy: 91.18
+----------
+Epoch 36/99, current lr=0.0003
+train loss: 0.109624, dev loss: 0.275969, accuracy: 91.55
+----------
+Epoch 37/99, current lr=0.0003
+train loss: 0.106616, dev loss: 0.302577, accuracy: 91.01
+----------
+Epoch 38/99, current lr=0.0003
+train loss: 0.102099, dev loss: 0.336522, accuracy: 90.58
+----------
+Epoch 39/99, current lr=0.0003
+train loss: 0.099404, dev loss: 0.281352, accuracy: 91.34
+----------
+Epoch 40/99, current lr=0.0003
+Epoch    41: reducing learning rate of group 0 to 1.5000e-04.
+Loading best model weights!
+train loss: 0.097259, dev loss: 0.310760, accuracy: 90.27
+----------
+Epoch 41/99, current lr=0.00015
+train loss: 0.145875, dev loss: 0.218840, accuracy: 91.76
+----------
+Epoch 42/99, current lr=0.00015
+Copied best model weights!
+train loss: 0.141646, dev loss: 0.201945, accuracy: 92.36
+----------
+Epoch 43/99, current lr=0.00015
+train loss: 0.137608, dev loss: 0.222107, accuracy: 91.27
+----------
+Epoch 44/99, current lr=0.00015
+train loss: 0.134138, dev loss: 0.226642, accuracy: 91.54
+----------
+Epoch 45/99, current lr=0.00015
+train loss: 0.131223, dev loss: 0.227505, accuracy: 91.61
+----------
+Epoch 46/99, current lr=0.00015
+train loss: 0.129436, dev loss: 0.255330, accuracy: 91.22
+----------
+Epoch 47/99, current lr=0.00015
+train loss: 0.125385, dev loss: 0.217554, accuracy: 92.13
+----------
+Epoch 48/99, current lr=0.00015
+train loss: 0.123121, dev loss: 0.226753, accuracy: 92.20
+----------
+Epoch 49/99, current lr=0.00015
+train loss: 0.120240, dev loss: 0.227882, accuracy: 92.10
+----------
+Epoch 50/99, current lr=0.00015
+train loss: 0.116732, dev loss: 0.227692, accuracy: 92.02
+----------
+Epoch 51/99, current lr=0.00015
+train loss: 0.113933, dev loss: 0.228686, accuracy: 91.89
+----------
+Epoch 52/99, current lr=0.00015
+train loss: 0.111389, dev loss: 0.239397, accuracy: 92.22
+----------
+Epoch 53/99, current lr=0.00015
+train loss: 0.108908, dev loss: 0.240607, accuracy: 91.51
+----------
+Epoch 54/99, current lr=0.00015
+train loss: 0.106407, dev loss: 0.270516, accuracy: 91.66
+----------
+Epoch 55/99, current lr=0.00015
+train loss: 0.103311, dev loss: 0.261991, accuracy: 91.65
+----------
+Epoch 56/99, current lr=0.00015
+train loss: 0.101603, dev loss: 0.238042, accuracy: 92.01
+----------
+Epoch 57/99, current lr=0.00015
+train loss: 0.099041, dev loss: 0.252089, accuracy: 92.16
+----------
+Epoch 58/99, current lr=0.00015
+train loss: 0.095353, dev loss: 0.267571, accuracy: 91.90
+----------
+Epoch 59/99, current lr=0.00015
+train loss: 0.094050, dev loss: 0.251885, accuracy: 91.79
+----------
+Epoch 60/99, current lr=0.00015
+train loss: 0.091214, dev loss: 0.272230, accuracy: 91.67
+----------
+Epoch 61/99, current lr=0.00015
+train loss: 0.089355, dev loss: 0.274792, accuracy: 91.68
+----------
+Epoch 62/99, current lr=0.00015
+train loss: 0.087199, dev loss: 0.284641, accuracy: 91.51
+----------
+Epoch 63/99, current lr=0.00015
+Epoch    64: reducing learning rate of group 0 to 7.5000e-05.
+Loading best model weights!
+train loss: 0.085903, dev loss: 0.307218, accuracy: 91.28
+----------
+Epoch 64/99, current lr=7.5e-05
+train loss: 0.126781, dev loss: 0.205718, accuracy: 92.32
+----------
+Epoch 65/99, current lr=7.5e-05
+train loss: 0.124482, dev loss: 0.212086, accuracy: 92.26
+----------
+Epoch 66/99, current lr=7.5e-05
+train loss: 0.121746, dev loss: 0.214526, accuracy: 92.13
+----------
+Epoch 67/99, current lr=7.5e-05
+train loss: 0.119455, dev loss: 0.218393, accuracy: 92.36
+----------
+Epoch 68/99, current lr=7.5e-05
+train loss: 0.117192, dev loss: 0.223504, accuracy: 91.70
+----------
+Epoch 69/99, current lr=7.5e-05
+train loss: 0.115737, dev loss: 0.216601, accuracy: 92.56
+----------
+Epoch 70/99, current lr=7.5e-05
+train loss: 0.113825, dev loss: 0.213886, accuracy: 92.28
+----------
+Epoch 71/99, current lr=7.5e-05
+train loss: 0.111628, dev loss: 0.222195, accuracy: 92.36
+----------
+Epoch 72/99, current lr=7.5e-05
+train loss: 0.109355, dev loss: 0.221932, accuracy: 92.42
+----------
+Epoch 73/99, current lr=7.5e-05
+train loss: 0.108085, dev loss: 0.227627, accuracy: 91.78
+----------
+Epoch 74/99, current lr=7.5e-05
+train loss: 0.105904, dev loss: 0.224645, accuracy: 92.40
+----------
+Epoch 75/99, current lr=7.5e-05
+train loss: 0.104035, dev loss: 0.231799, accuracy: 92.27
+----------
+Epoch 76/99, current lr=7.5e-05
+train loss: 0.102371, dev loss: 0.236154, accuracy: 92.13
+----------
+Epoch 77/99, current lr=7.5e-05
+train loss: 0.100476, dev loss: 0.230616, accuracy: 92.27
+----------
+Epoch 78/99, current lr=7.5e-05
+train loss: 0.097894, dev loss: 0.241470, accuracy: 92.00
+----------
+Epoch 79/99, current lr=7.5e-05
+train loss: 0.096778, dev loss: 0.244693, accuracy: 92.14
+----------
+Epoch 80/99, current lr=7.5e-05
+train loss: 0.095305, dev loss: 0.248013, accuracy: 92.23
+----------
+Epoch 81/99, current lr=7.5e-05
+train loss: 0.093307, dev loss: 0.251737, accuracy: 91.85
+----------
+Epoch 82/99, current lr=7.5e-05
+train loss: 0.091592, dev loss: 0.283506, accuracy: 91.79
+----------
+Epoch 83/99, current lr=7.5e-05
+train loss: 0.090138, dev loss: 0.254773, accuracy: 91.99
+----------
+Epoch 84/99, current lr=7.5e-05
+Epoch    85: reducing learning rate of group 0 to 3.7500e-05.
+Loading best model weights!
+train loss: 0.087786, dev loss: 0.258594, accuracy: 91.81
+----------
+Epoch 85/99, current lr=3.75e-05
+train loss: 0.122277, dev loss: 0.209819, accuracy: 92.46
+----------
+Epoch 86/99, current lr=3.75e-05
+train loss: 0.119932, dev loss: 0.207946, accuracy: 92.55
+----------
+Epoch 87/99, current lr=3.75e-05
+train loss: 0.118412, dev loss: 0.210325, accuracy: 92.53
+----------
+Epoch 88/99, current lr=3.75e-05
+train loss: 0.117008, dev loss: 0.211478, accuracy: 92.33
+----------
+Epoch 89/99, current lr=3.75e-05
+train loss: 0.115552, dev loss: 0.211000, accuracy: 92.54
+----------
+Epoch 90/99, current lr=3.75e-05
+train loss: 0.113914, dev loss: 0.213650, accuracy: 92.19
+----------
+Epoch 91/99, current lr=3.75e-05
+train loss: 0.112591, dev loss: 0.214389, accuracy: 92.49
+----------
+Epoch 92/99, current lr=3.75e-05
+train loss: 0.111089, dev loss: 0.220045, accuracy: 92.34
+----------
+Epoch 93/99, current lr=3.75e-05
+train loss: 0.110250, dev loss: 0.217634, accuracy: 92.20
+----------
+Epoch 94/99, current lr=3.75e-05
+</code></pre></div></div>
+
+<h3 id="10-deploying-the-model">10. Deploying the model</h3>
+
+<p>construct an object of the model class and load the weights into the model</p>
+
+<h4 id="create-an-object-of-the-net-class-and-load-the-stored-weights-into-the-model">Create an object of the Net class and load the stored weights into the model</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># model parameters
+</span><span class="n">params_model</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'input_shape'</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">96</span><span class="p">),</span>
+    <span class="s">'initial_filters'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s">'num_fc1'</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s">'dropout_rate'</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+    <span class="s">'num_classes'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># initialize model
+</span><span class="n">cnn_model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">params_model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="load-state_dict-into-model">load state_dict into model</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load state_dict into model
+</span><span class="n">path2weights</span> <span class="o">=</span> <span class="s">'./models/histopathologic-cancer-detection/weights.pt'</span>
+<span class="n">cnn_model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">path2weights</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;All keys matched successfully&gt;
+</code></pre></div></div>
+
+<h4 id="set-the-model-in-eval-mode">set the model in eval mode</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set model in evaluation mode
+</span><span class="n">cnn_model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Net(
+  (conv1): Conv2d(3, 8, kernel_size=(3, 3), stride=(1, 1))
+  (conv2): Conv2d(8, 16, kernel_size=(3, 3), stride=(1, 1))
+  (conv3): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1))
+  (conv4): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+  (fc1): Linear(in_features=1024, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=2, bias=True)
+)
+</code></pre></div></div>
+
+<h4 id="move-the-model-onto-a-cuda-device-if-ones-available">move the model onto a CUDA device if one’s available</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># move model to cuda/gpu device
+</span><span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s">'cuda'</span><span class="p">)</span>
+    <span class="n">cnn_model</span> <span class="o">=</span> <span class="n">cnn_model</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s">'cpu'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="develop-a-helper-function-to-deploy-the-model-on-a-dataset">develop a helper function to deploy the model on a dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the deploy_model function
+</span><span class="k">def</span> <span class="nf">deploy_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sanity_check</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">len_data</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="c1"># initialize output tensor on CPU: due to GPU memory limits
+</span>    <span class="n">y_out</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">len_data</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+    <span class="c1"># initailize ground truth on CPU: due to GPU memory limits
+</span>    <span class="n">y_gt</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">len_data</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s">'uint8'</span><span class="p">)</span>
+    <span class="c1"># move model to device
+</span>    <span class="c1"># model = model.to(device)
+</span>    
+    <span class="n">elapsed_times</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len_data</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">y_gt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="c1"># y_out[i] = model(x.unsqueeze(0).to(device))
+</span>            <span class="n">y_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+            <span class="n">elapsed_times</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">elapsed</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">sanity_check</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">break</span>
+        
+    <span class="n">inference_time</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">elapsed_times</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'average inference time per image on %s: %.2f ms '</span> <span class="o">%</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">inference_time</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">y_out</span><span class="p">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">y_gt</span>
+</code></pre></div></div>
+
+<h4 id="use-the-helper-function-to-deploy-the-model-on-the-validation-dataset">use the helper function to deploy the model on the validation dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># deploy model
+</span><span class="n">y_out</span><span class="p">,</span> <span class="n">y_gt</span> <span class="o">=</span> <span class="n">deploy_model</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">val_ds</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">sanity_check</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y_out</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_gt</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>average inference time per image on cpu: 1.78 ms 
+(44005, 2) (44005,)
+</code></pre></div></div>
+
+<h4 id="calculate-the-accuracy-of-the-model-on-the-validation-dataset-using-the-predicted-outputs">calculate the accuracy of the model on the validation dataset using the predicted outputs</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get predictions
+</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_out</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y_pred</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_gt</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(44005,) (44005,)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># compute accuracy
+</span><span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_gt</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'accuracy: %.2f'</span> <span class="o">%</span><span class="n">acc</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>accuracy: 0.92
+</code></pre></div></div>
+
+<h3 id="11-model-inference-on-test-data">11. Model inference on test data</h3>
+
+<p>deploy the model on the test dataset</p>
+<ul>
+  <li>cannot evaluate the model performance on the test dataset(labels are not available)</li>
+</ul>
+
+<h4 id="load-test_labelscsv-and-print-out-its-head">load test_labels.csv and print out its head</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">path2csv</span> <span class="o">=</span> <span class="s">'./data/histopathologic-cancer-detection/test_labels.csv'</span>
+<span class="n">labels_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path2csv</span><span class="p">)</span>
+<span class="n">labels_df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0b2ea2a822ad23fdb1b5dd26653da899fbd2c0d5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>95596b92e5066c5c52466c90b69ff089b39f2737</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>248e6738860e2ebcf6258cdc1f32f299e0c76914</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2c35657e312966e9294eac6841726ff3a748febf</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>145782eb7caa1c516acbe2eda34d9a3f31c41fd6</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4 id="create-a-dataset-object-for-the-test-dataset">create a dataset object for the test dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">histo_test</span> <span class="o">=</span> <span class="n">histoCancerDataset</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">val_transformer</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s">'test'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">histo_test</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>57458
+</code></pre></div></div>
+
+<h4 id="deploy-the-model-on-the-test-dataset">deploy the model on the test dataset</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_test_out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">deploy_model</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">histo_test</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">sanity_check</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>average inference time per image on cpu: 1.84 ms 
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_test_out</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">y_test_pred</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(57458,)
+</code></pre></div></div>
+
+<h4 id="display-a-few-images-and-predictions">display a few images and predictions</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grid_size</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">rnd_inds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">histo_test</span><span class="p">),</span> <span class="n">grid_size</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'image indices:'</span><span class="p">,</span> <span class="n">rnd_inds</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>image indices: [ 2732 43567 42613 52416]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_grid_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">histo_test</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_size</span><span class="p">)]</span>
+<span class="n">y_grid_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_test_pred</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_size</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_grid_test</span> <span class="o">=</span> <span class="n">utils</span><span class="p">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">x_grid_test</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x_grid_test</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.Size([3, 100, 394])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'figure.figsize'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">x_grid_test</span><span class="p">,</span> <span class="n">y_grid_test</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/pytorch_cv/ch02/output_195_0.png" alt="png" /></p>
+
+<h4 id="extract-the-prediction-probabilities-from-the-outputs">extract the prediction probabilities from the outputs</h4>
+
+<p>perform the exponential function on the model outputs to convert them into probability values</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">y_test_out</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">cancer_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">y_test_out</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cancer_preds</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(57458, 2)
+(57458,)
+</code></pre></div></div>
+
+<h4 id="convert-the-prediction-probabilities-into-a-dataframe-and-store-them-as-a-csv-file">convert the prediction probabilities into a DataFrame and store them as a csv file</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">path2sampleSub</span> <span class="o">=</span> <span class="s">'./data/histopathologic-cancer-detection/'</span> <span class="o">+</span> <span class="s">'sample_submission.csv'</span>
+<span class="n">sample_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path2sampleSub</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample_df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0b2ea2a822ad23fdb1b5dd26653da899fbd2c0d5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>95596b92e5066c5c52466c90b69ff089b39f2737</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>248e6738860e2ebcf6258cdc1f32f299e0c76914</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2c35657e312966e9294eac6841726ff3a748febf</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>145782eb7caa1c516acbe2eda34d9a3f31c41fd6</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cancer_preds</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([8.4170753e-01, 2.5076480e-03, 7.6131680e-04, ..., 5.7613230e-01,
+       2.3444753e-05, 9.5456076e-01], dtype=float32)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s">'test'</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'fd0a060ef9c30c9a83f6b4bfb568db74b099154d'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ids_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sample_df</span><span class="p">.</span><span class="nb">id</span><span class="p">)</span>
+<span class="n">pred_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">cancer_preds</span><span class="p">]</span>
+<span class="n">pred_dic</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">key</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s">'test'</span><span class="p">),</span> <span class="n">pred_list</span><span class="p">))</span>
+<span class="n">pred_list_sub</span> <span class="o">=</span> <span class="p">[</span><span class="n">pred_dic</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span> <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">ids_list</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">submission_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'id'</span><span class="p">:</span><span class="n">ids_list</span><span class="p">,</span> <span class="s">'label'</span><span class="p">:</span><span class="n">pred_list_sub</span><span class="p">})</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">submission_df</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0b2ea2a822ad23fdb1b5dd26653da899fbd2c0d5</td>
+      <td>0.003761</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>95596b92e5066c5c52466c90b69ff089b39f2737</td>
+      <td>0.821905</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>248e6738860e2ebcf6258cdc1f32f299e0c76914</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2c35657e312966e9294eac6841726ff3a748febf</td>
+      <td>0.055766</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>145782eb7caa1c516acbe2eda34d9a3f31c41fd6</td>
+      <td>0.434647</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>57453</th>
+      <td>061847314ded6f81e1cd670748bfa2003442c9c7</td>
+      <td>0.067737</td>
+    </tr>
+    <tr>
+      <th>57454</th>
+      <td>6f3977130212641fd5808210015a609c658dcbff</td>
+      <td>0.000729</td>
+    </tr>
+    <tr>
+      <th>57455</th>
+      <td>46935f247278539eca74b54d07d666efb528a753</td>
+      <td>0.000013</td>
+    </tr>
+    <tr>
+      <th>57456</th>
+      <td>a09bcae08a82120183352e0e869181b2911d3dc1</td>
+      <td>0.003118</td>
+    </tr>
+    <tr>
+      <th>57457</th>
+      <td>d29233dc0b90c2e1a8fcedbc3e1234c3d4dbd55b</td>
+      <td>0.002758</td>
+    </tr>
+  </tbody>
+</table>
+<p>57458 rows × 2 columns</p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="s">'./data/histopathologic-cancer-detection/submissions/'</span><span class="p">):</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s">'data/histopathologic-cancer-detection/submissions/'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'submission folder created!'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>submission folder created!
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">path2submission</span> <span class="o">=</span> <span class="s">'./data/histopathologic-cancer-detection/submissions/submission.csv'</span>
+<span class="n">submission_df</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path2submission</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">submission_df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0b2ea2a822ad23fdb1b5dd26653da899fbd2c0d5</td>
+      <td>0.003761</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>95596b92e5066c5c52466c90b69ff089b39f2737</td>
+      <td>0.821905</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>248e6738860e2ebcf6258cdc1f32f299e0c76914</td>
+      <td>0.000002</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2c35657e312966e9294eac6841726ff3a748febf</td>
+      <td>0.055766</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>145782eb7caa1c516acbe2eda34d9a3f31c41fd6</td>
+      <td>0.434647</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+    
+
+
+
+<div class="post-tags">
+  
+    
+    <a href="/tags.html#computer-vision">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">computer vision</span>
+    </a>
+  
+    
+    <a href="/tags.html#pytorch">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">pytorch</span>
+    </a>
+  
+    
+    <a href="/tags.html#python">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">python</span>
+    </a>
+  
+</div>
+  </div>
+
+  
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/2021/08/02/python_class.html">
+            Python 클래스 개념
+            <small>02 Aug 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/computer%20vision/2021/07/20/Pytorch-Computer-Vision-Ch01.html">
+            Pytorch Computer Vision Ch01
+            <small>20 Jul 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/computer%20vision/2021/06/13/OpenCV-Python-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">
+            OpenCV-Python 시작하기
+            <small>13 Jun 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
+</div>
+
+    </main>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>
